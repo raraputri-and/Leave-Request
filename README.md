@@ -18,19 +18,34 @@
 
 ### **`Design & Documentation:`**
 
-- (silahkan edit sesuai kebutuhan)
+- [Use Case](https://drive.google.com/file/d/1j6kbhhvFmupDyja9QyTR5eP84uHKFCJU/view?usp=sharing)
+- [BPMN](https://drive.google.com/file/d/1wQPPYtcKmyYeKlGI_rG7IV4wtXL7bF8-/view?usp=sharing)
+- [Activity Diagram](https://drive.google.com/file/d/19pOcPBaodOtIL7f20nj_3wIZckBKk_4U/view?usp=sharing)
+- [ERD](https://drive.google.com/file/d/1kxwILQZ7y2HNHsn8fq7MOeTewIK-4Rkv/view?usp=sharing)
 
 ---
 
 ### **`Prioritas Tugas:`**
 
-- (silahkan edit sesuai kebutuhan)
+- BPMN (Business Process Modeling & Notation)
+- Use Case Diagram (List Fitur & Aktor)
+- Activity Diagram (Alur penggunaan fitur)
+- ERD
 
 ---
 
 ### **`Pembagian Tugas:`**
+  
+  *Nada*
+- BPMN (Business Process Modeling & Notation)
+- Use Case Diagram
+- Activity Diagram 
 
-- (silahkan edit sesuai kebutuhan)
+  *Bachtiar*
+- Activity Diagram
+
+  *Natan*
+- ERD
 
 ---
 
