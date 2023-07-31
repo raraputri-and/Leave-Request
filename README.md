@@ -18,10 +18,10 @@
 
 ### **`Design & Documentation:`**
 
-- [BPMN](https://drive.google.com/file/d/1wQPPYtcKmyYeKlGI_rG7IV4wtXL7bF8-/view?usp=drive_link)
+- [BPMN](https://drive.google.com/file/d/1MWDMD07qypgPRL2zc_WUP2l7ZUDKpgEV/view?usp=drive_link)
 - [Use Case](https://drive.google.com/file/d/1j6kbhhvFmupDyja9QyTR5eP84uHKFCJU/view?usp=sharing)
 - [Activity Diagram](https://drive.google.com/file/d/1E1_n_u621sdBvtGtDN3M9sIXD5-HUQyQ/view?usp=drive_link)
-- [ERD](https://drive.google.com/file/d/1QCr4lCjszStg58heLU0w4cIDbNdxqj3d/view?usp=drive_link)
+- [ERD](https://drive.google.com/file/d/1gFu0E152tOuXq_7wNM6kxh1NuaRzAU9D/view?usp=drive_link)
 - [Data Dummy](https://docs.google.com/spreadsheets/d/1hQYRCfsw-GtX1iv3ki5cKgh0HUN8gkrqEmRcVrkP0I8/edit#gid=0)
 ---
 
