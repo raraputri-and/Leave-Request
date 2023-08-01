@@ -26,12 +26,18 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @ManyToOne
+    @JoinColumn(name = "religion_id")
+    private Religion religion;
+
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="manager_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee manager;
 
+
     @OneToMany(mappedBy="manager")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Employee> subordinates = new HashSet<Employee>();
 
     @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL)

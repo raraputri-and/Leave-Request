@@ -35,10 +35,6 @@ public class EmployeeController {
     public Employee update(@PathVariable Integer id, @RequestBody EmployeeRequest employeeRequest) {
         return employeeService.update(id, employeeRequest);
     }
-//    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
-    @DeleteMapping("/{id}")
-    public Employee delete(@PathVariable Integer id) {
-        return employeeService.delete(id);
-    }
+
 
 }

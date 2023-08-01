@@ -11,6 +11,7 @@ public class EmployeeRequest {
     private String nip;
     private String name;
     private String gender;
+    private Integer religionId;
     private Integer managerId;
     private String username;
     private String password;

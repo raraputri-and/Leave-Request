@@ -32,8 +32,8 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private AppUserDetailService appUserDetailService;
-    private UserService userService;
     private PasswordEncoder passwordEncoder;
+    private ReligionService religionService;
 
     @SneakyThrows
     public Employee registration(EmployeeRequest employeeRequest) {
@@ -50,6 +50,7 @@ public class AuthService {
         user.setRoles(roles);
 
         Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
+        employee.setReligion(religionService.getById(employeeRequest.getReligionId()));
 
         employee.setUser(user);
         user.setEmployee(employee);
