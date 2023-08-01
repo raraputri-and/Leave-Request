@@ -49,8 +49,11 @@ public class AuthService {
         roles.add(roleService.getById(1));
         user.setRoles(roles);
 
+        Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
+
         employee.setUser(user);
         user.setEmployee(employee);
+        employee.setManager(manager);
 
         employeeRepository.save(employee);
         return employee;

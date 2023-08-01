@@ -1,10 +1,14 @@
 package id.co.mii.serverapp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -21,6 +25,15 @@ public class Employee {
     @Column(name = "employee_gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name="manager_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Employee manager;
+
+    @OneToMany(mappedBy="manager")
+    private Set<Employee> subordinates = new HashSet<Employee>();
+
     @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
