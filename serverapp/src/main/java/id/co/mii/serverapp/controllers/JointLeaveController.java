@@ -9,7 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/jointleave")
+@RequestMapping("/joint-leave")
 public class JointLeaveController {
     private JointLeaveService jointLeaveService;
     //    @PreAuthorize("hasAuthority('READ_ADMIN')")
