@@ -55,6 +55,7 @@ public class Employee {
 
 
     @OneToMany(mappedBy = "manager")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Employee> subordinates = new HashSet<Employee>();
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)

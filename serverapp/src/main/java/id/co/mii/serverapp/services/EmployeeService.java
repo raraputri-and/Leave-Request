@@ -36,7 +36,7 @@ public class EmployeeService {
         existingEmployee.setNip(employeeRequest.getNip());
         existingEmployee.setName(employeeRequest.getName());
         existingEmployee.setGender(Gender.valueOf(employeeRequest.getGender()));
-//        existingEmployee.setReligion(employeeRepository.findById(employeeRequest.getReligionId()).get().getReligion());
+        existingEmployee.setReligion(employeeRepository.findById(employeeRequest.getReligionId()).get().getReligion());
         existingEmployee.setManager(employeeRepository.findById(employeeRequest.getManagerId()).get());
         existingEmployee.getUser().setUsername(employeeRequest.getUsername());
         existingEmployee.getUser().setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
