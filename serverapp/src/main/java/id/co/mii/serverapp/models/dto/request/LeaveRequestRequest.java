@@ -11,13 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LeaveRequestRequest {
     private String reason;
-
-//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateStart;
-
-//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateEnd;
-
     private Integer quantity;
     private String attachment;
     private Integer employeeId;

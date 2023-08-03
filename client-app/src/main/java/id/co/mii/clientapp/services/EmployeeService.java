@@ -18,7 +18,7 @@ public class EmployeeService {
 
     @Value("${dns.baseUrl}/emp")
     private String url;
-    @Autowired //untuk mengambil objek nya dari spring container
+    @Autowired
     public EmployeeService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -39,14 +39,6 @@ public class EmployeeService {
                 }).getBody();
     }
 
-    public Employee create(EmployeeRequest employeeRequest){
-        return restTemplate.exchange(url,
-                HttpMethod.POST,
-                new HttpEntity(employeeRequest),
-                new ParameterizedTypeReference<Employee>() {
-                }).getBody();
-    }
-
     public Employee update(Integer id, EmployeeRequest employeeRequest){
         return restTemplate.exchange(url + "/" + id,
                 HttpMethod.PUT,
@@ -55,11 +47,4 @@ public class EmployeeService {
                 }).getBody();
     }
 
-    public Employee delete(Integer id){
-        return restTemplate.exchange(url + "/" + id,
-                HttpMethod.DELETE,
-                null,
-                new ParameterizedTypeReference<Employee>() {
-                }).getBody();
-    }
 }

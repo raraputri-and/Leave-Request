@@ -29,6 +29,9 @@ public class StatusAction {
     @Column(name = "status_action_name", nullable = false)
     private String name;
 
+    @Column(name = "status_action_color", nullable = false)
+    private String color;
+
     @OneToMany(mappedBy = "statusAction")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<LeaveRequest> leaveRequests;
