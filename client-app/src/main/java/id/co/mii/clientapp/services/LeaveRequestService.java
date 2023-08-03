@@ -40,7 +40,7 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest create(LeaveRequest leaveRequest){
+    public LeaveRequest create(LeaveRequestRequest leaveRequest){
         return restTemplate.exchange(url,
                 HttpMethod.POST,
                 new HttpEntity(leaveRequest),

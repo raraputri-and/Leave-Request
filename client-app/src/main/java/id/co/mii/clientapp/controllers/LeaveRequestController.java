@@ -26,19 +26,17 @@ public class LeaveRequestController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public String index(Model model, LeaveRequest leaveRequest){
+    public String index(Model model, LeaveRequestRequest leaveRequestRequest){
         model.addAttribute("leaveType", leaveTypeService.getAll());
         model.addAttribute("statusAction", statusActionService.getAll());
         model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "leaveRequest");
-        SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-MM-dd" ) ;
-        dateFormat.setLenient(false);
         return "Employee/leaveRequest/index";
     }
 
     @PostMapping
-    public String create(LeaveRequest leaveRequest){
-        leaveRequestService.create(leaveRequest);
-        return "redirect:/leaveRequest";
+    public String create(LeaveRequestRequest leaveRequestRequest){
+        leaveRequestService.create(leaveRequestRequest);
+        return "redirect:/leave-request";
     }
 }

@@ -3,6 +3,7 @@ package id.co.mii.clientapp.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -12,9 +13,9 @@ import java.util.Date;
 public class LeaveRequest {
     private Integer id;
     private String reason;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateStart;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnd;
 
     private Integer quantity;
