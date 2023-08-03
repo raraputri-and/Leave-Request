@@ -1,7 +1,5 @@
 package id.co.mii.clientapp.controllers;
 
-import id.co.mii.clientapp.models.LeaveRequest;
-import id.co.mii.clientapp.models.LeaveType;
 import id.co.mii.clientapp.models.dto.LeaveRequestRequest;
 import id.co.mii.clientapp.services.EmployeeService;
 import id.co.mii.clientapp.services.LeaveRequestService;
@@ -10,11 +8,7 @@ import id.co.mii.clientapp.services.StatusActionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.text.SimpleDateFormat;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -27,16 +21,39 @@ public class LeaveRequestController {
 
     @GetMapping
     public String index(Model model, LeaveRequestRequest leaveRequestRequest){
+        model.addAttribute("leaveRequests", leaveRequestService.getAll());
         model.addAttribute("leaveType", leaveTypeService.getAll());
         model.addAttribute("statusAction", statusActionService.getAll());
         model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "leaveRequest");
-        return "Employee/leaveRequest/index";
+        return "Employee/form";
+    }
+
+    @GetMapping("/action")
+    public String action(Model model, LeaveRequestRequest leaveRequestRequest){
+        model.addAttribute("leaveRequests", leaveRequestService.getByStatusAction());
+        model.addAttribute("leaveType", leaveTypeService.getAll());
+        model.addAttribute("statusAction", statusActionService.getAll());
+        model.addAttribute("employees", employeeService.getAll());
+        model.addAttribute("title", "leaveRequest");
+        return "Manager/LeaveRequest";
     }
 
     @PostMapping
     public String create(LeaveRequestRequest leaveRequestRequest){
         leaveRequestService.create(leaveRequestRequest);
         return "redirect:/leave-request";
+    }
+
+    @PutMapping("/accept/{id}")
+    public String accept(@PathVariable Integer id, LeaveRequestRequest leaveRequestRequest){
+        leaveRequestService.accept(id, leaveRequestRequest);
+        return "redirect:/tracking";
+    }
+
+    @PutMapping("/reject/{id}")
+    public String reject(@PathVariable Integer id, LeaveRequestRequest leaveRequestRequest){
+        leaveRequestService.reject(id, leaveRequestRequest);
+        return "redirect:/tracking";
     }
 }

@@ -2,6 +2,7 @@ package id.co.mii.serverapp.services;
 
 import java.util.List;
 
+import id.co.mii.serverapp.models.Employee;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,10 @@ public class LeaveRequestService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!!"));
     }
 
+    public List<LeaveRequest> getByStatus(){
+        return leaveRequestRepository.findStatusActionById(3);
+    }
+
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
 
          LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
@@ -38,6 +43,20 @@ public class LeaveRequestService {
          leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
          leaveRequest.setStatusAction(statusActionService.getById(leaveRequestRequest.getStatusActionId()));
 
+        return leaveRequestRepository.save(leaveRequest);
+    }
+
+    public LeaveRequest accept(Integer id, LeaveRequestRequest leaveRequestRequest){
+        LeaveRequest leaveRequest = getById(id);
+        leaveRequest.setId(id);
+        leaveRequest.setStatusAction(statusActionService.getById(1));
+        return leaveRequestRepository.save(leaveRequest);
+    }
+
+    public LeaveRequest reject(Integer id, LeaveRequestRequest leaveRequestRequest){
+        LeaveRequest leaveRequest = getById(id);
+        leaveRequest.setId(id);
+        leaveRequest.setStatusAction(statusActionService.getById(2));
         return leaveRequestRepository.save(leaveRequest);
     }
 

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<table class="table table-hover table-bordered w-100" id="table-tracking">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Employee</th>
+        <th>Leave Type</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Qty</th>
+        <th>Reason</th>
+        <th>Attachment</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody class="table-striped">
+    <tr th:each="lr : ${leaveRequests}" >
+        <td th:text="${lr.id}">id</td>
+        <td th:text="${lr.employee.name}">name</td>
+        <td th:text="${lr.leaveType.name}">leave type</td>
+        <td th:text="${lr.dateStart}">start date</td>
+        <td th:text="${lr.dateEnd}">end date</td>
+        <td th:text="${lr.quantity}">quantity</td>
+        <td th:text="${lr.reason}">reason</td>
+        <td th:text="${lr.attachment}">attachment</td>
+        <td th:text="${lr.statusAction.name}">status action</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

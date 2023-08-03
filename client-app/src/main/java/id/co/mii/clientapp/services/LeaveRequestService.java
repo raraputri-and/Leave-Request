@@ -40,18 +40,34 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest create(LeaveRequestRequest leaveRequest){
+    public List<LeaveRequest> getByStatusAction(){
+        return restTemplate.exchange(url + "/action",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<LeaveRequest>>() {
+                }).getBody();
+    }
+
+    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest){
         return restTemplate.exchange(url,
                 HttpMethod.POST,
-                new HttpEntity(leaveRequest),
+                new HttpEntity(leaveRequestRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }
 
-    public LeaveRequest update(Integer id, LeaveRequest leaveRequest){
-        return restTemplate.exchange(url + "/" + id,
+    public LeaveRequest accept(Integer id, LeaveRequestRequest leaveRequestRequest){
+        return restTemplate.exchange(url +"/accept"+ "/" + id,
                 HttpMethod.PUT,
-                new HttpEntity(leaveRequest),
+                new HttpEntity(leaveRequestRequest),
+                new ParameterizedTypeReference<LeaveRequest>() {
+                }).getBody();
+    }
+
+    public LeaveRequest reject(Integer id, LeaveRequestRequest leaveRequestRequest){
+        return restTemplate.exchange(url +"/reject"+ "/" + id,
+                HttpMethod.PUT,
+                new HttpEntity(leaveRequestRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }

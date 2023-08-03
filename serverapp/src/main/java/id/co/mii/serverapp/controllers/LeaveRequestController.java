@@ -23,9 +23,24 @@ public class LeaveRequestController {
     public LeaveRequest getById(@PathVariable Integer id) {
         return leaveRequestService.getById(id);
     }
+
+    @GetMapping("/action")
+    public List<LeaveRequest> getByStatusAction(){
+        return leaveRequestService.getByStatus();
+    }
     //    @PreAuthorize("hasAuthority('CREATE_ADMIN')")
     @PostMapping
     public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {
         return leaveRequestService.create(leaveRequestRequest);
+    }
+
+    @PutMapping("accept/{id}")
+    public LeaveRequest accept(@PathVariable Integer id, @RequestBody LeaveRequestRequest leaveRequestRequest) {
+        return leaveRequestService.accept(id, leaveRequestRequest);
+    }
+
+    @PutMapping("reject/{id}")
+    public LeaveRequest reject(@PathVariable Integer id, @RequestBody LeaveRequestRequest leaveRequestRequest) {
+        return leaveRequestService.reject(id, leaveRequestRequest);
     }
 }
