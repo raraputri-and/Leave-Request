@@ -1,27 +1,22 @@
-package id.co.mii.serverapp.models.dto.request;
-
-import java.util.Date;
+package id.co.mii.clientapp.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LeaveRequestRequest {
+    private Integer id;
     private String reason;
-
-//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateStart;
-
-//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateEnd;
-
     private Integer quantity;
     private String attachment;
     private Integer employeeId;
     private Integer leaveTypeId;
     private Integer statusActionId;
-
 }

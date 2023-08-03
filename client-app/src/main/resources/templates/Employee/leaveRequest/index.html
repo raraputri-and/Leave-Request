@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form class="w-50 border px-4 py-5 rounded-2 shadow-lg " th:action="@{/leave-request}" th:object="${leaveRequest}"
+      th:method="POST">
+    <input type="hidden" id="employee.id" name="employee.id" value="2">
+    <div class="mb-3">
+        <select class="form-select" th:field="*{leaveType.id}">
+            <option th:each="leaveTypes : ${leaveType}" th:value="${leaveTypes.id}" th:text="${leaveTypes.name}">Leave Type
+            </option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="dateStart" class="form-label">Date Start</label>
+        <input type="date" class="form-control datepicker" th:field="*{dateStart}" required>
+    </div>
+    <div class="mb-3">
+        <label for="dateEnd" class="form-label">Date End</label>
+        <input type="date" class="form-control datepicker" th:field="*{dateEnd}" required>
+    </div>
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" th:field="*{quantity}" required>
+    </div>
+    <div class="mb-3">
+        <label for="reason" class="form-label">Reason</label>
+        <input type="text" class="form-control" th:field="*{reason}" required>
+    </div>
+    <div class="mb-3">
+        <label for="attachment" class="form-label">Attachment</label>
+        <input type="file" class="form-control" th:field="*{attachment}">
+    </div>
+    <input type="hidden" id="statusAction.id" name="statusAction.id" value="1">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $(".datepicker").datepicker({-->
+<!--            format: "dd-mm-yyyy",-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>

@@ -26,7 +26,9 @@ public class LeaveRequest {
     private Integer id;
 
     private String reason;
+//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateStart;
+//    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateEnd;
     private Integer quantity;
     private String attachment;
