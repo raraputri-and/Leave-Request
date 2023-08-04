@@ -40,11 +40,11 @@
     <td th:text="${lr.statusAction.name}">status action</td>
     <td class="icon">
       <form th:action="@{/leave-request/reject/{id} (id = ${lr.id})}" th:method="PUT">
-        <button onclick="return confirm('Are u sure want to be Reject this leave request!!!!')"
+        <button onclick="return confirm('Are u sure want to Reject this leave request!!!!')"
                 type="submit" class="btn btn-danger px-5 py-2">Reject</button>
       </form>
       <form th:action="@{/leave-request/accept/{id} (id = ${lr.id})}" th:method="PUT">
-        <button onclick="return confirm('Are u sure want to be Accept this leave request!!!!')"
+        <button onclick="return confirm('Are u sure want to Accept this leave request!!!!')"
                 type="submit" class="btn btn-success px-5 py-2">Accept</button>
       </form>
     </td>

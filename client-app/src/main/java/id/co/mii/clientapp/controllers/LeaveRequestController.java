@@ -36,7 +36,7 @@ public class LeaveRequestController {
         model.addAttribute("statusAction", statusActionService.getAll());
         model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "leaveRequest");
-        return "Manager/LeaveRequest";
+        return "Manager/ApproveLeaveRequest";
     }
 
     @PostMapping

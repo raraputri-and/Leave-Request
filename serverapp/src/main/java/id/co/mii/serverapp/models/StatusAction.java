@@ -35,4 +35,8 @@ public class StatusAction {
     @OneToMany(mappedBy = "statusAction")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<LeaveRequest> leaveRequests;
+
+    @OneToMany(mappedBy = "statusAction")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<LeaveRequestStatus> leaveRequestStatuses;
 }
