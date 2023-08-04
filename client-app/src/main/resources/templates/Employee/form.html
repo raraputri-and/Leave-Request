@@ -15,14 +15,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <!-- --===== Iconscout CSS =====
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
+
     <title>Leave Request</title>
 </head>
 
-<body>
-    <div class="container d-flex justify-content-center align-content-center">
-        <form class="w-50 border px-4 py-5 rounded-2 shadow-lg " th:action="@{/leave-request}"
+<body class="bg-info">
+    <div class="container d-flex justify-content-center align-content-center mt-3">
+        <form class="w-50 border px-4 py-5 rounded-2 shadow-lg mt-3 bg-light" th:action="@{/leave-request}"
             th:object="${leaveRequestRequest}" th:method="POST">
             <h1>Ayo Cuti</h1>
             <div class="mb-3"></div>
