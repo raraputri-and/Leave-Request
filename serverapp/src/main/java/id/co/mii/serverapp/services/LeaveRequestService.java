@@ -48,9 +48,22 @@ public class LeaveRequestService {
 
          leaveRequest.setEmployee(employeeService.getById(leaveRequestRequest.getEmployeeId()));
          leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
-         leaveRequest.setStatusAction(statusActionService.getById(leaveRequestRequest.getStatusActionId()));
+         leaveRequest.setStatusAction(statusActionService.getById(3));
 
-        return leaveRequestRepository.save(leaveRequest);
+        leaveRequest = leaveRequestRepository.save(leaveRequest);
+
+        LeaveRequestStatusRequest leaveRequestStatusRequest = new LeaveRequestStatusRequest();
+        LeaveRequestStatus leaveRequestStatus = modelMapper.map(leaveRequestStatusRequest, LeaveRequestStatus.class);
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        leaveRequestStatus.setDate(date);
+        leaveRequestStatus.setPic(employeeService.getById(2));
+        leaveRequestStatus.setLeaveRequest(leaveRequest);
+        leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
+        leaveRequestStatusRepository.save(leaveRequestStatus);
+
+
+        return leaveRequest;
     }
 
 
