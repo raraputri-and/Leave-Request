@@ -66,6 +66,10 @@ public class Employee {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<LeaveRequest> leaveRequests;
 
+    @OneToMany(mappedBy = "pic")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<LeaveRequestStatus> leaveRequestStatus;
+
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "leave_remaining_id", referencedColumnName = "user_id")
     private LeaveRemaining leaveRemaining;
