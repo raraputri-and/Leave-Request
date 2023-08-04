@@ -42,7 +42,7 @@ public class LeaveRequestController {
     @PostMapping
     public String create(LeaveRequestRequest leaveRequestRequest){
         leaveRequestService.create(leaveRequestRequest);
-        return "redirect:/leave-request";
+        return "redirect:/tracking";
     }
 
     @PutMapping("/accept/{id}")
