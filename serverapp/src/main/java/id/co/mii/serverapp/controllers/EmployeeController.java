@@ -4,7 +4,9 @@ import id.co.mii.serverapp.models.Employee;
 //import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
 //
 //import org.springframework.security.access.prepost.PreAuthorize;
+import id.co.mii.serverapp.models.User;
 import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
+import id.co.mii.serverapp.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class EmployeeController {
 
     private EmployeeService employeeService;
+    private UserService userService;
 //    @PreAuthorize("hasAnyAuthority('READ_ADMIN', 'READ_USER')")
     @GetMapping
     public List<Employee> getAll(){

@@ -4,10 +4,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import id.co.mii.serverapp.models.Employee;
 import id.co.mii.serverapp.models.LeaveRequestStatus;
+import id.co.mii.serverapp.models.User;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
+import id.co.mii.serverapp.repositories.EmployeeRepository;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,6 +32,7 @@ public class LeaveRequestService {
     private LeaveTypeService leaveTypeService;
     private StatusActionService statusActionService;
     private LeaveRequestStatusRepository leaveRequestStatusRepository;
+    private UserService userService;
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -39,14 +44,17 @@ public class LeaveRequestService {
     }
 
     public List<LeaveRequest> getByStatus(){
-        return leaveRequestRepository.findStatusActionById(3);
+        User user = userService.getCurrentUser();
+        return leaveRequestRepository.findAll()
+                .stream()
+                .filter(lr -> Objects.equals(lr.getEmployee().getManager().getId(), user.getId()) && lr.getStatusAction().getId()==(3))
+                .collect(Collectors.toList());
     }
 
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
 
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
-
-        leaveRequest.setEmployee(employeeService.getById(leaveRequestRequest.getEmployeeId()));
+        leaveRequest.setEmployee(userService.getCurrentUser().getEmployee());
         leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
         leaveRequest.setStatusAction(statusActionService.getById(3));
 
@@ -57,7 +65,7 @@ public class LeaveRequestService {
         LocalDate localDate = LocalDate.now();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         leaveRequestStatus.setDate(date);
-        leaveRequestStatus.setPic(employeeService.getById(1));
+        leaveRequestStatus.setPic(userService.getCurrentUser().getEmployee());
         leaveRequestStatus.setLeaveRequest(leaveRequest);
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
@@ -77,7 +85,7 @@ public class LeaveRequestService {
         LocalDate localDate = LocalDate.now();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         leaveRequestStatus.setDate(date);
-        leaveRequestStatus.setPic(employeeService.getById(1));
+        leaveRequestStatus.setPic(userService.getCurrentUser().getEmployee());
         leaveRequestStatus.setLeaveRequest(getById(id));
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
@@ -89,12 +97,11 @@ public class LeaveRequestService {
         leaveRequest.setId(id);
         leaveRequest.setStatusAction(statusActionService.getById(2));
 
-//        LeaveRequestStatusRequest leaveRequestStatusRequest = new LeaveRequestStatusRequest();
         LeaveRequestStatus leaveRequestStatus = modelMapper.map(leaveRequestStatusRequest, LeaveRequestStatus.class);
         LocalDate localDate = LocalDate.now();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         leaveRequestStatus.setDate(date);
-        leaveRequestStatus.setPic(employeeService.getById(1));
+        leaveRequestStatus.setPic(userService.getCurrentUser().getEmployee());
         leaveRequestStatus.setLeaveRequest(getById(id));
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
