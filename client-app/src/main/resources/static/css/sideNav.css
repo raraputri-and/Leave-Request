@@ -41,3 +41,13 @@ body {
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
 }
+
+.btn-primary:hover{
+    background-color: white;
+}
+.sidebar-item:hover{
+    background-color: plum;
+}
+.list-group-item:hover{
+    background-color: plum;
+}

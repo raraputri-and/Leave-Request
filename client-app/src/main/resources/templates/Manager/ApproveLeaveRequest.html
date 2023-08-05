@@ -1,55 +1,95 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/sideNav.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{/css/approve.css}">
 </head>
-<body>
-  
-<table class="table table-hover table-bordered w-100" id="table-tracking">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Employee</th>
-    <th>Leave Type</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Qty</th>
-    <th>Reason</th>
-    <th>Attachment</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody class="table-striped">
-  <tr th:each="lr : ${leaveRequests}" >
-    <td th:text="${lr.id}">id</td>
-    <td th:text="${lr.employee.name}">name</td>
-    <td th:text="${lr.leaveType.name}">leave type</td>
-    <td th:text="${lr.dateStart}">start date</td>
-    <td th:text="${lr.dateEnd}">end date</td>
-    <td th:text="${lr.quantity}">quantity</td>
-    <td th:text="${lr.reason}">reason</td>
-    <td th:text="${lr.attachment}">attachment</td>
-    <td th:text="${lr.statusAction.name}">status action</td>
-    <td class="icon">
-      <form th:action="@{/leave-request/reject/{id} (id = ${lr.id})}" th:method="PUT">
-        <button onclick="return confirm('Are u sure want to Reject this leave request!!!!')"
-                type="submit" class="btn btn-danger px-5 py-2">Reject</button>
-      </form>
-      <form th:action="@{/leave-request/accept/{id} (id = ${lr.id})}" th:method="PUT">
-        <button onclick="return confirm('Are u sure want to Accept this leave request!!!!')"
-                type="submit" class="btn btn-success px-5 py-2">Accept</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
-</table>
+
+<body id="body-pd">
+  <header class="header" id="header">
+    <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+    <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
+            class="nav_logo-name">BBBootstrap</span> </a>
+        <div class="nav_list">
+          <a href="#" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span
+              class="nav_name">Dashboard</span> </a>
+          <a th:href="@{/leave-request}" class="nav_link"> <i class='bx bx-user nav_icon'></i>
+            <span class="nav_name">Create Leave Request</span> </a>
+          <a th:href="@{/tracking}" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span
+              class="nav_name">Tracking</span> </a>
+          <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Manager
+              Action</span> </a>
+          <!-- <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>
+          <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span
+            class="nav_name">Stats</span> </a> -->
+        </div>
+      </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span>
+      </a>
+    </nav>
+  </div>
+  <!--Container Main start-->
+
+  <!--Container Main end-->
+
+  <main>
+    <table class="table table-hover table-bordered w-100" id="table-tracking">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Employee</th>
+          <th>Leave Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Qty</th>
+          <th>Reason</th>
+          <th>Attachment</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody class="table-striped">
+        <tr th:each="lr : ${leaveRequests}">
+          <td th:text="${lr.id}">id</td>
+          <td th:text="${lr.employee.name}">name</td>
+          <td th:text="${lr.leaveType.name}">leave type</td>
+          <td th:text="${lr.dateStart}">start date</td>
+          <td th:text="${lr.dateEnd}">end date</td>
+          <td th:text="${lr.quantity}">quantity</td>
+          <td th:text="${lr.reason}">reason</td>
+          <td th:text="${lr.attachment}">attachment</td>
+          <td th:text="${lr.statusAction.name}">status action</td>
+          <td class="icon">
+            <form th:action="@{/leave-request/reject/{id} (id = ${lr.id})}" th:method="PUT">
+              <button onclick="return confirm('Are u sure want to Reject this leave request!!!!')" type="submit"
+                class="btn btn-danger px-5 py-2">Reject</button>
+            </form>
+            <form th:action="@{/leave-request/accept/{id} (id = ${lr.id})}" th:method="PUT">
+              <button onclick="return confirm('Are u sure want to Accept this leave request!!!!')" type="submit"
+                class="btn btn-success px-5 py-2">Accept</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/approveLeaveRequest.js}"></script>
+
 </body>
+
 </html>
