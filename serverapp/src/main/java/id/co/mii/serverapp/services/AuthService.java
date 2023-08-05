@@ -1,6 +1,7 @@
 package id.co.mii.serverapp.services;
 
 import id.co.mii.serverapp.models.Employee;
+import id.co.mii.serverapp.models.LeaveRemaining;
 import id.co.mii.serverapp.models.Role;
 import id.co.mii.serverapp.models.User;
 import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
@@ -49,12 +50,19 @@ public class AuthService {
         roles.add(roleService.getById(1));
         user.setRoles(roles);
 
+        //set default leave remaining
+        LeaveRemaining leaveRemaining = new LeaveRemaining();
+        leaveRemaining.setPastRemaining(0);
+        leaveRemaining.setPresentRemaining(12);
+
         Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
         employee.setReligion(religionService.getById(employeeRequest.getReligionId()));
 
         employee.setUser(user);
         user.setEmployee(employee);
         employee.setManager(manager);
+        employee.setLeaveRemaining(leaveRemaining);
+        leaveRemaining.setEmployee(employee);
 
         employeeRepository.save(employee);
         return employee;

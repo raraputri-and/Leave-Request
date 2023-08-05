@@ -17,6 +17,5 @@ public class LeaveRequestRequest {
     private String attachment;
     private Integer employeeId;
     private Integer leaveTypeId;
-    private Integer statusActionId;
 
 }

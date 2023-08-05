@@ -1,6 +1,7 @@
 package id.co.mii.serverapp.controllers;
 
 import id.co.mii.serverapp.models.LeaveRequest;
+import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
@@ -35,12 +36,12 @@ public class LeaveRequestController {
     }
 
     @PutMapping("accept/{id}")
-    public LeaveRequest accept(@PathVariable Integer id, @RequestBody LeaveRequestRequest leaveRequestRequest) {
-        return leaveRequestService.accept(id, leaveRequestRequest);
+    public LeaveRequest accept(@PathVariable Integer id) {
+        return leaveRequestService.accept(id);
     }
 
     @PutMapping("reject/{id}")
-    public LeaveRequest reject(@PathVariable Integer id, @RequestBody LeaveRequestRequest leaveRequestRequest) {
-        return leaveRequestService.reject(id, leaveRequestRequest);
+    public LeaveRequest reject(@PathVariable Integer id, @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
+        return leaveRequestService.reject(id, leaveRequestStatusRequest);
     }
 }
