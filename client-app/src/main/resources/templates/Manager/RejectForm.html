@@ -20,14 +20,11 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
                 <form th:action="@{/leave-request/reject/{id} (id = ${id})}" th:object="${leaveRequestStatusRequest}" th:method="PUT">
                     <label for="note">Note </label>
                     <input type="text" th:field="*{note}">
 
-            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Send</button>
             </div>
             </form>

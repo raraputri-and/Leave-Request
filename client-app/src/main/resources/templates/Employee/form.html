@@ -25,6 +25,11 @@
             th:object="${leaveRequestRequest}" th:method="POST">
             <h1>Ayo Cuti</h1>
             <div class="mb-3"></div>
+            <a th:href="@{/tracking}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Back</a>
+            <div class="mb-3">
+                <label for="employeeId" class="input-field">Employee Id</label>
+                <input type="text" class="form-control datepicker" th:field="*{employeeId}" required>
+            </div>
             <div class="">
                 <select class="form-select" th:field="*{leaveTypeId}">
                     <option th:each="leaveTypes : ${leaveType}" th:value="${leaveTypes.id}"

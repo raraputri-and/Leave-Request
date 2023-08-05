@@ -7,18 +7,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import id.co.mii.serverapp.models.Employee;
-import id.co.mii.serverapp.models.LeaveRequestStatus;
-import id.co.mii.serverapp.models.User;
+import id.co.mii.serverapp.models.*;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import id.co.mii.serverapp.repositories.EmployeeRepository;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import id.co.mii.serverapp.models.LeaveRequest;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
 import id.co.mii.serverapp.repositories.LeaveRequestRepository;
 import org.springframework.web.server.ResponseStatusException;
@@ -50,11 +48,24 @@ public class LeaveRequestService {
                 .filter(lr -> Objects.equals(lr.getEmployee().getManager().getId(), user.getId()) && lr.getStatusAction().getId()==(3))
                 .collect(Collectors.toList());
     }
-
+    @SneakyThrows
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
-
+        User user = userService.getCurrentUser();
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
-        leaveRequest.setEmployee(userService.getCurrentUser().getEmployee());
+        leaveRequest.setEmployee(user.getEmployee());
+
+        if(leaveRequestRequest.getLeaveTypeId()==4 && !user.getEmployee().getGender().equals(Gender.Female)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is Male, can not choose Birth Leave");
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==5 && user.getEmployee().getReligion().getId()!=1){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not Moslem, can not choose cuti haji");
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=2){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not christian, can not choose cuti baptis");
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=3){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not catholic , can not choose cuti baptis");
+        }
         leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
         leaveRequest.setStatusAction(statusActionService.getById(3));
 
