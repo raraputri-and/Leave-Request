@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <title>Document</title> -->
-    <!-- 
+<!-- 
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" /> -->
 
@@ -16,16 +16,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- BOX Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-
+    
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 
-  <link rel="stylesheet" th:href="@{/css/sideNav.css}">
-
 <body>
-    <div th:replace="components/navbar :: navbar-manager"></div>
-    <!-- <div th:if="${role} == 'manager'" th:replace="components/navbar :: navbar-manager"></div>
-    <div th:if="${role} == 'employee'" th:replace="components/navbar :: navbar-employee"></div> -->
+    <div th:replace="components/navbar :: navbar-employee"></div>
 
     <div layout:fragment="content"></div>
 

@@ -18,6 +18,7 @@ public class TrackingController {
     private LeaveTypeService leaveTypeService;
     private StatusActionService statusActionService;
     private EmployeeService employeeService;
+    
     @GetMapping
     public String tracking(Model model){
         model.addAttribute("leaveRequests", leaveRequestService.getAll());
