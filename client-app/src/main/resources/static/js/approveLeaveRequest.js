@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 bodypd.classList.toggle('body-pd')
                 // add padding to header
                 headerpd.classList.toggle('body-pd')
-        console.log("Hello");
+                console.log("Hello");
 
             })
         }
@@ -37,3 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     // Your code to run since DOM is loaded and ready
 });
+
+$(document).ready( function () {
+    $('#table-action').DataTable();
+} );
