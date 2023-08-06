@@ -16,5 +16,6 @@ public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Inte
     @Query("SELECT lr FROM LeaveRequest lr WHERE lr.statusAction.id = ?1")
     List<LeaveRequest> findStatusActionById(Integer id);
 
+    List<LeaveRequest> findByEmployeeId(Integer id);
 
 }

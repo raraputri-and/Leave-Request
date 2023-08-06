@@ -2,6 +2,7 @@ package id.co.mii.clientapp.services;
 
 import id.co.mii.clientapp.models.LeaveRequest;
 import id.co.mii.clientapp.models.dto.LeaveRequestRequest;
+import id.co.mii.clientapp.models.dto.LeaveRequestStatusRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -56,18 +57,18 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest accept(Integer id, LeaveRequestRequest leaveRequestRequest){
+    public LeaveRequest accept(Integer id){
         return restTemplate.exchange(url +"/accept"+ "/" + id,
                 HttpMethod.PUT,
-                new HttpEntity(leaveRequestRequest),
+                null,
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }
 
-    public LeaveRequest reject(Integer id, LeaveRequestRequest leaveRequestRequest){
+    public LeaveRequest reject(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         return restTemplate.exchange(url +"/reject"+ "/" + id,
                 HttpMethod.PUT,
-                new HttpEntity(leaveRequestRequest),
+                new HttpEntity(leaveRequestStatusRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }

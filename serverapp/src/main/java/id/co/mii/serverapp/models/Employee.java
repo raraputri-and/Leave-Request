@@ -71,6 +71,6 @@ public class Employee {
     private List<LeaveRequestStatus> leaveRequestStatus;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "leave_remaining_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "leave_remaining_id", referencedColumnName = "leave_remaining_id")
     private LeaveRemaining leaveRemaining;
 }

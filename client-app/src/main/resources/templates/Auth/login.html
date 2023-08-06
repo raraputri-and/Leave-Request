@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form th:action="@{/login}" th:object="${loginRequest}" th:method="POST">
+  <div class="field">
+    <span class="fa fa-user"></span>
+    <input type="text" th:field="*{username}" required placeholder="Username">
+  </div>
+  <div class="field space">
+    <span class="fa fa-lock"></span>
+    <input type="password" th:field="*{password}" class="pass-key" required placeholder="Password">
+  </div>
+  <div class="field space">
+    <input type="submit" value="LOGIN">
+  </div>
+</form>
+</body>
+</html>

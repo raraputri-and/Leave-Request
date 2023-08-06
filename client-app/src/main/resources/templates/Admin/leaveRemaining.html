@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<table class="table table-hover table-bordered w-100" id="table-tracking">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Employee</th>
+        <th>Present Remaining</th>
+        <th>Past Remaining</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+<tbody class="table-striped">
+<tr th:each="lr : ${leaveRemainings}" >
+    <td th:text="${lr.id}">id</td>
+    <td th:text="${lr.employee}">name</td>
+    <td th:text="${lr.presentRemaining}">Present Remaining</td>
+    <td th:text="${lr.pastRemaining}">past remaining</td>
+    <td class="icon">
+        <a th:href="@{/lr/update/{id} (id = ${lr.id})}" class="edit" >
+            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+    </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

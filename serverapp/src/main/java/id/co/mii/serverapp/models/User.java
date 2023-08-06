@@ -22,11 +22,13 @@ public class User {
     private String password;
     private Boolean isAccountNonLocked = true;
     private Boolean isEnabled = true;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee employee;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

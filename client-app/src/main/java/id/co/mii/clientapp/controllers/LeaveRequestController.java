@@ -1,10 +1,8 @@
 package id.co.mii.clientapp.controllers;
 
 import id.co.mii.clientapp.models.dto.LeaveRequestRequest;
-import id.co.mii.clientapp.services.EmployeeService;
-import id.co.mii.clientapp.services.LeaveRequestService;
-import id.co.mii.clientapp.services.LeaveTypeService;
-import id.co.mii.clientapp.services.StatusActionService;
+import id.co.mii.clientapp.models.dto.LeaveRequestStatusRequest;
+import id.co.mii.clientapp.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +38,13 @@ public class LeaveRequestController {
         return "Manager/ApproveLeaveRequest";
     }
 
+//    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @GetMapping("/reject/{id}")
+    public String rejectView(@PathVariable Integer id,Model model,LeaveRequestStatusRequest leaveRequestStatusRequest){
+        model.addAttribute("id", id);
+        return "Manager/RejectForm";
+    }
+
     @PostMapping
     public String create(LeaveRequestRequest leaveRequestRequest){
         leaveRequestService.create(leaveRequestRequest);
@@ -47,14 +52,14 @@ public class LeaveRequestController {
     }
 
     @PutMapping("/accept/{id}")
-    public String accept(@PathVariable Integer id, LeaveRequestRequest leaveRequestRequest){
-        leaveRequestService.accept(id, leaveRequestRequest);
+    public String accept(@PathVariable Integer id){
+        leaveRequestService.accept(id);
         return "redirect:/tracking";
     }
 
     @PutMapping("/reject/{id}")
-    public String reject(@PathVariable Integer id, LeaveRequestRequest leaveRequestRequest){
-        leaveRequestService.reject(id, leaveRequestRequest);
+    public String reject(@PathVariable Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
+        leaveRequestService.reject(id, leaveRequestStatusRequest);
         return "redirect:/tracking";
     }
 }
