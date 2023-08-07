@@ -8,8 +8,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import id.co.mii.serverapp.models.*;
+import id.co.mii.serverapp.models.dto.request.LeaveRemainingRequest;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import id.co.mii.serverapp.repositories.EmployeeRepository;
+import id.co.mii.serverapp.repositories.LeaveRemainingRepository;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -31,6 +33,7 @@ public class LeaveRequestService {
     private StatusActionService statusActionService;
     private LeaveRequestStatusRepository leaveRequestStatusRepository;
     private UserService userService;
+    private LeaveRemainingRepository leaveRemainingRepository;
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -68,6 +71,21 @@ public class LeaveRequestService {
         }
         leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
         leaveRequest.setStatusAction(statusActionService.getById(3));
+
+        if(leaveRequestRequest.getLeaveTypeId()==1){
+            LeaveRemaining leaveRemaining = user.getEmployee().getLeaveRemaining();
+            leaveRemaining.setEmployee(employeeService.getById(userService.getCurrentUser().getEmployee().getId()));
+            Integer difference = leaveRemaining.getPastRemaining()-leaveRequest.getQuantity();
+            if (leaveRequest.getQuantity()>leaveRemaining.getPresentRemaining()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"Leave Remaining is lower than your requested days");
+            } else if (difference<0){
+                leaveRemaining.setPastRemaining(0);
+                leaveRemaining.setPresentRemaining(leaveRemaining.getPresentRemaining()+difference);
+            } else {
+                leaveRemaining.setPastRemaining(leaveRemaining.getPastRemaining()-leaveRequest.getQuantity());
+            }
+            leaveRemainingRepository.save(leaveRemaining);
+        }
 
         leaveRequest = leaveRequestRepository.save(leaveRequest);
 
