@@ -39,4 +39,12 @@ public class LeaveRequestStatusService {
                 }).getBody();
     }
 
+    public List<LeaveRequestStatus> getByCurrentUser(){
+        return restTemplate.exchange(url + "/tracking",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<LeaveRequestStatus>>() {
+                }).getBody();
+    }
+
 }

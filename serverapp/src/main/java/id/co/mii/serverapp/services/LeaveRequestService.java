@@ -41,7 +41,7 @@ public class LeaveRequestService {
 
     public LeaveRequest getById(Integer id) {
         return leaveRequestRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!!"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leave Request not found!!"));
     }
 
     public List<LeaveRequest> getByStatus(){

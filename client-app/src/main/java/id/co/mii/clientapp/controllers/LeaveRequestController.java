@@ -48,18 +48,18 @@ public class LeaveRequestController {
     @PostMapping
     public String create(LeaveRequestRequest leaveRequestRequest){
         leaveRequestService.create(leaveRequestRequest);
-        return "redirect:/tracking";
+        return "redirect:/leave-request-status/tracking";
     }
 
     @PutMapping("/accept/{id}")
     public String accept(@PathVariable Integer id){
         leaveRequestService.accept(id);
-        return "redirect:/tracking";
+        return "redirect:/leave-request-status/tracking";
     }
 
     @PutMapping("/reject/{id}")
     public String reject(@PathVariable Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         leaveRequestService.reject(id, leaveRequestStatusRequest);
-        return "redirect:/tracking";
+        return "redirect:/leave-request-status/tracking";
     }
 }

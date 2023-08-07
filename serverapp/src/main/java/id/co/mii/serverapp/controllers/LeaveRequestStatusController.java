@@ -25,4 +25,9 @@ public class LeaveRequestStatusController {
         return leaveRequestStatusService.getById(id);
     }
 
+    @GetMapping("/tracking")
+    public List<LeaveRequestStatus> getByCurrentUser(){
+        return leaveRequestStatusService.getByCurrentUser();
+    }
+
 }
