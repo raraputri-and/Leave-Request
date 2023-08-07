@@ -42,6 +42,10 @@ $(document).ready(function () {
     $('#table-action').DataTable();
 });
 
+$(document).ready(function () {
+    $('#table-tracking').DataTable();
+});
+
 
 function logout(event, id) {
     Swal.fire({
