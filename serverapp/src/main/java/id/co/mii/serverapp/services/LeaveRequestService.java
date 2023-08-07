@@ -51,6 +51,14 @@ public class LeaveRequestService {
                 .filter(lr -> Objects.equals(lr.getEmployee().getManager().getId(), user.getId()) && lr.getStatusAction().getId()==(3))
                 .collect(Collectors.toList());
     }
+
+    public List<LeaveRequest> managerTracking(){
+        User user = userService.getCurrentUser();
+        return leaveRequestRepository.findAll()
+                .stream()
+                .filter(lr -> Objects.equals(lr.getEmployee().getManager().getId(), user.getId()))
+                .collect(Collectors.toList());
+    }
     @SneakyThrows
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
         User user = userService.getCurrentUser();

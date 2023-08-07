@@ -29,6 +29,11 @@ public class LeaveRequestController {
     public List<LeaveRequest> getByStatusAction(){
         return leaveRequestService.getByStatus();
     }
+
+    @GetMapping("/manager-tracking")
+    public List<LeaveRequest> managerTracking(){
+        return leaveRequestService.managerTracking();
+    }
     //    @PreAuthorize("hasAuthority('CREATE_ADMIN')")
     @PostMapping
     public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {

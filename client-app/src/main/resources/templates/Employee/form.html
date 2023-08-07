@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Form Leave Request</title>
 </head>
-
 <body id="body-pd">
     <section layout:fragment="content">
         <div class="container d-flex justify-content-center align-content-center mt-3">
@@ -44,7 +43,7 @@
                     <label for="attachment" class="input-field">Attachment</label>
                     <input type="file" class="form-control" th:field="*{attachment}">
                 </div>
-                <input type="hidden" id="statusAction.id" name="statusActionId" value="3">
+                
 
                 <a th:href="@{/tracking}" class="btn btn-danger btn-lg px-4 py-1" role="button">Back</a>
                 <button type="submit" class="btn btn-primary btn-lg px-3 py-1">Submit</button>

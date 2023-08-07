@@ -49,6 +49,14 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
+    public List<LeaveRequest> managerAction(){
+        return restTemplate.exchange(url + "/manager-tracking",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<LeaveRequest>>() {
+                }).getBody();
+    }
+
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest){
         return restTemplate.exchange(url,
                 HttpMethod.POST,
