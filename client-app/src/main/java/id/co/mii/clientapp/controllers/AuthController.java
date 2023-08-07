@@ -16,17 +16,24 @@ public class AuthController {
     private AuthService authService;
 
     @GetMapping
-    public String loginView(LoginRequest loginRequest){
+    public String loginView(LoginRequest loginRequest) {
         return "Auth/login";
     }
 
     @PostMapping
-    public String login(LoginRequest loginRequest){
-        if (!authService.login(loginRequest)){
+    public String login(LoginRequest loginRequest) {
+        if (!authService.login(loginRequest)) {
             return "redirect:/login?error=true";
-        };
+        }
+        ;
         System.out.println("login success");
         return "redirect:/leave-request";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        authService.logout();
+        System.out.println("logout");
+        return "redirect:/login";
+    }
 }

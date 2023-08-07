@@ -35,6 +35,7 @@ public class AuthService {
     private AppUserDetailService appUserDetailService;
     private PasswordEncoder passwordEncoder;
     private ReligionService religionService;
+    private ParameterService parameterService;
 
     @SneakyThrows
     public Employee registration(EmployeeRequest employeeRequest) {
@@ -53,7 +54,7 @@ public class AuthService {
         //set default leave remaining
         LeaveRemaining leaveRemaining = new LeaveRemaining();
         leaveRemaining.setPastRemaining(0);
-        leaveRemaining.setPresentRemaining(12);
+        leaveRemaining.setPresentRemaining(Integer.valueOf(parameterService.getById("Max-leave").getLeaveQty()));
 
         Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
         employee.setReligion(religionService.getById(employeeRequest.getReligionId()));

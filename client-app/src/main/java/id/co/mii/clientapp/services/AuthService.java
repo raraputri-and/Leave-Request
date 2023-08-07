@@ -23,44 +23,46 @@ public class AuthService {
     private RestTemplate restTemplate;
     @Value("${dns.baseUrl}/login")
     private String url;
+
     @Autowired
     public AuthService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public boolean login(LoginRequest loginRequest){
-        try{
+    public boolean login(LoginRequest loginRequest) {
+        try {
             ResponseEntity<LoginResponse> response = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
                     new HttpEntity(loginRequest),
                     new ParameterizedTypeReference<LoginResponse>() {
-                    }
-            );
-            if (response.getStatusCode() == HttpStatus.OK){
+                    });
+            if (response.getStatusCode() == HttpStatus.OK) {
                 setPrinciple(response.getBody(), loginRequest.getPassword());
                 return true;
             }
+        } catch (Exception e) {
         }
-        catch (Exception e){}
         return false;
     }
 
-    public void setPrinciple(LoginResponse res, String pass){
+    public void setPrinciple(LoginResponse res, String pass) {
 
         List<SimpleGrantedAuthority> authorities = res.getAuthorities()
                 .stream().map(authorize -> new SimpleGrantedAuthority(authorize))
                 .collect(Collectors.toList());
 
-        UsernamePasswordAuthenticationToken token = new
-                UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 res.getUsername(),
                 pass,
-                authorities
-        );
+                authorities);
 
         // Set Principle
         SecurityContextHolder.getContext().setAuthentication(token);
 
+    }
+
+    public void logout() {
+        SecurityContextHolder.clearContext();
     }
 }

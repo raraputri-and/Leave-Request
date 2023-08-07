@@ -18,11 +18,11 @@
 
 ### **`Design & Documentation:`**
 
+- [BPMN](https://drive.google.com/file/d/1MWDMD07qypgPRL2zc_WUP2l7ZUDKpgEV/view?usp=drive_link)
 - [Use Case](https://drive.google.com/file/d/1j6kbhhvFmupDyja9QyTR5eP84uHKFCJU/view?usp=sharing)
-- [BPMN](https://drive.google.com/file/d/1wQPPYtcKmyYeKlGI_rG7IV4wtXL7bF8-/view?usp=sharing)
-- [Activity Diagram](https://drive.google.com/file/d/1isNTMLJSANlIuqFOtmWJ9zKLk_6RtFI5/view?usp=sharing)
-- [ERD](https://drive.google.com/file/d/1kxwILQZ7y2HNHsn8fq7MOeTewIK-4Rkv/view?usp=sharing)
-
+- [Activity Diagram](https://drive.google.com/file/d/1hd3hoem8e-M-t7_N7PPr85teQ44QATBz/view?usp=drive_link)
+- [ERD](https://drive.google.com/file/d/1gFu0E152tOuXq_7wNM6kxh1NuaRzAU9D/view?usp=drive_link)
+- [Data Dummy](https://docs.google.com/spreadsheets/d/1hQYRCfsw-GtX1iv3ki5cKgh0HUN8gkrqEmRcVrkP0I8/edit#gid=0)
 ---
 
 ### **`Prioritas Tugas:`**
@@ -40,12 +40,15 @@
 - BPMN (Business Process Modeling & Notation)
 - Use Case Diagram
 - Activity Diagram
+- Data Dummy
 
   **Bachtiar**
 - Activity Diagram
+- Data Dummy
 
   **Natan**
 - ERD
+- Data Dummy
 
 ---
 

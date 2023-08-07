@@ -33,7 +33,8 @@ public class LeaveRequestController {
         model.addAttribute("leaveType", leaveTypeService.getAll());
         model.addAttribute("statusAction", statusActionService.getAll());
         model.addAttribute("employees", employeeService.getAll());
-        model.addAttribute("title", "leaveRequest");
+        model.addAttribute("title", "action");
+        
         return "Manager/ApproveLeaveRequest";
     }
 
