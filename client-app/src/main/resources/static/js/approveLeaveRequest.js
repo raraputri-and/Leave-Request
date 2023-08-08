@@ -40,45 +40,56 @@ $(document).ready(function () {
                     return `
                     <a href="/leave-request/reject/${data.id}" class="btn btn-danger px-3 py-2" type="button">Reject No Modal</a>
 
-                  <form th:action="" th:method="PUT" onsubmit="return acceptRequest(event, '${row.id}')">
-                    <button type="submit" class="btn btn-success px-5 py-2">Accept</button>
-                </form>
+                    <button class="btn btn-warning me-3" type="button" data-bs-toggle="modal" 
+                    data-bs-target="#rejectModal" onclick="openRejectModal(${data.id})"><span
+                class="bi bi-pencil-square">Reject Note</button>
 
-                    
+                    <form th:action="" th:method="PUT" onsubmit="return acceptRequest(event, '${row.id}')">
+                    <button type="submit" class="btn btn-success px-5 py-2">Accept</button>
+                    </form>
 
                     `;
                 }
             }
         ]
     });
-{/* <button class="btn btn-danger reject-btn action" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="${data.id}">Reject</button> */}
+
 });
 
 
-$('#table-action').on('click', '.reject-btn', function () {
-    console.log('reject clicked');
-    var id = $(this).data('id');
-    $('#rejectModal').modal('show');
-    $('#sendReject').data('id', id); // store id for later use
-});
+function openRejectModal(id) {
+    $("#rejectModal").attr("data-reject-id", id);
+    $("#rejectModal").modal("show");
+}
 
-$('#sendReject').on('click', function (e) {
-    e.preventDefault();
-    var id = $(this).data('id');
-    var note = $('#note').val();
+// update country
+function rejectNote() {
+    let rejectId = $("#rejectModal").attr("data-reject-id")
+    let noteVal = $("#note").val()
+    console.log(note)
     $.ajax({
-        url: '/api/leave-request/reject/' + id, // replace with your endpoint
-        type: 'PUT',
-        data: { note: note },
-        success: function () {
-            $('#rejectModal').modal('hide');
-            table.ajax.reload(); // reload data
-        },
-        error: function () {
-            // handle error
+        method: "PUT",
+        url: `/api/leave-request/reject/${rejectId}`,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        data: JSON.stringify({
+            note: noteVal,
+        }),
+        contentType: "application/json",
+        success: function (result) {
+            $("#rejectModal").modal('hide')
+            $("#table-action").DataTable().ajax.reload()
+            $("#note").val('')
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Leave Request has been Rejected',
+                showConfirmButton: false,
+                timer: 2000
+            })
         }
-    });
-});
+    })
+}
 
 function acceptRequest(event, id) {
     event.preventDefault();
@@ -114,3 +125,29 @@ function acceptRequest(event, id) {
         }
     });
 }
+
+
+// $('#table-action').on('click', '.reject-btn', function () {
+//     console.log('reject clicked');
+//     var id = $(this).data('id');
+//     $('#rejectModal').modal('show');
+//     $('#sendReject').data('id', id); // store id for later use
+// });
+
+// $('#sendReject').on('click', function (e) {
+//     e.preventDefault();
+//     var id = $(this).data('id');
+//     var note = $('#note').val();
+//     $.ajax({
+//         url: '/api/leave-request/reject/' + id, // replace with your endpoint
+//         type: 'PUT',
+//         data: { note: note },
+//         success: function () {
+//             $('#rejectModal').modal('hide');
+//             table.ajax.reload(); // reload data
+//         },
+//         error: function () {
+//             // handle error
+//         }
+//     });
+// });

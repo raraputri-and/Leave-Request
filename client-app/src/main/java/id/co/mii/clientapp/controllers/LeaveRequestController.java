@@ -54,7 +54,7 @@ public class LeaveRequestController {
     @PutMapping("/accept/{id}")
     public String accept(@PathVariable Integer id){
         leaveRequestService.accept(id);
-        return "redirect:/leave-request-status/tracking";
+        return "redirect:/tracking/manager";
     }
 
     @PutMapping("/reject/{id}")

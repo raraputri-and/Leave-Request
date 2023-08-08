@@ -27,7 +27,7 @@ public class AuthController {
         }
         ;
         System.out.println("login success");
-        return "redirect:/leave-request";
+        return "redirect:/leave-request-status/tracking";
     }
 
     @GetMapping("/logout")

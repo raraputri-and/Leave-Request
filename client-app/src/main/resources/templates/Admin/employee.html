@@ -1,41 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Employee</title>
 </head>
-<body>
-<table class="table table-hover table-bordered w-100" id="table-user">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>NIP</th>
-    <th>Name</th>
-    <th>Gender</th>
-    <th>Religion</th>
-    <th>ManagerId</th>
-    <th>Username</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody class="table-striped">
-  <tr th:each="emp : ${employees}" >
-    <td th:text="${emp.id}">id</td>
-    <td th:text="${emp.nip}">nip</td>
-    <td th:text="${emp.name}">name</td>
-    <td th:text="${emp.gender}">gender</td>
-    <td th:text="${emp.religion.name}">religion</td>
-    <td th:text="${emp.manager}">manager</td>
-    <td th:text="${emp.user.username}">username</td>
-    <td class="icon">
-      <a th:href="@{/emp/update/{id} (id = ${emp.id})}" class="edit" >
-        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<body id="body-pd">
+  <main>
+    <section layout:fragment="content">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <table class="table table-hover table-bordered w-100" id="table-user">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>NIP</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Religion</th>
+              <th>ManagerId</th>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="table-striped">
+            <tr th:each="emp : ${employees}" >
+              <td th:text="${emp.id}">id</td>
+              <td th:text="${emp.nip}">nip</td>
+              <td th:text="${emp.name}">name</td>
+              <td th:text="${emp.gender}">gender</td>
+              <td th:text="${emp.religion.name}">religion</td>
+              <td th:text="${emp.manager}">manager</td>
+              <td th:text="${emp.user.username}">username</td>
+              <td class="icon">
+                <a th:href="@{/emp/update/{id} (id = ${emp.id})}" class="edit" >
+                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
 </body>
 </html>

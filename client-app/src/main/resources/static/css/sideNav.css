@@ -147,6 +147,7 @@ a {
     height: 100vh
 }
 
+
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -175,6 +176,20 @@ a {
     .show {
         width: calc(var(--nav-width) + 165px)
     }
+
+    .modal-show {
+        width: 100%;
+        /* or any width according to your requirement */
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+    
 
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)

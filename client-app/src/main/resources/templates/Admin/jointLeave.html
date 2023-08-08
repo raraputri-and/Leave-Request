@@ -1,39 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Joint Leave</title>
 </head>
-<body>
-<table class="table table-hover table-bordered w-100" id="table-tracking">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>is Holiday?</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody class="table-striped">
-    <tr th:each="jl : ${jointleaves}" >
-        <td th:text="${jl.id}">id</td>
-        <td th:text="${jl.name}">name</td>
-        <td th:text="${jl.date}">date</td>
-        <td th:text="${jl.isHoliday}">is holiday</td>
-        <td class="icon">
-            <a th:href="@{/joint-leave/update/{id} (id = ${jl.id})}" class="edit" >
-            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <form th:action="@{/joint-leave/{id} (id = ${jl.id})}" th:method="DELETE">
-            <button onclick="return confirm('Are u sure want to be delete this jointLeave!!!!')"
-                    type="submit" class="btn btn-danger px-5 py-2">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+<body id="body-pd">
+    <main>
+        <section layout:fragment="content">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <table class="table table-hover table-bordered w-100" id="table-tracking">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>is Holiday?</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                            <tr th:each="jl : ${jointleaves}">
+                                <td th:text="${jl.id}">id</td>
+                                <td th:text="${jl.name}">name</td>
+                                <td th:text="${jl.date}">date</td>
+                                <td th:text="${jl.isHoliday}">is holiday</td>
+                                <td class="icon">
+                                    <a th:href="@{/joint-leave/update/{id} (id = ${jl.id})}" class="edit">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <form th:action="@{/joint-leave/{id} (id = ${jl.id})}" th:method="DELETE">
+                                        <button
+                                            onclick="return confirm('Are u sure want to be delete this jointLeave!!!!')"
+                                            type="submit" class="btn btn-danger px-5 py-2">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
 </body>
+
 </html>
