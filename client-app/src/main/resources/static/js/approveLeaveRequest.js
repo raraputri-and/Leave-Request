@@ -39,14 +39,19 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     return `
                     <a href="/leave-request/reject/${data.id}" class="btn btn-danger px-3 py-2" type="button">Reject No Modal</a>
-                    <button class="btn btn-danger reject-btn action" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="${data.id}">Reject</button>
-                        <button class="btn btn-success accept-btn action" data-id="${data.id}" >Accept</button>
+
+                  <form th:action="" th:method="PUT" onsubmit="return acceptRequest(event, '${row.id}')">
+                    <button type="submit" class="btn btn-success px-5 py-2">Accept</button>
+                </form>
+
+                    
+
                     `;
                 }
             }
         ]
     });
-
+{/* <button class="btn btn-danger reject-btn action" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="${data.id}">Reject</button> */}
 });
 
 
@@ -74,3 +79,38 @@ $('#sendReject').on('click', function (e) {
         }
     });
 });
+
+function acceptRequest(event, id) {
+    event.preventDefault();
+    // fetch the row data to get the employee name
+    var rowData = table.row($(event.target).parents('tr')).data();
+    Swal.fire({
+        title: "Accept",
+        text: "Are you sure you want to accept request from : " + rowData.employee.name + "?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, accept it it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: "PUT",
+                url: `/api/leave-request/accept/${id}`,
+                dataType: "JSON",
+                contentType: "application/json",
+                beforeSend: addCsrfToken(),
+                success: function (result) {
+                    $("#table-action").DataTable().ajax.reload();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Leave Request has been Accepted',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+            });
+        }
+    });
+}
