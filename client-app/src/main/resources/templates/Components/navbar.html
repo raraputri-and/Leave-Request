@@ -13,7 +13,7 @@
                     <a th:classappend="${title} == leaveRequest? active : '' " th:href="@{/leave-request}"
                         class="nav_link"> <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Create Leave Request</span> </a>
-                    <a th:classappend="${title} == tracking? active : '' " th:href="@{/tracking}" class="nav_link"> <i
+                    <a th:classappend="${title} == leave-request-status? active : '' " th:href="@{/leave-request-status/tracking}" class="nav_link"> <i
                             class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Tracking</span> </a>
                     <a th:classappend="${title} == action? active : '' " th:href="@{/leave-request/action}"

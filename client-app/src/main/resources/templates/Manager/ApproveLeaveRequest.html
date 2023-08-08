@@ -9,15 +9,15 @@
   <title>Action LeaveRequest</title>
 
 </head>
-<body id="body-pd">
 
+<body id="body-pd">
   <!--Container Main start-->
   <main>
     <section layout:fragment="content">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-          <table class="table table-hover table-bordered w-100" id="table-action">
-            <thead>
+          <table class="table  table-hover table-bordered w-100" id="table-action">
+            <thead class="bg-light">
               <tr>
                 <th>Id</th>
                 <th>Employee</th>
@@ -31,8 +31,8 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody class="table-striped">
-              <tr th:each="lr : ${leaveRequests}">
+            <tbody class="table-striped bg-light">
+              <!-- <tr th:each="lr : ${leaveRequests}">
                 <td th:text="${lr.id}">id</td>
                 <td th:text="${lr.employee.name}">name</td>
                 <td th:text="${lr.leaveType.name}">leave type</td>
@@ -49,13 +49,37 @@
                       class="btn btn-success px-3 py-2">Accept</button>
                   </form>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Reject Modal -->
+  <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rejectModalLabel">Reject Note</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="rejectForm">
+            <div class="mb-3">
+              <label for="note" class="form-label">Note:</label>
+              <input type="text" class="form-control" id="note" name="note">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="sendReject">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reject Modal Ends -->
 
   <th:block layout:fragment="script">
     <script th:src="@{/js/approveLeaveRequest.js}"></script>

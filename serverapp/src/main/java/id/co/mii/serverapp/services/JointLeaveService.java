@@ -1,18 +1,33 @@
 package id.co.mii.serverapp.services;
 
 import id.co.mii.serverapp.models.JointLeave;
+import id.co.mii.serverapp.models.LeaveRemaining;
+import id.co.mii.serverapp.models.LeaveRequest;
+import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
 import id.co.mii.serverapp.repositories.JointLeaveRepository;
+import id.co.mii.serverapp.repositories.LeaveRemainingRepository;
+import id.co.mii.serverapp.repositories.LeaveRequestRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class JointLeaveService {
     private JointLeaveRepository jointLeaveRepository;
+    private LeaveRemainingService leaveRemainingService;
+    private LeaveRemainingRepository leaveRemainingRepository;
+    private LeaveRequestService leaveRequestService;
+    private EmployeeService employeeService;
+    private LeaveRequestRepository leaveRequestRepository;
+    private ModelMapper modelMapper;
+    private LeaveTypeService leaveTypeService;
+    private StatusActionService statusActionService;
 
     public List<JointLeave> getAll() {
         return jointLeaveRepository.findAll();
@@ -27,9 +42,30 @@ public class JointLeaveService {
     }
 
     public JointLeave create(JointLeave jointLeave) {
+        List<LeaveRemaining> leaveRemainings = leaveRemainingService.getAll();
+        if (!jointLeave.getIsHoliday()){
+            List<LeaveRemaining> lr = new ArrayList<>();
+            leaveRemainings.forEach(lrs -> {
+                lrs.setPresentRemaining(lrs.getPresentRemaining()-1);
+                lr.add(lrs);
+            });
+            leaveRemainingRepository.saveAll(lr);
+
+//            employeeService.getAll().forEach(emp -> {
+//                LeaveRequest leaveRequest = new LeaveRequest();
+//                leaveRequest.setReason(jointLeave.getName());
+//                leaveRequest.setDateStart(jointLeave.getDate());
+//                leaveRequest.setDateEnd(jointLeave.getDate());
+//                leaveRequest.setQuantity(1);
+//                leaveRequest.setLeaveType(leaveTypeService.getById(1));
+//                leaveRequest.setEmployee(emp);
+//                leaveRequest.setStatusAction(statusActionService.getById(1));
+//                leaveRequestRepository.save(leaveRequest);
+//            });
+
+        }
         return jointLeaveRepository.save(jointLeave);
     }
-
     public JointLeave update(Integer id, JointLeave jointLeave) {
         getById(id);
         jointLeave.setId(id);
