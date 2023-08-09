@@ -18,7 +18,7 @@ public class JointLeave {
     private Integer id;
     @Column(name = "joint_leave_name", nullable = false)
     private String name;
-    @Column(name = "joint_leave_date", nullable = false)
+    @Column(name = "joint_leave_date", nullable = false, unique = true)
     private Date date;
     private Boolean isHoliday;
 

@@ -29,6 +29,12 @@ public class LeaveType {
     @Column(name = "leave_type_name",  nullable = false)
     private String name;
 
+    @Column(name = "leave_type_quantity", nullable = false)
+    private Integer quantity;
+
+    @Column(name = "leave_type_quota", nullable = false)
+    private Integer quota;
+
     @OneToMany(mappedBy = "leaveType")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<LeaveRequest> leaveRequests;

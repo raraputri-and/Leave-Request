@@ -50,12 +50,12 @@ public class LeaveRequestRestController {
         return leaveRequestService.create(leaveRequestRequest);
     }
 
-    @PutMapping("accept/{id}")
+    @PutMapping("/accept/{id}")
     public LeaveRequest accept(@PathVariable Integer id) {
         return leaveRequestService.accept(id);
     }
 
-    @PutMapping("reject/{id}")
+    @PutMapping("/reject/{id}")
     public LeaveRequest reject(@PathVariable Integer id,
             @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
         return leaveRequestService.reject(id, leaveRequestStatusRequest);

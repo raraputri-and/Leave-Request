@@ -7,6 +7,7 @@ import id.co.mii.serverapp.models.Employee;
 import id.co.mii.serverapp.models.User;
 import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
 import id.co.mii.serverapp.services.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,23 +18,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/emp")
-//@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+@PreAuthorize("hasAnyRole('Admin', 'Employee', 'Manager')")
 public class EmployeeController {
 
     private EmployeeService employeeService;
-    private UserService userService;
-//    @PreAuthorize("hasAnyAuthority('READ_ADMIN', 'READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN', 'READ_EMPLOYEE', 'READ_MANAGER')")
     @GetMapping
     public List<Employee> getAll(){
         return employeeService.getAll();
     }
-//    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_EMPLOYEE', 'READ_MANAGER')")
     @GetMapping("/{id}")
     public Employee getById(@PathVariable Integer id){
         return employeeService.getById(id);
     }
 
-//    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
+    @PreAuthorize("hasAuthority('UPDATE_ADMIN')")
     @PutMapping("/{id}")
     public Employee update(@PathVariable Integer id, @RequestBody EmployeeRequest employeeRequest) {
         return employeeService.update(id, employeeRequest);
