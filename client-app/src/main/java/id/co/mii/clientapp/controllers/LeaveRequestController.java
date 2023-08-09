@@ -21,7 +21,6 @@ public class LeaveRequestController {
     public String index(Model model, LeaveRequestRequest leaveRequestRequest){
         model.addAttribute("leaveRequests", leaveRequestService.getAll());
         model.addAttribute("leaveType", leaveTypeService.getAll());
-        model.addAttribute("statusAction", statusActionService.getAll());
         model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "leaveRequest");
         return "Employee/form";
@@ -30,11 +29,7 @@ public class LeaveRequestController {
     @GetMapping("/action")
     public String action(Model model, LeaveRequestRequest leaveRequestRequest){
         model.addAttribute("leaveRequests", leaveRequestService.getByStatusAction());
-        model.addAttribute("leaveType", leaveTypeService.getAll());
-        model.addAttribute("statusAction", statusActionService.getAll());
-        model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "action");
-        
         return "Manager/ApproveLeaveRequest";
     }
 
@@ -54,12 +49,12 @@ public class LeaveRequestController {
     @PutMapping("/accept/{id}")
     public String accept(@PathVariable Integer id){
         leaveRequestService.accept(id);
-        return "redirect:/leave-request-status/tracking";
+        return "redirect:/tracking/manager";
     }
 
     @PutMapping("/reject/{id}")
     public String reject(@PathVariable Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         leaveRequestService.reject(id, leaveRequestStatusRequest);
-        return "redirect:/leave-request-status/tracking";
+        return "redirect:/tracking/manager";
     }
 }

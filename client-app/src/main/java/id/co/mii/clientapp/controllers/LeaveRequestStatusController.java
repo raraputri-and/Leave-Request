@@ -22,6 +22,7 @@ public class LeaveRequestStatusController {
 
     @GetMapping("/tracking")
     public String getByCurrentUser(Model model){
+        model.addAttribute("leaveRequests",leaveRequestStatusService.getByCurrentUser());
         model.addAttribute("leaveRequestStatuses", leaveRequestStatusService.getByCurrentUser());
         model.addAttribute("title","leaveRequestStatus");
         return "Employee/tracking";

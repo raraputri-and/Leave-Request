@@ -8,9 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import id.co.mii.serverapp.models.*;
-import id.co.mii.serverapp.models.dto.request.LeaveRemainingRequest;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
-import id.co.mii.serverapp.repositories.EmployeeRepository;
 import id.co.mii.serverapp.repositories.LeaveRemainingRepository;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
 import lombok.AllArgsConstructor;
@@ -34,6 +32,7 @@ public class LeaveRequestService {
     private LeaveRequestStatusRepository leaveRequestStatusRepository;
     private UserService userService;
     private LeaveRemainingRepository leaveRemainingRepository;
+    private JointLeaveService jointLeaveService;
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -59,11 +58,25 @@ public class LeaveRequestService {
                 .filter(lr -> Objects.equals(lr.getEmployee().getManager().getId(), user.getId()))
                 .collect(Collectors.toList());
     }
+
+    public List<LeaveRequest> getByCurrentUser(){
+        User user = userService.getCurrentUser();
+        return leaveRequestRepository.findAll()
+                .stream()
+                .filter(lr -> Objects.equals(lr.getEmployee().getId(), user.getId()))
+                .collect(Collectors.toList());
+    }
     @SneakyThrows
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
         User user = userService.getCurrentUser();
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
         leaveRequest.setEmployee(user.getEmployee());
+
+        jointLeaveService.getAll().forEach(jl -> {
+            if (leaveRequestRequest.getDateStart().equals(jl.getDate()) || leaveRequestRequest.getDateEnd().equals(jl.getDate())){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
+            }
+        });
 
         if(leaveRequestRequest.getLeaveTypeId()==4 && !user.getEmployee().getGender().equals(Gender.Female)){
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is Male, can not choose Birth Leave");
@@ -82,7 +95,7 @@ public class LeaveRequestService {
 
         if(leaveRequestRequest.getLeaveTypeId()==1){
             LeaveRemaining leaveRemaining = user.getEmployee().getLeaveRemaining();
-            leaveRemaining.setEmployee(employeeService.getById(userService.getCurrentUser().getEmployee().getId()));
+            leaveRemaining.setEmployee(employeeService.getById(user.getEmployee().getId()));
             Integer difference = leaveRemaining.getPastRemaining()-leaveRequest.getQuantity();
             if (leaveRequest.getQuantity()>leaveRemaining.getPresentRemaining()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"Leave Remaining is lower than your requested days");
@@ -93,6 +106,32 @@ public class LeaveRequestService {
                 leaveRemaining.setPastRemaining(leaveRemaining.getPastRemaining()-leaveRequest.getQuantity());
             }
             leaveRemainingRepository.save(leaveRemaining);
+        }
+
+        if(leaveRequestRequest.getLeaveTypeId()==2){
+            if (leaveRequestRepository.findQuota(2, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==3){
+            if (leaveRequestRepository.findQuota(3, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==4){
+            if (leaveRequestRepository.findQuota(4, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==5){
+            if (leaveRequestRepository.findQuota(5, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+        }
+        if(leaveRequestRequest.getLeaveTypeId()==6){
+            if (leaveRequestRepository.findQuota(6, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
         }
 
         leaveRequest = leaveRequestRepository.save(leaveRequest);

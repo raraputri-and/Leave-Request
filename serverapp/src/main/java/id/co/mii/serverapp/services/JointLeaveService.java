@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,10 +23,8 @@ public class JointLeaveService {
     private JointLeaveRepository jointLeaveRepository;
     private LeaveRemainingService leaveRemainingService;
     private LeaveRemainingRepository leaveRemainingRepository;
-    private LeaveRequestService leaveRequestService;
     private EmployeeService employeeService;
     private LeaveRequestRepository leaveRequestRepository;
-    private ModelMapper modelMapper;
     private LeaveTypeService leaveTypeService;
     private StatusActionService statusActionService;
 
@@ -67,13 +66,31 @@ public class JointLeaveService {
         return jointLeaveRepository.save(jointLeave);
     }
     public JointLeave update(Integer id, JointLeave jointLeave) {
-        getById(id);
+        JointLeave oldJointLeave = getById(id);
         jointLeave.setId(id);
+        if (!oldJointLeave.getIsHoliday().equals(jointLeave.getIsHoliday())){
+            List<LeaveRemaining> leaveRemainings = leaveRemainingService.getAll().stream().map(lr -> {
+                if (jointLeave.getIsHoliday()){
+                    lr.setPresentRemaining(lr.getPresentRemaining()+1);
+                } else {
+                    lr.setPresentRemaining(lr.getPresentRemaining()-1);
+                }
+                return lr;
+            }).collect(Collectors.toList());
+            leaveRemainingRepository.saveAll(leaveRemainings);
+        }
         return jointLeaveRepository.save(jointLeave);
     }
 
     public JointLeave delete(Integer id) {
         JointLeave jointLeave = getById(id);
+        if (!jointLeave.getIsHoliday()){
+            List<LeaveRemaining> leaveRemainings = leaveRemainingService.getAll().stream().map(lr -> {
+                lr.setPresentRemaining(lr.getPresentRemaining()+1);
+                return lr;
+            }).collect(Collectors.toList());
+            leaveRemainingRepository.saveAll(leaveRemainings);
+        }
         jointLeaveRepository.delete(jointLeave);
         return jointLeave;
     }

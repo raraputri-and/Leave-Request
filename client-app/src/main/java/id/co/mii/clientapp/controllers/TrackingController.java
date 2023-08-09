@@ -22,9 +22,6 @@ public class TrackingController {
     @GetMapping("/manager")
     public String tracking(Model model){
         model.addAttribute("leaveRequests", leaveRequestService.managerAction());
-        model.addAttribute("leaveType", leaveTypeService.getAll());
-        model.addAttribute("statusAction", statusActionService.getAll());
-        model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("title", "tracking");
         return "Manager/tracking";
     }
