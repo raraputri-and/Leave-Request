@@ -1,5 +1,6 @@
 package id.co.mii.serverapp.services;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
 import id.co.mii.serverapp.repositories.LeaveRequestRepository;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -33,6 +35,7 @@ public class LeaveRequestService {
     private UserService userService;
     private LeaveRemainingRepository leaveRemainingRepository;
     private JointLeaveService jointLeaveService;
+    private final String FOLDER_PATH="/static/attachment";
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -133,9 +136,7 @@ public class LeaveRequestService {
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
             }
         }
-
         leaveRequest = leaveRequestRepository.save(leaveRequest);
-
         LeaveRequestStatusRequest leaveRequestStatusRequest = new LeaveRequestStatusRequest();
         LeaveRequestStatus leaveRequestStatus = modelMapper.map(leaveRequestStatusRequest, LeaveRequestStatus.class);
         LocalDate localDate = LocalDate.now();
