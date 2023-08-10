@@ -1,13 +1,9 @@
 package id.co.mii.serverapp.services;
 
-import id.co.mii.serverapp.models.LeaveRequest;
 import id.co.mii.serverapp.models.LeaveRequestStatus;
 import id.co.mii.serverapp.models.User;
-import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
-import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +17,7 @@ import java.util.stream.Collectors;
 public class LeaveRequestStatusService {
     private LeaveRequestStatusRepository leaveRequestStatusRepository;
     private UserService userService;
+    private LeaveRequestService leaveRequestService;
 
     public List<LeaveRequestStatus> getAll() {
         return leaveRequestStatusRepository.findAll();
@@ -28,7 +25,8 @@ public class LeaveRequestStatusService {
 
     public LeaveRequestStatus getById(Integer id) {
         return leaveRequestStatusRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leave Request Status not found!!"));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leave Request Status not found!!"));
     }
 
     public List<LeaveRequestStatus> getByCurrentUser() {
@@ -39,4 +37,10 @@ public class LeaveRequestStatusService {
                 .collect(Collectors.toList());
     }
 
+    public List<LeaveRequestStatus> getByLeaveRequest(Integer id) {
+        return leaveRequestStatusRepository.findAll()
+                .stream()
+                .filter(lrs -> Objects.equals(lrs.getLeaveRequest().getId(), leaveRequestService.getById(id).getId()))
+                .collect(Collectors.toList());
+    }
 }

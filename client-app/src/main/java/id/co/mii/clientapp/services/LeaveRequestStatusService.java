@@ -47,4 +47,11 @@ public class LeaveRequestStatusService {
                 }).getBody();
     }
 
+    public List<LeaveRequestStatus> getByLeaveRequest(Integer id){
+        return restTemplate.exchange(url + "/get-leave-request/" + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<LeaveRequestStatus>>() {
+                }).getBody();
+    }
 }
