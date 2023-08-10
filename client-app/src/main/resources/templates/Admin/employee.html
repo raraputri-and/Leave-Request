@@ -25,26 +25,70 @@
               <th>Action</th>
             </tr>
             </thead>
-            <tbody class="table-striped">
-            <tr th:each="emp : ${employees}" >
-              <td th:text="${emp.id}">id</td>
-              <td th:text="${emp.nip}">nip</td>
-              <td th:text="${emp.name}">name</td>
-              <td th:text="${emp.gender}">gender</td>
-              <td th:text="${emp.religion.name}">religion</td>
-              <td th:text="${emp.manager}">manager</td>
-              <td th:text="${emp.user.username}">username</td>
-              <td class="icon">
-                <a th:href="@{/emp/update/{id} (id = ${emp.id})}" class="edit" >
-                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-              </td>
-            </tr>
-            </tbody>
+<!--            <tbody class="table-striped">-->
+<!--            <tr th:each="emp : ${employees}" >-->
+<!--              <td th:text="${emp.id}">id</td>-->
+<!--              <td th:text="${emp.nip}">nip</td>-->
+<!--              <td th:text="${emp.name}">name</td>-->
+<!--              <td th:text="${emp.gender}">gender</td>-->
+<!--              <td th:text="${emp.religion.name}">religion</td>-->
+<!--              <td th:text="${emp.manager}">manager</td>-->
+<!--              <td th:text="${emp.user.username}">username</td>-->
+<!--              <td class="icon">-->
+<!--                <a th:href="@{/emp/update/{id} (id = ${emp.id})}" class="edit" >-->
+<!--                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
           </table>
+        </div>
+      </div>
+
+      <!-- Modal Update Employee -->
+      <div class="modal fade modal-show" id="updateEmployee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="staticBackdropLabel2">update Region</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nip" class="form-label">nip</label>
+                <input type="text" class="form-control" name="nip" id="nip" required>
+
+                <label for="name" class="form-label">name</label>
+                <input type="text" class="form-control" name="name" id="name" required>
+
+                <label for="name" class="form-label">gender</label>
+                <input type="text" class="form-control" name="gender" id="gender" required>
+
+                <label for="name" class="form-label">religion</label>
+                <input type="text" class="form-control" name="religion" id="religion" required>
+
+                <label for="name" class="form-label">manager</label>
+                <input type="text" class="form-control" name="manager" id="manager" required>
+
+                <label for="name" class="form-label">username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+
+                <label for="name" class="form-label">password</label>
+                <input type="text" class="form-control" name="password" id="password" required>
+                <input type="hidden" id="idUpdate">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="updateEmployee()">Submit</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
-
+  <th:block layout:fragment="script">
+    <script th:src="@{/js/employee.js}"></script>
+  </th:block>
 </body>
 </html>

@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -48,9 +49,10 @@ public class Employee {
     @JoinColumn(name = "religion_id")
     private Religion religion;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="manager_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee manager;
 
 

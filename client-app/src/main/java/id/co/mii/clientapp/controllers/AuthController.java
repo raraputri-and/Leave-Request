@@ -3,6 +3,7 @@ package id.co.mii.clientapp.controllers;
 import id.co.mii.clientapp.models.dto.LoginRequest;
 import id.co.mii.clientapp.services.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,13 @@ public class AuthController {
         if (!authService.login(loginRequest)) {
             return "redirect:/login?error=true";
         }
-        ;
         System.out.println("login success");
-        return "redirect:/leave-request-status/tracking";
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("admin")){
+            return "redirect:/emp";
+        }
+        else {
+            return "redirect:/leave-request";
+        }
     }
 
     @GetMapping("/logout")

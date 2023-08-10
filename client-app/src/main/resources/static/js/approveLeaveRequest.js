@@ -38,15 +38,16 @@ $(document).ready(function () {
                 title: 'Action',
                 render: function (data, type, row) {
                     return `
-                    <a href="/leave-request/reject/${data.id}" class="btn btn-danger px-3 py-2" type="button">Reject No Modal</a>
-
-                    <button class="btn btn-warning me-3" type="button" data-bs-toggle="modal" 
+            <div class="d-flex gap-3">
+                <button class="btn btn-danger px-3 py-2" type="button" data-bs-toggle="modal" 
                     data-bs-target="#rejectModal" onclick="openRejectModal(${data.id})"><span
-                class="bi bi-pencil-square">Reject Note</button>
+                class="bi bi-pencil-square">Reject</button>
 
                     <form th:action="" th:method="PUT" onsubmit="return acceptRequest(event, '${row.id}')">
-                    <button type="submit" class="btn btn-success px-5 py-2">Accept</button>
+                    <button type="submit" class="btn btn-success px-3 py-2">Accept</button>
                     </form>
+            </div>
+                    
 
                     `;
                 }

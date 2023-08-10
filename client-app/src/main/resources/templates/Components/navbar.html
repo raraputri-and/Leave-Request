@@ -1,39 +1,43 @@
-<nav th:fragment="navbar-manager">
-    <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
+<nav th:fragment="navbar-manager" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div sec:authorize="hasRole('Manager')">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+            <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
                         class="nav_logo-name">E-Leave</span> </a>
-                <div class="nav_list">
-                    <a th:classappend="${title} == leaveRequest? active : '' " th:href="@{/leave-request}"
-                        class="nav_link"> <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Create Leave Request</span> </a>
+                    <div class="nav_list">
+                        <a th:classappend="${title} == leaveRequest? active : '' " th:href="@{/leave-request}"
+                           class="nav_link"> <i class='bx bx-user nav_icon'></i>
+                            <span class="nav_name">Create Leave Request</span> </a>
 
-                    <a th:classappend="${title} == leaveRequestStatus? active : '' "
-                        th:href="@{/leave-request-status/tracking}" class="nav_link"> <i
-                            class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Tracking</span> </a>
+                        <a th:classappend="${title} == leaveRequestStatus? active : '' "
+                           th:href="@{/leave-request-status/tracking}" class="nav_link"> <i
+                                class='bx bx-message-square-detail nav_icon'></i>
+                            <span class="nav_name">Tracking</span> </a>
 
-                    <a th:classappend="${title} == action? active : '' " th:href="@{/leave-request/action}"
-                        class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Manager
+                        <a th:classappend="${title} == action? active : '' " th:href="@{/leave-request/action}"
+                           class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Manager
                             Action</span> </a>
 
-                    <a th:classappend="${title} == tracking? active : '' " th:href="@{/tracking/manager}"
-                        class="nav_link"> <i class='bx bx-book-content nav_icon'></i> <span class="nav_name">Manager
+                        <a th:classappend="${title} == tracking? active : '' " th:href="@{/tracking/manager}"
+                           class="nav_link"> <i class='bx bx-book-content nav_icon'></i> <span class="nav_name">Manager
                             Tracking</span> </a>
+                    </div>
                 </div>
-            </div>
-            <a class="nav_link" type="button" onclick="logout()"> <i class='bx bx-log-out nav_icon'></i> <span
-                    class="nav_name">SignOut</span>
-            </a>
-        </nav>
+                <a class="nav_link" type="button" onclick="logout()"> <i class='bx bx-log-out nav_icon'></i> <span
+                        class="nav_name">SignOut</span>
+                </a>
+            </nav>
+        </div>
     </div>
+
 </nav>
 
-<nav th:fragment="navbar-employee">
+<nav th:fragment="navbar-employee" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div sec:authorize="hasRole('Employee')">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
@@ -57,10 +61,12 @@
             </a>
         </nav>
     </div>
+    </div>
 </nav>
 
 
-<nav th:fragment="navbar-admin">
+<nav th:fragment="navbar-admin" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div sec:authorize="hasRole('Admin')">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
@@ -87,5 +93,6 @@
                 <span class="nav_name">SignOut</span>
             </a>
         </nav>
+    </div>
     </div>
 </nav>

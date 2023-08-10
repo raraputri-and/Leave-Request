@@ -4,6 +4,7 @@ import id.co.mii.clientapp.models.dto.EmployeeRequest;
 import id.co.mii.clientapp.services.EmployeeService;
 import id.co.mii.clientapp.services.RegistrationService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/emp")
+@PreAuthorize("hasRole('Admin')")
 public class EmployeeController {
     private EmployeeService employeeService;
     private RegistrationService registrationService;
 
-//    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAuthority('READ_ADMIN')")
     @GetMapping
     public String index(Model model){
         model.addAttribute("employees", employeeService.getAll());

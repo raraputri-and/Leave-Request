@@ -10,14 +10,16 @@ $(document).ready(function() {
     function loadPastActions(leaveRequestId) {
         $.ajax({
             type: 'GET',
-            url: '/api/leave-request-status/' + leaveRequestId,
+            url: '/api/leave-request/${leaveRequestId}',
             dataType: 'json',
             success: function(pastActions) {
+                console.log(leaveRequestId)
                 const modalTable = $('#pastActionsTable').DataTable();
                 modalTable.clear().draw();
 
                 pastActions.forEach(function(action) {
                     modalTable.row.add([
+                        action.note,
                         action.date,
                         action.pic.name,
                         action.statusAction.name

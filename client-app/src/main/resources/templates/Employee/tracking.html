@@ -20,23 +20,29 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Note</th>
-                    <th>Date</th>
-                    <th>PIC</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Qty</th>
+                    <th>Reason</th>
+                    <th>Attachment</th>
                     <th>Status</th>
-                    <th>Leave Request Id</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody class="table-striped">
-                <tr th:each="lrs : ${leaveRequestStatuses}">
+                <tr th:each="lrs : ${leaveRequests}">
                     <td th:text="${lrs.id}">id</td>
-                    <td th:text="${lrs.note}">note</td>
-                    <td th:text="${#dates.format(lrs.date, 'dd-MM-yyyy')}">date</td>
-                    <td th:text="${lrs.pic.name}">pic</td>
-                    <td th:text="${lrs.statusAction.name}">status action</td>
+                    <td th:text="${lrs.leaveType.name}">leave type</td>
+                    <td th:text="${#dates.format(lrs.dateStart, 'dd-MM-yyyy')}">date</td>
+                    <td th:text="${#dates.format(lrs.dateEnd, 'dd-MM-yyyy')}">date</td>
+                    <td th:text="${lrs.quantity}">qty</td>
+                    <td th:text="${lrs.reason}">reason</td>
+                    <td th:text="${lrs.attachment}">attachment</td>
+                    <td th:text="${lrs.statusAction.name}">status</td>
                     <td>
                         <button type="button" class="btn btn-primary show-past-actions-btn"
-                            th:data-lr-id="${lrs.leaveRequest.id}">
+                            th:data-lr-id="${lrs.id}">
                             Show Past Actions
                         </button>
                     </td>
@@ -56,13 +62,37 @@
                         <table class="table table-light table-hover table-bordered w-100" id="pastActionsTable">
                             <thead>
                                 <tr>
+                                    <th>Note</th>
                                     <th>Date</th>
                                     <th>PIC</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Data will be loaded dynamically via JavaScript -->
+                            <ul th:each="lr : ${leaveRequestStatuses}">
+                                <li class="activity-list activity-border">
+                                    <div class="activity-icon avatar-sm">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar-sm rounded-circle" alt="">
+                                    </div>
+                                    <div class="media">
+                                        <div class="me-3">
+                                            <p class="text-muted font-size-14 mb-0" th:text="${lr.pic.name}">James Raphael</p>
+                                            <p class="text-muted font-size-14 mb-0" th:text="${lr.note}">James Raphael</p>
+                                            <p class="text-muted font-size-14 mb-0" th:text="${lr.date}">James Raphael</p>
+                                            <p class="text-muted font-size-14 mb-0" th:text="${lr.statusAction.name}">James Raphael</p>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <div class="text-end d-none d-md-block">
+                                                <p class="text-muted font-size-13 mt-2 pt-1 mb-0"><i class="fa fa-calendar font-size-15 text-primary"></i>
+                                                    3 days</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+
                             </tbody>
                         </table>
                     </div>
@@ -72,6 +102,33 @@
                 </div>
             </div>
         </div>
+        <style>
+            .activity-wid .activity-list {
+                position: relative;
+                padding: 0 0 33px 30px;
+            }
+
+            .activity-border:before {
+                content: "";
+                position: absolute;
+                height: 38px;
+                border-left: 3px dashed #eaedf1;
+                top: 40px;
+                left: 0;
+            }
+
+            .activity-wid .activity-list .activity-icon {
+                position: absolute;
+                left: -20px;
+                top: 0;
+                z-index: 2;
+            }
+            .avatar-sm {
+                height: 2.5rem;
+                width: 2.5rem;
+            }
+
+        </style>
     </section>
 
 
