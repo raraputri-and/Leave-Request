@@ -25,9 +25,11 @@
     <link rel="stylesheet" th:href="@{/css/sideNav.css}">
 
 <body>
-    <div th:replace="components/navbar :: navbar-manager"></div>
-    <!-- <div th:if="${role} == 'manager'" th:replace="components/navbar :: navbar-manager"></div>
-    <div th:if="${role} == 'employee'" th:replace="components/navbar :: navbar-employee"></div> -->
+    <!-- <div layout:fragment="navbar"> -->
+    <div sec:authorize="hasRole('Manager')" th:replace="components/navbar :: navbar-manager"></div>
+    <!-- <div sec:authorize="hasRole('Employee')" th:replace="components/navbar :: navbar-employee"></div>
+        <div sec:authorize="hasRole('Admin')" th:replace="components/navbar :: navbar-admin"></div>
+    </div> -->
 
     <div layout:fragment="content"></div>
 

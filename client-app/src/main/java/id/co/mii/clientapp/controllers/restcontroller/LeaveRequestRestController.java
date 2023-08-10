@@ -44,6 +44,12 @@ public class LeaveRequestRestController {
         return leaveRequestService.managerAction();
     }
 
+    @GetMapping("/user-tracking")
+    public List<LeaveRequest> getByCurrentUser(){
+        return leaveRequestService.getByCurrentUser();
+    }
+    
+
     // @PreAuthorize("hasAuthority('CREATE_ADMIN')")
     @PostMapping
     public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {

@@ -31,4 +31,9 @@ public class LeaveRequestStatusController {
         return leaveRequestStatusService.getByCurrentUser();
     }
 
+    @PreAuthorize("hasAnyAuthority('READ_EMPLOYEE','READ_MANAGER')")
+    @GetMapping("/get-leave-request/{id}")
+    public List<LeaveRequestStatus> getByLeaveRequest(@PathVariable Integer id){
+        return leaveRequestStatusService.getByLeaveRequest(id);
+    }
 }

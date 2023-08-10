@@ -42,6 +42,7 @@ public class LeaveRequestController {
     public List<LeaveRequest> getByCurrentUser(){
         return leaveRequestService.getByCurrentUser();
     }
+    
     @PreAuthorize("hasAnyAuthority('CREATE_EMPLOYEE', 'CREATE_MANAGER')")
     @PostMapping
     public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {

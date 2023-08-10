@@ -20,15 +20,18 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Note</th>
-                    <th>Date</th>
-                    <th>PIC</th>
+                    <th>Employee</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Qty</th>
+                    <th>Attachment</th>
                     <th>Status</th>
-                    <th>Leave Request Id</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody class="table-striped">
-                <tr th:each="lrs : ${leaveRequestStatuses}">
+                <!-- <tr th:each="lrs : ${leaveRequestStatuses}">
                     <td th:text="${lrs.id}">id</td>
                     <td th:text="${lrs.note}">note</td>
                     <td th:text="${#dates.format(lrs.date, 'dd-MM-yyyy')}">date</td>
@@ -40,7 +43,7 @@
                             Show Past Actions
                         </button>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <!-- Modal -->
@@ -53,18 +56,23 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-light table-hover table-bordered w-100" id="pastActionsTable">
+                        <div class="modal-body">
+                            <p id="past-info"></p>
+                        </div>
+                        <!-- <table class="table table-light table-hover table-bordered w-100" id="pastActionsTable">
                             <thead>
                                 <tr>
+                                    <th>id</th>
+                                    <th>Note</th>
                                     <th>Date</th>
                                     <th>PIC</th>
-                                    <th>Status</th>
+                                    <th>Status Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Data will be loaded dynamically via JavaScript -->
+                                
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

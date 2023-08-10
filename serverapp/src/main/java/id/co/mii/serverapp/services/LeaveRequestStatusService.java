@@ -28,7 +28,8 @@ public class LeaveRequestStatusService {
 
     public LeaveRequestStatus getById(Integer id) {
         return leaveRequestStatusRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leave Request Status not found!!"));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leave Request Status not found!!"));
     }
 
     public List<LeaveRequestStatus> getByCurrentUser() {
@@ -39,4 +40,11 @@ public class LeaveRequestStatusService {
                 .collect(Collectors.toList());
     }
 
+    public List<LeaveRequestStatus> getByLeaveRequest(Integer id) {
+        User user = userService.getCurrentUser();
+        return leaveRequestStatusRepository.findAll()
+                .stream()
+                .filter(lrs -> Objects.equals(lrs.getLeaveRequest().getId(), user.getId()))
+                .collect(Collectors.toList());
+    }
 }

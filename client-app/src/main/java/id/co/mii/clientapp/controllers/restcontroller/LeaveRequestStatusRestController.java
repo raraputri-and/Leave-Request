@@ -35,4 +35,9 @@ public class LeaveRequestStatusRestController {
         return leaveRequestStatusService.getByCurrentUser();
     }
 
+    @GetMapping("/get-leave-request/{id}")
+    public List<LeaveRequestStatus> getByLeaveRequest(@PathVariable Integer id) {
+        return leaveRequestStatusService.getByLeaveRequest(id);
+    }
+
 }
