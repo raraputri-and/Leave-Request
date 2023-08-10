@@ -39,15 +39,12 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     return `
 
-                    <div class= "d-flex gap-2">
-                        <button class="btn btn-danger px-3 py-2" type="button" data-bs-toggle="modal" 
-                        data-bs-target="#rejectModal" onclick="openRejectModal(${data.id})"><span
-                        class="bi bi-pencil-square">Reject</button>
-
-                        <form th:action="" th:method="PUT" onsubmit="return acceptRequest(event, '${row.id}')">
-                            <button type="submit" class="btn btn-success px-3 py-2">Accept</button>
-                        </form> 
-                    </div>
+                    <div class="d-flex gap-2">
+                <button class="btn btn-primary px-3 py-2" type="button"
+                    data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
+                    Action
+                </button>
+            </div>
                     
 
                     `;
@@ -64,9 +61,25 @@ function openRejectModal(id) {
     $("#rejectModal").modal("show");
 }
 
+function openActionModal(id) {
+    let rowIndex = table.row($('#table-action tr[data-id="' + id + '"]')).index(); // Get the row index based on the data-id attribute
+    let rowData = table.row(rowIndex).data(); // Get the row data using the index
+
+    if (rowData) {
+        $("#actionModal").attr("data-action-id", id);
+        $("#employeeName").text(rowData.employee.name); // Update the employee name in the modal
+        $("#leaveType").text(rowData.leaveType.name); // Update the leave type in the modal
+        // You can continue updating other modal elements with the relevant data
+
+        $("#actionModal").modal("show");
+    }
+}
+
+
+
 function rejectNote() {
-    let rejectId = $("#rejectModal").attr("data-reject-id")
-    let noteVal = $("#note").val()
+    let rejectId = $("#actionModal").attr("data-action-id")
+    let noteVal = $("#actionNote").val()
     console.log(note)
     $.ajax({
         method: "PUT",
@@ -78,9 +91,9 @@ function rejectNote() {
         }),
         contentType: "application/json",
         success: function (result) {
-            $("#rejectModal").modal('hide')
+            $("#actionModal").modal('hide')
             $("#table-action").DataTable().ajax.reload()
-            $("#note").val('')
+            $("#actionNote").val('')
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -106,14 +119,20 @@ function acceptRequest(event, id) {
         confirmButtonText: "Yes, accept it it!",
     }).then((result) => {
         if (result.isConfirmed) {
+            let noteVal = $("#actionNote").val()
             $.ajax({
                 method: "PUT",
                 url: `/api/leave-request/accept/${id}`,
                 dataType: "JSON",
+                data: JSON.stringify({
+                    note: noteVal,
+                }),
                 contentType: "application/json",
                 beforeSend: addCsrfToken(),
                 success: function (result) {
+                    $("#actionModal").modal('hide')
                     $("#table-action").DataTable().ajax.reload();
+                    $("#actionNote").val('')
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -126,29 +145,3 @@ function acceptRequest(event, id) {
         }
     });
 }
-
-
-// $('#table-action').on('click', '.reject-btn', function () {
-//     console.log('reject clicked');
-//     var id = $(this).data('id');
-//     $('#rejectModal').modal('show');
-//     $('#sendReject').data('id', id); // store id for later use
-// });
-
-// $('#sendReject').on('click', function (e) {
-//     e.preventDefault();
-//     var id = $(this).data('id');
-//     var note = $('#note').val();
-//     $.ajax({
-//         url: '/api/leave-request/reject/' + id, // replace with your endpoint
-//         type: 'PUT',
-//         data: { note: note },
-//         success: function () {
-//             $('#rejectModal').modal('hide');
-//             table.ajax.reload(); // reload data
-//         },
-//         error: function () {
-//             // handle error
-//         }
-//     });
-// });
