@@ -1,43 +1,52 @@
-<nav th:fragment="navbar" taglib prefix="sec" uri="http://www.springframework.org/security/tags" xmlns:sec="http://www.w3.org/1999/xhtml">
+<nav th:fragment="navbar" taglib prefix="sec" uri="http://www.springframework.org/security/tags"
+    xmlns:sec="http://www.w3.org/1999/xhtml">
     <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> hi, <span th:text="${#authentication.name}"></span></div>
-        <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i></div>
+
+        <div class="d-flex align-items-center gap-3">
+            <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
+            <h4 class="d-flex align-items-center mt-2">Hello,<span th:text="${#authentication.name}"></span></h4>
+            
+            </span>
+        </div>
+
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
-                    class="nav_logo-name">E-Leave</span> </a>
+                        class="nav_logo-name">E-Leave</span> </a>
                 <div class="nav_list">
                     <div sec:authorize="hasAnyRole('EMPLOYEE','MANAGER')">
-                        <a  th:classappend="${title} == leaveRequest? active : '' " th:href="@{/leave-request}"
+                        <a th:classappend="${title} == leaveRequest? active : '' " th:href="@{/leave-request}"
                             class="nav_link"> <i class='bx bx-user nav_icon'></i>
-                            <span  class="nav_name">Create Leave Request</span> </a>
+                            <span class="nav_name">Create Leave Request</span> </a>
 
                         <a th:classappend="${title} == leaveRequestStatus? active : '' "
-                           th:href="@{/leave-request-status/tracking}" class="nav_link"> <i
+                            th:href="@{/leave-request-status/tracking}" class="nav_link"> <i
                                 class='bx bx-message-square-detail nav_icon'></i>
                             <span class="nav_name">Tracking</span> </a>
                     </div>
 
-                    <div sec:authorize="hasRole('MANAGER')" >
+                    <div sec:authorize="hasRole('MANAGER')">
                         <a th:classappend="${title} == action? active : '' " th:href="@{/leave-request/action}"
-                           class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Manager
-                            Action</span> </a>
+                            class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Manager
+                                Action</span> </a>
                         <a th:classappend="${title} == tracking? active : '' " th:href="@{/tracking/manager}"
-                           class="nav_link"> <i class='bx bx-book-content nav_icon'></i> <span class="nav_name">Manager
-                            Tracking</span> </a>
+                            class="nav_link"> <i class='bx bx-book-content nav_icon'></i> <span class="nav_name">Manager
+                                Tracking</span> </a>
                     </div>
 
                     <div sec:authorize="hasRole('ADMIN')">
                         <a th:href="@{/emp}" class="nav_link"> <i class='bx bx-user nav_icon'></i>
                             <span class="nav_name">List Employee</span> </a>
 
-                        <a th:href="@{/joint-leave}" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i>
+                        <a th:href="@{/joint-leave}" class="nav_link"> <i
+                                class='bx bx-message-square-detail nav_icon'></i>
                             <span class="nav_name">Joint Leave</span> </a>
 
                         <a th:href="@{/leave-remaining}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span
                                 class="nav_name">Leave
-                            Remaining</span> </a>
+                                Remaining</span> </a>
 
                         <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span
                                 class="nav_name">Parameter</span> </a>

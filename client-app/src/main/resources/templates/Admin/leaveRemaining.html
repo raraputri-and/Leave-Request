@@ -12,31 +12,34 @@
 <body id="body-pd">
     <main>
         <section layout:fragment="content">
-            <div class="d-flex justify-content-between align-items-center">
-                <table class="table table-hover table-bordered w-100" id="table-leave-remaining">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Employee</th>
-                            <th>Present Remaining</th>
-                            <th>Past Remaining</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-striped">
-                        <tr th:each="lr : ${leaveRemainings}">
-                            <td th:text="${lr.id}">id</td>
-                            <td th:text="${lr.employee}">name</td>
-                            <td th:text="${lr.presentRemaining}">Present Remaining</td>
-                            <td th:text="${lr.pastRemaining}">past remaining</td>
-                            <td class="icon">
-                                <a th:href="@{/lr/update/{id} (id = ${lr.id})}" class="edit">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="container py-3">
+                <div class="d-flex justify-content-center">
+                    <table class="table table-hover table-bordered w-100" id="table-leave-remaining">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Employee</th>
+                                <th>Present Remaining</th>
+                                <th>Past Remaining</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                            <tr th:each="lr : ${leaveRemainings}">
+                                <td th:text="${lr.id}">id</td>
+                                <td th:text="${lr.employee}">name</td>
+                                <td th:text="${lr.presentRemaining}">Present Remaining</td>
+                                <td th:text="${lr.pastRemaining}">past remaining</td>
+                                <td class="icon">
+                                    <a th:href="@{/lr/update/{id} (id = ${lr.id})}" class="edit">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            
         </section>
     </main>
 

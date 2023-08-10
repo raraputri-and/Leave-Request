@@ -50,16 +50,16 @@ $(document).ready(function () {
                     `;
                 }
             }
-        ]
+        ],
     });
 
 });
 
 
-function openRejectModal(id) {
-    $("#rejectModal").attr("data-reject-id", id);
-    $("#rejectModal").modal("show");
-}
+// function openRejectModal(id) {
+//     $("#rejectModal").attr("data-reject-id", id);
+//     $("#rejectModal").modal("show");
+// }
 
 function openActionModal(id) {
     let rowIndex = table.row($('#table-action tr[data-id="' + id + '"]')).index(); // Get the row index based on the data-id attribute
@@ -80,7 +80,7 @@ function openActionModal(id) {
 function rejectNote() {
     let rejectId = $("#actionModal").attr("data-action-id")
     let noteVal = $("#actionNote").val()
-    console.log(note)
+    console.log(noteVal)
     $.ajax({
         method: "PUT",
         url: `/api/leave-request/reject/${rejectId}`,
@@ -105,7 +105,35 @@ function rejectNote() {
     })
 }
 
-function acceptRequest(event, id) {
+function acceptNote() {
+    let acceptId = $("#actionModal").attr("data-action-id")
+    let noteVal = $("#actionNote").val()
+    console.log(noteVal)
+    $.ajax({
+        method: "PUT",
+        url: `/api/leave-request/accept/${acceptId}`,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        data: JSON.stringify({
+            note: noteVal,
+        }),
+        contentType: "application/json",
+        success: function (result) {
+            $("#actionModal").modal('hide')
+            $("#table-action").DataTable().ajax.reload()
+            $("#actionNote").val('')
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Leave Request has been Accepted',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+    })
+}
+
+function acceptRequest(event) {
     event.preventDefault();
     // fetch the row data to get the employee name
     var rowData = table.row($(event.target).parents('tr')).data();
@@ -119,10 +147,11 @@ function acceptRequest(event, id) {
         confirmButtonText: "Yes, accept it it!",
     }).then((result) => {
         if (result.isConfirmed) {
+            let acceptId = $("#actionModal").attr("data-action-id")
             let noteVal = $("#actionNote").val()
             $.ajax({
                 method: "PUT",
-                url: `/api/leave-request/accept/${id}`,
+                url: `/api/leave-request/accept/${acceptId}`,
                 dataType: "JSON",
                 data: JSON.stringify({
                     note: noteVal,
@@ -145,3 +174,4 @@ function acceptRequest(event, id) {
         }
     });
 }
+

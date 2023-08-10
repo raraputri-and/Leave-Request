@@ -45,10 +45,9 @@ public class LeaveRequestRestController {
     }
 
     @GetMapping("/user-tracking")
-    public List<LeaveRequest> getByCurrentUser(){
+    public List<LeaveRequest> getByCurrentUser() {
         return leaveRequestService.getByCurrentUser();
     }
-    
 
     // @PreAuthorize("hasAuthority('CREATE_ADMIN')")
     @PostMapping
@@ -57,8 +56,9 @@ public class LeaveRequestRestController {
     }
 
     @PutMapping("/accept/{id}")
-    public LeaveRequest accept(@PathVariable Integer id) {
-        return leaveRequestService.accept(id);
+    public LeaveRequest accept(@PathVariable Integer id,
+            @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
+        return leaveRequestService.accept(id, leaveRequestStatusRequest);
     }
 
     @PutMapping("/reject/{id}")

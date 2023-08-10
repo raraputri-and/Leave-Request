@@ -29,7 +29,21 @@ $(document).ready(function () {
       },
       { data: 'quantity', title: 'Qty' },
       { data: 'attachment', title: 'Attachment' },
-      { data: 'statusAction.name', title: 'Status' },
+      // { data: 'statusAction.name', title: 'Status' },
+      {
+        data: 'statusAction.name', title: 'Status',
+        render: function (data, type, row) {
+          let colorClass;
+          switch (data) {
+            case 'Waiting For Approval': colorClass = 'badge-warning'; break;
+            case 'Accepted': colorClass = 'badge-success'; break;
+            case 'Rejected': colorClass =
+              'badge-danger';
+            default: colorClass = 'badge-dark'; break;
+          }
+          return `<span class="badge ${colorClass}">${data}</span>`;
+        }
+      },
       {
         data: null,
         title: 'Action',
@@ -48,7 +62,28 @@ $(document).ready(function () {
     ]
   });
 
+  // Append category filter dropdown to DataTable filter
+  $("#table-tracking_filter.dataTables_filter").append($("#categoryFilter"));
 
+  // Get the column index for the Leave Type column
+  var leaveTypeIndex = 2; // Assuming Leave Type is the 3rd column (0-indexed)
+
+  // Use DataTables API to filter rows by Leave Type column
+  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var selectedItem = $('#categoryFilter').val();
+    var leaveType = data[leaveTypeIndex];
+    if (selectedItem === "" || leaveType.includes(selectedItem)) {
+      return true;
+    }
+    return false;
+  });
+
+  // Set change event for the Category Filter dropdown to redraw the DataTable
+  $("#categoryFilter").change(function (e) {
+    table.draw();
+  });
+
+  table.draw();
 });
 
 
@@ -62,11 +97,11 @@ function showPast(id) {
     success: function (data) {
       console.log("Received data:", data); // Add this line after the 'success' function starts
       if (data.length > 0) {
-        
+
         let listItemHTML = $("#list");
         $('#list').empty()
         $.each(data, function (index, result) {
-          
+
           var pictIcon;
           switch (result.statusAction.id) {
             case 1:
@@ -94,9 +129,9 @@ function showPast(id) {
             '<div class="activity-icon avatar-md">' +
             '<i class="' + pictIcon + '"></i>' +
             '</div>' + '<div className="media">' + '<div class="me-3">' +
-            '<p class="text-muted font-size-14 mb-0">' + result.statusAction.name +  ' | By : ' + result.pic.name +'</p>' +
+            '<p class="text-muted font-size-14 mb-0">' + result.statusAction.name + ' | By : ' + result.pic.name + '</p>' +
             '<p class="text-muted font-size-14 mb-0">' + formattedDate + '</p>' +
-            '<p class="text-muted font-size-14 mb-0">'+ "Note : " + noteContent + '</p>' +
+            '<p class="text-muted font-size-14 mb-0">' + "Note : " + noteContent + '</p>' +
             '<p class="text-muted font-size-14 mb-0">' + '</p>' +
             '</div>' + '<div class="media-body">' + '<div class="text-end d-none d-md-block">' +
             '</div>' + '</div>' + '</div>' + '</div>' + '<hr>');

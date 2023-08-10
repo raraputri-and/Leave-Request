@@ -13,19 +13,19 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-
 @Service
 public class LeaveRequestService {
     private RestTemplate restTemplate;
 
     @Value("${dns.baseUrl}/leave-request")
     private String url;
+
     @Autowired
     public LeaveRequestService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public List<LeaveRequest> getAll(){
+    public List<LeaveRequest> getAll() {
         return restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
@@ -33,15 +33,15 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest getById(Integer id){
-        return restTemplate.exchange(url +"/" +id,
+    public LeaveRequest getById(Integer id) {
+        return restTemplate.exchange(url + "/" + id,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }
 
-    public List<LeaveRequest> getByStatusAction(){
+    public List<LeaveRequest> getByStatusAction() {
         return restTemplate.exchange(url + "/action",
                 HttpMethod.GET,
                 null,
@@ -49,7 +49,7 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public List<LeaveRequest> managerAction(){
+    public List<LeaveRequest> managerAction() {
         return restTemplate.exchange(url + "/manager-tracking",
                 HttpMethod.GET,
                 null,
@@ -57,7 +57,7 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public List<LeaveRequest> getByCurrentUser(){
+    public List<LeaveRequest> getByCurrentUser() {
         return restTemplate.exchange(url + "/user-tracking",
                 HttpMethod.GET,
                 null,
@@ -65,7 +65,7 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest){
+    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
         return restTemplate.exchange(url,
                 HttpMethod.POST,
                 new HttpEntity(leaveRequestRequest),
@@ -73,16 +73,16 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest accept(Integer id){
-        return restTemplate.exchange(url +"/accept"+ "/" + id,
+    public LeaveRequest accept(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest) {
+        return restTemplate.exchange(url + "/accept" + "/" + id,
                 HttpMethod.PUT,
-                null,
+                new HttpEntity(leaveRequestStatusRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }
 
-    public LeaveRequest reject(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
-        return restTemplate.exchange(url +"/reject"+ "/" + id,
+    public LeaveRequest reject(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest) {
+        return restTemplate.exchange(url + "/reject" + "/" + id,
                 HttpMethod.PUT,
                 new HttpEntity(leaveRequestStatusRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {

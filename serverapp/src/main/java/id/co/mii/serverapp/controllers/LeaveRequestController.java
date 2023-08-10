@@ -49,8 +49,8 @@ public class LeaveRequestController {
     }
     @PreAuthorize("hasAuthority('UPDATE_MANAGER')")
     @PutMapping("accept/{id}")
-    public LeaveRequest accept(@PathVariable Integer id) {
-        return leaveRequestService.accept(id);
+    public LeaveRequest accept(@PathVariable Integer id, @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
+        return leaveRequestService.accept(id, leaveRequestStatusRequest);
     }
     @PreAuthorize("hasAuthority('UPDATE_MANAGER')")
     @PutMapping("reject/{id}")

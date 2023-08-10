@@ -152,12 +152,11 @@ public class LeaveRequestService {
     }
 
 
-    public LeaveRequest accept(Integer id){
+    public LeaveRequest accept(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         LeaveRequest leaveRequest = getById(id);
         leaveRequest.setId(id);
         leaveRequest.setStatusAction(statusActionService.getById(1));
 
-        LeaveRequestStatusRequest leaveRequestStatusRequest = new LeaveRequestStatusRequest();
         LeaveRequestStatus leaveRequestStatus = modelMapper.map(leaveRequestStatusRequest, LeaveRequestStatus.class);
         LocalDate localDate = LocalDate.now();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
