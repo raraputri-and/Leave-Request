@@ -55,30 +55,6 @@
           </table>
         </div>
       </div>
-      <!-- Reject Modal -->
-      <div class="modal fade modal-show" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="rejectModalLabel">Reject Note</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="rejectForm">
-                <div class="mb-3">
-                  <label for="note" class="form-label">Note:</label>
-                  <input type="text" class="form-control" id="note" name="note">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="sendReject" onclick="rejectNote()">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Reject Modal Ends -->
 
       <!-- Test Modal -->
       <!-- Modal -->
@@ -118,8 +94,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" onclick="rejectNote()">Reject</button>
               <button type="button" class="btn btn-success" onclick="acceptNote()">Accept</button>
+              <button type="button" class="btn btn-danger" onclick="rejectNote()">Reject</button>
             </div>
           </div>
         </div>
