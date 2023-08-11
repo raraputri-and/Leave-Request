@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/leave-request")
-public class LeaveRequestRestController {
+public class RestLeaveRequestController {
     private LeaveRequestService leaveRequestService;
 
     // @PreAuthorize("hasAuthority('READ_ADMIN')")

@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/leave-request-status")
 
-public class LeaveRequestStatusRestController {
+public class RestLeaveRequestStatusController {
     private LeaveRequestStatusService leaveRequestStatusService;
 
     // @PreAuthorize("hasAuthority('READ_ADMIN')")
