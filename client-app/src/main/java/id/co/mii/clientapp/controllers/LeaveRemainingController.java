@@ -23,11 +23,11 @@ public class LeaveRemainingController {
         return "Admin/leaveRemaining";
     }
 
-    @PostMapping
-    public String create(LeaveRemainingRequest leaveRemainingRequest){
-        leaveRemainingService.create(leaveRemainingRequest);
-        return "redirect:/joint-leave";
-    }
+//    @PostMapping
+//    public String create(LeaveRemainingRequest leaveRemainingRequest){
+//        leaveRemainingService.create(leaveRemainingRequest);
+//        return "redirect:/joint-leave";
+//    }
 
     @PutMapping("/{id}")
     public String update(@PathVariable Integer id, LeaveRemainingRequest leaveRemainingRequest){

@@ -39,13 +39,13 @@ public class LeaveRemainingService {
                 }).getBody();
     }
 
-    public LeaveRemaining create(LeaveRemainingRequest leaveRemainingRequest){
-        return restTemplate.exchange(url,
-                HttpMethod.POST,
-                new HttpEntity(leaveRemainingRequest),
-                new ParameterizedTypeReference<LeaveRemaining>() {
-                }).getBody();
-    }
+//    public LeaveRemaining create(LeaveRemainingRequest leaveRemainingRequest){
+//        return restTemplate.exchange(url,
+//                HttpMethod.POST,
+//                new HttpEntity(leaveRemainingRequest),
+//                new ParameterizedTypeReference<LeaveRemaining>() {
+//                }).getBody();
+//    }
 
     public LeaveRemaining update(Integer id, LeaveRemainingRequest leaveRemainingRequest){
         return restTemplate.exchange(url + "/" + id,

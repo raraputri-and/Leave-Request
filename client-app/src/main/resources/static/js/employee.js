@@ -10,7 +10,7 @@ $(document).ready(function () {
             { data: 'name'},
             { data: 'gender'},
             { data: 'religion.name'},
-            { data: 'manager.id'},
+            { data: 'manager'},
             { data: 'user.username'},
             {
                 "data": null,

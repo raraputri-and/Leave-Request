@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class LeaveRemainingRequest {
     private Integer pastRemaining;
     private Integer presentRemaining;
-    private Integer employeeId;
 }

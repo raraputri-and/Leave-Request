@@ -33,13 +33,6 @@ public class LeaveRequestController {
         return "Manager/ApproveLeaveRequest";
     }
 
-//    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
-    @GetMapping("/reject/{id}")
-    public String rejectView(@PathVariable Integer id,Model model,LeaveRequestStatusRequest leaveRequestStatusRequest){
-        model.addAttribute("id", id);
-        return "Manager/RejectForm";
-    }
-
     @PostMapping
     public String create(LeaveRequestRequest leaveRequestRequest){
         leaveRequestService.create(leaveRequestRequest);

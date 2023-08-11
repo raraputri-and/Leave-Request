@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LeaveRemaining {
-    private Integer id;
-    private Integer pastRemaining;
-    private Integer presentRemaining;
+public class Parameter {
+    private String id;
+    private String leaveQty;
+    private String note;
 }

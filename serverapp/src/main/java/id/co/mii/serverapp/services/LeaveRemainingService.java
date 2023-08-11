@@ -31,21 +31,18 @@ public class LeaveRemainingService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!!"));
     }
 
-    public LeaveRemaining create(LeaveRemainingRequest leaveRemainingRequest) {
-
-        LeaveRemaining leaveRemaining = modelMapper.map(leaveRemainingRequest, LeaveRemaining.class);
-
-        leaveRemaining.setEmployee(employeeService.getById(leaveRemainingRequest.getEmployeeId()));
-
-        return leaveRemainingRepository.save(leaveRemaining);
-    }
+//    public LeaveRemaining create(LeaveRemainingRequest leaveRemainingRequest) {
+//
+//        LeaveRemaining leaveRemaining = modelMapper.map(leaveRemainingRequest, LeaveRemaining.class);
+//
+//        return leaveRemainingRepository.save(leaveRemaining);
+//    }
 
     public LeaveRemaining update(Integer id, LeaveRemainingRequest leaveRemainingRequest) {
         LeaveRemaining existingLeaveRemaining = getById(id);
         existingLeaveRemaining.setId(id);
         existingLeaveRemaining.setPastRemaining(leaveRemainingRequest.getPastRemaining());
         existingLeaveRemaining.setPresentRemaining(leaveRemainingRequest.getPresentRemaining());
-        existingLeaveRemaining.setEmployee(employeeRepository.findById(leaveRemainingRequest.getEmployeeId()).get());
 
         return leaveRemainingRepository.save(existingLeaveRemaining);
     }

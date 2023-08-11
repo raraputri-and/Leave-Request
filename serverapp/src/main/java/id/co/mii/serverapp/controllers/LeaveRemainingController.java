@@ -26,10 +26,10 @@ public class LeaveRemainingController {
         return leaveRemainingService.getById(id);
     }
 
-    @PostMapping
-    public LeaveRemaining create(@RequestBody LeaveRemainingRequest leaveRemainingRequest) {
-        return leaveRemainingService.create(leaveRemainingRequest);
-    }
+//    @PostMapping
+//    public LeaveRemaining create(@RequestBody LeaveRemainingRequest leaveRemainingRequest) {
+//        return leaveRemainingService.create(leaveRemainingRequest);
+//    }
     @PreAuthorize("hasAuthority('UPDATE_ADMIN')")
     @PutMapping("/{id}")
     public LeaveRemaining update(@PathVariable Integer id, @RequestBody LeaveRemainingRequest leaveRemainingRequest) {
