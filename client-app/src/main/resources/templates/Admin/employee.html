@@ -62,10 +62,13 @@
                 <input type="text" class="form-control" name="name" id="name" required>
 
                 <label for="name" class="form-label">gender</label>
-                <input type="text" class="form-control" name="gender" id="gender" required>
+                <select class="form-select" name="gender" id="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
 
                 <label for="name" class="form-label">religion</label>
-                <input type="text" class="form-control" name="religion" id="religion" required>
+                <select class="form-select religion-selector" name="religion" id="religion"></select>
 
                 <label for="name" class="form-label">manager</label>
                 <input type="text" class="form-control" name="manager" id="manager" required>
@@ -74,8 +77,8 @@
                 <input type="text" class="form-control" name="username" id="username" required>
 
                 <label for="name" class="form-label">password</label>
-                <input type="text" class="form-control" name="password" id="password" required>
-                <input type="hidden" id="idUpdate">
+                <input type="password" class="form-control" name="password" id="password" required>
+                <input type="hidden" id="id">
               </div>
             </div>
             <div class="modal-footer">
