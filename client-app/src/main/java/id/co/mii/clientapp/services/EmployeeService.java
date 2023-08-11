@@ -1,8 +1,10 @@
 package id.co.mii.clientapp.services;
 
 import id.co.mii.clientapp.models.Employee;
+import id.co.mii.clientapp.models.Employee;
 import id.co.mii.clientapp.models.User;
 import id.co.mii.clientapp.models.dto.EmployeeRequest;
+import id.co.mii.clientapp.models.dto.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,18 +26,26 @@ public class EmployeeService {
         this.restTemplate = restTemplate;
     }
 
-    public List<Employee> getAll(){
+    public List<EmployeeResponse> getAll(){
         return restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Employee>>() {
+                new ParameterizedTypeReference<List<EmployeeResponse>>() {
                 }).getBody();
     }
 
-    public Employee getById(Integer id){
+    public EmployeeResponse getById(Integer id){
         return restTemplate.exchange(url +"/" +id,
                 HttpMethod.GET,
                 null,
+                new ParameterizedTypeReference<EmployeeResponse>() {
+                }).getBody();
+    }
+
+    public Employee create(EmployeeRequest employeeRequest){
+        return restTemplate.exchange(url ,
+                HttpMethod.POST,
+                new HttpEntity(employeeRequest),
                 new ParameterizedTypeReference<Employee>() {
                 }).getBody();
     }

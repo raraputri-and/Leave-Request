@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -51,7 +52,7 @@ public class Employee {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="manager_id")
-    @JsonIgnore
+    @JsonBackReference
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee manager;
 

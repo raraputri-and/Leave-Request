@@ -28,16 +28,10 @@ public class EmployeeController {
 //    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @PostMapping
     public String create(EmployeeRequest employeeRequest){
-        registrationService.registration(employeeRequest);
+        employeeService.create(employeeRequest);
         return "redirect:/emp";
     }
-//    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
-    @GetMapping("/update/{id}")
-    public String updateView(@PathVariable Integer id, Model model){
-        model.addAttribute("employee", employeeService.getById(id));
-        model.addAttribute("user", employeeService.getAll());
-        return "Admin/employee";
-    }
+
 //    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @PutMapping("/{id}")
     public String update(@PathVariable Integer id, EmployeeRequest employeeRequest){

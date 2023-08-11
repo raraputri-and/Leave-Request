@@ -42,7 +42,7 @@ function editLeaveRemaining() {
     let presentVal = $("#presentRemaining").val()
     Swal.fire({
         title: 'Are you sure?',
-        text: "You want to update this region?",
+        text: "You want to update this leave remaining?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
