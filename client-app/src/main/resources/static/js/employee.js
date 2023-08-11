@@ -10,7 +10,7 @@ $(document).ready(function () {
             { data: 'name'},
             { data: 'gender'},
             { data: 'religion.name'},
-            { data: 'manager.id'},
+            { data: 'manager'},
             { data: 'user.username'},
             {
                 "data": null,
@@ -23,6 +23,21 @@ $(document).ready(function () {
             }
         ]
     });
+    religionSelector()
+    function religionSelector() {
+        $.ajax({
+            url: "/api/religion",
+            method: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                let selectReligion = $(".religion-selector");
+
+                $.each(data, function (index, religion) {
+                    selectReligion.append(`<option value="${religion.id}"> ${religion.name} </option>`)
+                })
+            }
+        })
+    }
 });
 
 function beforeUpdate(id){
@@ -35,7 +50,7 @@ function beforeUpdate(id){
                 $("#nip").val(result.nip)
                 $("#name").val(result.name)
                 $("#gender").val(result.gender)
-                $("#religion").val(result.religion.name)
+                $("#religion").val(result.religion)
                 // $("#manager").val(result.manager.id)
                 $("#username").val(result.user.username)
             }

@@ -12,37 +12,65 @@
 <body id="body-pd">
     <main>
         <section layout:fragment="content">
-            <div class="container py-3">
-                <div class="d-flex justify-content-center">
-                    <table class="table table-hover table-bordered w-100" id="table-leave-remaining">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Employee</th>
-                                <th>Present Remaining</th>
-                                <th>Past Remaining</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-striped">
-                            <tr th:each="lr : ${leaveRemainings}">
-                                <td th:text="${lr.id}">id</td>
-                                <td th:text="${lr.employee}">name</td>
-                                <td th:text="${lr.presentRemaining}">Present Remaining</td>
-                                <td th:text="${lr.pastRemaining}">past remaining</td>
-                                <td class="icon">
-                                    <a th:href="@{/lr/update/{id} (id = ${lr.id})}" class="edit">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="d-flex justify-content-center align-items-center">
+                <table class="table table-hover table-bordered w-100" id="table-leave-remaining">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Past Remaining</th>
+                            <th>Present Remaining</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+<!--                    <tbody class="table-striped">-->
+<!--                        <tr th:each="lr : ${leaveRemainings}">-->
+<!--                            <td th:text="${lr.id}">id</td>-->
+<!--                            <td th:text="${lr.employee}">name</td>-->
+<!--                            <td th:text="${lr.pastRemaining}">past remaining</td>-->
+<!--                            <td th:text="${lr.presentRemaining}">Present Remaining</td>-->
+
+<!--                            <td class="icon">-->
+<!--                                <a th:href="@{/lr/update/{id} (id = ${lr.id})}" class="edit">-->
+<!--                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+                </table>
+            </div>
+            <!-- edit Modal -->
+            <div class="modal fade modal-show" id="editModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectModalLabel">Edit Leave Remaining</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="id" class="form-label">Employee</label>
+                                    <input type="text" class="form-control" id="id" name="id" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pastRemaining" class="form-label">Past Remaining</label>
+                                    <input type="text" class="form-control" id="pastRemaining" name="pastRemaining">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="presentRemaining" class="form-label">Present Remaining</label>
+                                    <input type="text" class="form-control" id="presentRemaining" name="presentRemaining">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="edit" onclick="editLeaveRemaining()">Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
         </section>
     </main>
 
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/leaveRemaining.js}"></script>
+    </th:block>
 </body>
 
 </html>
