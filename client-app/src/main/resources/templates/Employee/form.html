@@ -9,11 +9,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Form Leave Request</title>
 </head>
+
 <body id="body-pd">
     <section layout:fragment="content">
         <div class="container d-flex justify-content-center align-content-center mt-3">
             <form class="w-50 border px-4 py-5 rounded-2 shadow-lg mt-3 bg-light" th:action="@{/leave-request}"
                 th:object="${leaveRequestRequest}" th:method="POST">
+                <div class="alert alert-danger" role="alert" th:text="${message}"
+                th:attr="style=${message == '' ? 'display:none' : ''}">
+                </div>
                 <h1>Create Leave Request</h1> <br>
                 <div class="mb-3">
                     <label for="dateStart" class="input-field">Leave Type</label>
@@ -41,9 +45,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="attachment" class="input-field">Attachment</label>
-                    <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" th:field="*{attachment}">
+                    <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg"
+                        th:field="*{attachment}">
                 </div>
-                
+
 
                 <a th:href="@{/tracking}" class="btn btn-danger btn-lg px-4 py-1" role="button">Back</a>
                 <button type="submit" class="btn btn-primary btn-lg px-3 py-1">Submit</button>
