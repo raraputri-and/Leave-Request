@@ -1,3 +1,4 @@
+var counter = 1;
 $(document).ready(function () {
   table = $('#table-tracking').DataTable({
     destroy: true,
@@ -6,7 +7,14 @@ $(document).ready(function () {
       dataSrc: ''
     },
     columns: [
-      { data: 'id' },
+      {
+        data: null,
+        title: 'No',
+        render: function () {
+          return counter++;
+        }
+      },
+      { data: 'id', visible: false },
       { data: 'reason', title: 'Reason' },
       { data: 'leaveType.name', title: 'Leave Type' },
       {
@@ -38,7 +46,7 @@ $(document).ready(function () {
             case 'Waiting For Approval': colorClass = 'bg-warning'; break;
             case 'Accepted': colorClass = 'bg-success'; break;
             case 'Rejected': colorClass =
-              'bg-danger';  break;
+              'bg-danger'; break;
             default: colorClass = 'bg-dark'; break;
           }
           return `<span class="badge ${colorClass}">${data}</span>`;

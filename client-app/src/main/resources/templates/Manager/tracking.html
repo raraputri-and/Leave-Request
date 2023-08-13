@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <title>Tracking</title>
 
 </head>
@@ -15,7 +15,7 @@
     <section layout:fragment="content">
 
         <div class="d-flex justify-content-center mt-5 mb-2 fw-bold"> Tracking Employee </div>
-        <table class="table table-light table-hover table-bordered w-100" id="table-tracking">
+        <table class="table table-primary table-hover table-bordered w-100" id="table-tracking-employee">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -29,8 +29,8 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody class="table-striped">
-                <tr th:each="lr : ${leaveRequests}">
+            <tbody class="table-light">
+                <!-- <tr th:each="lr : ${leaveRequestsManager}">
                     <td th:text="${lr.id}">id</td>
                     <td th:text="${lr.employee.name}">name</td>
                     <td th:text="${lr.leaveType.name}">leave type</td>
@@ -40,12 +40,15 @@
                     <td th:text="${lr.reason}">reason</td>
                     <td th:text="${lr.attachment}">attachment</td>
                     <td th:text="${lr.statusAction.name}">status action</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
 
     </section>
 
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/managerTracking.js}"></script>
+    </th:block>
 
 </body>
 

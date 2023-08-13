@@ -32,7 +32,20 @@ $(document).ready(function () {
             { data: 'quantity', title: 'Qty' },
             { data: 'reason', title: 'Reason' },
             { data: 'attachment', title: 'Attachment' },
-            { data: 'statusAction.name', title: 'Status' },
+            {
+                data: 'statusAction.name', title: 'Status',
+                render: function (data, type, row) {
+                    let colorClass;
+                    switch (data) {
+                        case 'Waiting For Approval': colorClass = 'bg-warning'; break;
+                        case 'Accepted': colorClass = 'bg-success'; break;
+                        case 'Rejected': colorClass =
+                            'bg-danger'; break;
+                        default: colorClass = 'bg-dark'; break;
+                    }
+                    return `<span class="badge ${colorClass}">${data}</span>`;
+                }
+            },
             {
                 data: null,
                 title: 'Action',
@@ -81,86 +94,69 @@ function rejectNote() {
     let rejectId = $("#actionModal").attr("data-action-id")
     let noteVal = $("#actionNote").val()
     console.log(noteVal)
-    $.ajax({
-        method: "PUT",
-        url: `/api/leave-request/reject/${rejectId}`,
-        dataType: "JSON",
-        beforeSend: addCsrfToken(),
-        data: JSON.stringify({
-            note: noteVal,
-        }),
-        contentType: "application/json",
-        success: function (result) {
-            $("#actionModal").modal('hide')
-            $("#table-action").DataTable().ajax.reload()
-            $("#actionNote").val('')
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Leave Request has been Rejected',
-                showConfirmButton: false,
-                timer: 2000
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to reject this Leave Request?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reject it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: "PUT",
+                url: `/api/leave-request/reject/${rejectId}`,
+                dataType: "JSON",
+                beforeSend: addCsrfToken(),
+                data: JSON.stringify({
+                    note: noteVal,
+                }),
+                contentType: "application/json",
+                success: function (result) {
+                    $("#actionModal").modal('hide')
+                    $("#table-action").DataTable().ajax.reload()
+                    $("#actionNote").val('')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Leave Request has been Rejected',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
             })
         }
     })
 }
+
 
 function acceptNote() {
     let acceptId = $("#actionModal").attr("data-action-id")
     let noteVal = $("#actionNote").val()
     console.log(noteVal)
-    $.ajax({
-        method: "PUT",
-        url: `/api/leave-request/accept/${acceptId}`,
-        dataType: "JSON",
-        beforeSend: addCsrfToken(),
-        data: JSON.stringify({
-            note: noteVal,
-        }),
-        contentType: "application/json",
-        success: function (result) {
-            $("#actionModal").modal('hide')
-            $("#table-action").DataTable().ajax.reload()
-            $("#actionNote").val('')
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Leave Request has been Accepted',
-                showConfirmButton: false,
-                timer: 2000
-            })
-        }
-    })
-}
-
-function acceptRequest(event) {
-    event.preventDefault();
-    // fetch the row data to get the employee name
-    var rowData = table.row($(event.target).parents('tr')).data();
     Swal.fire({
-        title: "Accept",
-        text: "Are you sure you want to accept request from : " + rowData.employee.name + "?",
-        icon: "warning",
+        title: 'Are you sure?',
+        text: "You want to accept this Leave Request?",
+        icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: "green",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, accept it it!",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, accept it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            let acceptId = $("#actionModal").attr("data-action-id")
-            let noteVal = $("#actionNote").val()
             $.ajax({
                 method: "PUT",
                 url: `/api/leave-request/accept/${acceptId}`,
                 dataType: "JSON",
+                beforeSend: addCsrfToken(),
                 data: JSON.stringify({
                     note: noteVal,
                 }),
                 contentType: "application/json",
-                beforeSend: addCsrfToken(),
                 success: function (result) {
                     $("#actionModal").modal('hide')
-                    $("#table-action").DataTable().ajax.reload();
+                    $("#table-action").DataTable().ajax.reload()
                     $("#actionNote").val('')
                     Swal.fire({
                         position: 'center',
@@ -168,10 +164,52 @@ function acceptRequest(event) {
                         title: 'Leave Request has been Accepted',
                         showConfirmButton: false,
                         timer: 2000
-                    });
-                },
-            });
+                    })
+                }
+            })
         }
-    });
+    })
 }
+
+// function acceptRequest(event) {
+//     event.preventDefault();
+//     // fetch the row data to get the employee name
+//     var rowData = table.row($(event.target).parents('tr')).data();
+//     Swal.fire({
+//         title: "Accept",
+//         text: "Are you sure you want to accept request from : " + rowData.employee.name + "?",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "green",
+//         cancelButtonColor: "#3085d6",
+//         confirmButtonText: "Yes, accept it it!",
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             let acceptId = $("#actionModal").attr("data-action-id")
+//             let noteVal = $("#actionNote").val()
+//             $.ajax({
+//                 method: "PUT",
+//                 url: `/api/leave-request/accept/${acceptId}`,
+//                 dataType: "JSON",
+//                 data: JSON.stringify({
+//                     note: noteVal,
+//                 }),
+//                 contentType: "application/json",
+//                 beforeSend: addCsrfToken(),
+//                 success: function (result) {
+//                     $("#actionModal").modal('hide')
+//                     $("#table-action").DataTable().ajax.reload();
+//                     $("#actionNote").val('')
+//                     Swal.fire({
+//                         position: 'center',
+//                         icon: 'success',
+//                         title: 'Leave Request has been Accepted',
+//                         showConfirmButton: false,
+//                         timer: 2000
+//                     });
+//                 },
+//             });
+//         }
+//     });
+// }
 
