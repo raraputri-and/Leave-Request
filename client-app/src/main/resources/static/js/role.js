@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    $('#table-leave-remaining').DataTable({
+    $('#table-role').DataTable({
         ajax: {
-            url: '/api/leave-remaining',
+            url: '/api/user',
             dataSrc: ''
         },
         columns: [
-            { data: 'employee.name'},
-            { data: 'pastRemaining'},
-            { data: 'presentRemaining'},
+            { data: 'id'},
+            { data: 'username'},
+            { data: 'roles[0].name'},
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -20,30 +20,43 @@ $(document).ready(function () {
         ]
     });
 });
+roleSelector()
+function roleSelector() {
+    $.ajax({
+        url: "/api/role",
+        method: "GET",
+        dataType: "JSON",
+        success: function (data) {
+            let selectRole = $(".role-selector");
+
+            $.each(data, function (index, role) {
+                selectRole.append(`<option value="${role.id}"> ${role.name} </option>`)
+            })
+        }
+    })
+}
 
 function beforeUpdate(id){
     $.ajax({
             method: "GET",
-            url: "/api/leave-remaining/" + id,
+            url: "/api/user/" + id,
             dataType: "JSON",
             beforeSend: addCsrfToken(),
             success: (result) => {
-                $("#idLeaveRemaining").val(result.id)
-                $("#id").val(result.employee.name)
-                $("#pastRemaining").val(result.pastRemaining)
-                $("#presentRemaining").val(result.presentRemaining)
+                $("#idUser").val(result.id)
+                $("#id").val(result.username)
+                $("#role").val(result.roles[0].id)
             }
         }
     )
 }
 
-function editLeaveRemaining() {
-    let idVal = $("#idLeaveRemaining").val()
-    let pastVal = $("#pastRemaining").val()
-    let presentVal = $("#presentRemaining").val()
+function editRole() {
+    let idVal = $("#idUser").val()
+    let roleVal = $("#role").val()
     Swal.fire({
         title: 'Are you sure?',
-        text: "You want to update this leave remaining?",
+        text: "You want to update this role?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -52,22 +65,18 @@ function editLeaveRemaining() {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "/api/leave-remaining/update/" + idVal,
+                url: `/api/user/update/${idVal}?roleId=${roleVal}`,
                 method: "PUT",
                 dataType: "JSON",
                 beforeSend: addCsrfToken(),
-                data: JSON.stringify({
-                    pastRemaining: pastVal,
-                    presentRemaining: presentVal
-                }),
                 contentType: "application/json",
                 success: (result) => {
-                    $("#table-leave-remaining").DataTable().ajax.reload()
+                    $("#table-role").DataTable().ajax.reload()
                     $("#editModal").modal('hide')
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: 'Leave Remaining has been updated',
+                        title: 'Role has been updated',
                         showConfirmButton: false,
                         timer: 2000
                     })

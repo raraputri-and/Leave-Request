@@ -44,9 +44,5 @@ public class RoleController {
     public Role update(@PathVariable Integer id, @RequestBody Role role) {
         return roleService.update(id, role);
     }
-    @PreAuthorize("hasAuthority('DELETE_ADMIN')")
-    @DeleteMapping("/{id}")
-    public Role delete(@PathVariable Integer id) {
-        return roleService.delete(id);
-    }
+
 }

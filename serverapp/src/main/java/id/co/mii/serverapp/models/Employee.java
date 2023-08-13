@@ -75,5 +75,6 @@ public class Employee {
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @JoinColumn(name = "leave_remaining_id", referencedColumnName = "leave_remaining_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LeaveRemaining leaveRemaining;
 }

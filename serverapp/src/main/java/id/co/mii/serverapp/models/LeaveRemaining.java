@@ -32,6 +32,6 @@ public class LeaveRemaining {
     @OneToOne
     @MapsId
     @JoinColumn(name = "leave_remaining_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee employee;
 }

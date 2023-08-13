@@ -9,10 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Role {
     private Integer id;
-    private String username;
-    private String password;
-    private List<Role> roles;
-    private Employee employee;
+    private String name;
+    private List<User> users;
 }

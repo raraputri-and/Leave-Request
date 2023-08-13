@@ -1,5 +1,6 @@
 package id.co.mii.serverapp.services;
 
+import id.co.mii.serverapp.repositories.RoleRepository;
 import id.co.mii.serverapp.repositories.UserRepository;
 import id.co.mii.serverapp.models.Role;
 import id.co.mii.serverapp.models.User;
@@ -9,14 +10,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class UserService {
-    private RoleService roleService;
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -27,12 +30,12 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
     }
 
-    public User addRole(Integer id, Role role) {
-
+    public User update(Integer id, Integer roleId) {
         User user = getById(id);
-
-        List<Role> roles = user.getRoles();
-        roles.add(roleService.getById(role.getId()));
+        Role role = roleService.getById(roleId);
+        role.getUsers().add(user);
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
         user.setRoles(roles);
 
         return userRepository.save(user);
