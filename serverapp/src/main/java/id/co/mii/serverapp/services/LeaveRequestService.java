@@ -38,7 +38,6 @@ public class LeaveRequestService {
     private UserService userService;
     private LeaveRemainingRepository leaveRemainingRepository;
     private JointLeaveService jointLeaveService;
-    private final String FOLDER_PATH="/static/attachment";
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -72,8 +71,28 @@ public class LeaveRequestService {
                 .filter(lr -> Objects.equals(lr.getEmployee().getId(), user.getId()))
                 .collect(Collectors.toList());
     }
+
+    public void isDateExist(LocalDate date){
+        getAll()
+                .stream()
+                .filter(lr -> lr.getStatusAction().getId()!=2 &&
+                        lr.getEmployee().getUser().equals(userService.getCurrentUser()))
+                .forEach(lr -> {
+            LocalDate startDateLR = lr.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endDateLR = lr.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (date.equals(endDateLR) || date.equals(startDateLR)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
+            }
+            if (date.isBefore(endDateLR) && date.isAfter(startDateLR)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
+            }
+        });
+    }
+
     @SneakyThrows
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
+        isDateExist(leaveRequestRequest.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        isDateExist(leaveRequestRequest.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         User user = userService.getCurrentUser();
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
         leaveRequest.setEmployee(user.getEmployee());
