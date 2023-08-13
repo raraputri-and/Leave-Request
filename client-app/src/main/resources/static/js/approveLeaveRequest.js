@@ -1,5 +1,5 @@
 var table;
-
+var counter = 1;
 $(document).ready(function () {
     table = $('#table-action').DataTable({
         destroy: true,
@@ -8,7 +8,14 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
+            {
+                data: null,
+                title: 'No',
+                render: function () {
+                    return counter++;
+                }
+            },
+            { data: 'id', visible: false },
             { data: 'employee.name', title: 'Employee' },
             { data: 'leaveType.name', title: 'Leave Type' },
             {
@@ -36,7 +43,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     let colorClass;
                     switch (data) {
-                        case 'Waiting For Approval': colorClass = 'bg-warning'; break;
+                        case 'Waiting for Approval': colorClass = 'bg-warning'; break;
                         case 'Accepted': colorClass = 'bg-success'; break;
                         case 'Rejected': colorClass =
                             'bg-danger'; break;
@@ -74,22 +81,42 @@ $(document).ready(function () {
 // }
 
 function openActionModal(id) {
-    let rowIndex = table.row($('#table-action tr[data-id="' + id + '"]')).index(); // Get the row index based on the data-id attribute
-    let rowData = table.row(rowIndex).data(); // Get the row data using the index
+    $("#actionModal").attr("data-action-id", id);
 
-    if (rowData) {
-        $("#actionModal").attr("data-action-id", id);
-        $("#employeeName").text(rowData.employee.name); // Update the employee name in the modal
-        $("#leaveType").text(rowData.leaveType.name);
-        $("#dateStart").text(new Date(rowData.dateStart).toLocaleDateString('en-GB').split('/').join('-')); 
-        $("#dateEnd").text(new Date(rowData.dateEnd).toLocaleDateString('en-GB').split('/').join('-'));
-        $("#quantity").text(rowData.quantity); 
-        $("#reason").text(rowData.reason);
+    $.ajax({
+        method: "GET",
+        url: `/api/leave-request/${id}`, 
+        dataType: "JSON",
+        success: function (result) {
+            $("#employeeName").text(result.employee.name);
+            $("#leaveType").text(result.leaveType.name);
+            
+            var startDate = new Date(result.dateStart).toLocaleDateString('en-GB').split('/').join('-');
+            $("#dateStart").text(startDate);
 
-        // You can continue updating other modal elements with the relevant data
+            var endDate = new Date(result.dateEnd).toLocaleDateString('en-GB').split('/').join('-');
+            $("#dateEnd").text(endDate);
 
-        $("#actionModal").modal("show");
-    }
+            $("#quantity").text(result.quantity);
+            $("#reason").text(result.reason);
+
+            // Update status color
+            let colorClass;
+            switch (result.statusAction.name) {
+                case 'Waiting for Approval': colorClass = 'bg-warning'; break;
+                case 'Accepted': colorClass = 'bg-success'; break;
+                case 'Rejected': colorClass = 'bg-danger'; break;
+                default: colorClass = 'bg-dark'; break;
+            }
+            $("#status").html(`<span class="badge ${colorClass}">${result.statusAction.name}</span>`);
+
+            // Handle modal actions (accept/reject)
+            $("#rejectButton").attr("data-id", id);
+            $("#acceptButton").attr("data-id", id);
+
+            $("#actionModal").modal("show");
+        }
+    });
 }
 
 

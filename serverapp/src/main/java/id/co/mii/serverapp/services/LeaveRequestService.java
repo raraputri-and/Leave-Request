@@ -109,12 +109,12 @@ public class LeaveRequestService {
         if(leaveRequestRequest.getLeaveTypeId()==5 && user.getEmployee().getReligion().getId()!=1){
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not Moslem, can not choose cuti haji");
         }
-        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=2){
-            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not christian, can not choose cuti baptis");
+        if(leaveRequestRequest.getLeaveTypeId()==6 && (user.getEmployee().getReligion().getId()!=2 && user.getEmployee().getReligion().getId() != 3)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not Christian or Catholic, cannot choose cuti baptis");
         }
-        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=3){
-            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not catholic , can not choose cuti baptis");
-        }
+        // if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=3){
+        //     throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not catholic , can not choose cuti baptis");
+        // }
         leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
         leaveRequest.setStatusAction(statusActionService.getById(3));
 
@@ -135,42 +135,42 @@ public class LeaveRequestService {
 
         if(leaveRequestRequest.getLeaveTypeId()==2){
             if (leaveRequestRepository.findQuota(2, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose Cuti Menikah because Married only once a time!");
             }
             if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(2).getQuantity()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti menikah can not more than 3");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti menikah can not more than 3 days");
             }
         }
         if(leaveRequestRequest.getLeaveTypeId()==3){
             if (leaveRequestRepository.findQuota(3, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose Cuti Keluarga Inti Meninggal because run out of quota (6x)");
             }
             if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(3).getQuantity()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti keluarga inti meninggal can not more than 2");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti keluarga inti meninggal can not more than 2 days");
             }
         }
         if(leaveRequestRequest.getLeaveTypeId()==4){
             if (leaveRequestRepository.findQuota(4, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose Cuti Melahirkan because run out of quota (2x)");
             }
             if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(4).getQuantity()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti melahirkan can not more than 90");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti melahirkan can not more than 90 days");
             }
         }
         if(leaveRequestRequest.getLeaveTypeId()==5){
             if (leaveRequestRepository.findQuota(5, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose Cuti Haji because run out of quota (2x)");
             }
             if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(5).getQuantity()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti haji can not more than 40");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity Cuti Haji can not more than 40 days");
             }
         }
         if(leaveRequestRequest.getLeaveTypeId()==6){
             if (leaveRequestRepository.findQuota(6, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose Cuti Baptis Anak because run out of quota (2x)");
             }
             if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(6).getQuantity()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti baptis anak can not more than 1");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti baptis anak can not more than 1 days");
             }
         }
         leaveRequest = leaveRequestRepository.save(leaveRequest);

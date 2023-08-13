@@ -27,7 +27,7 @@ public class AuthController {
             return "redirect:/login?error=true";
         }
         System.out.println("login success");
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("admin")){
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("bachtiar")){
             return "redirect:/emp";
         }
         else {
