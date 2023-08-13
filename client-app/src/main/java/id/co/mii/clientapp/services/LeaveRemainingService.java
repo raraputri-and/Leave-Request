@@ -39,6 +39,13 @@ public class LeaveRemainingService {
                 }).getBody();
     }
 
+    public LeaveRemaining getByCurrentUser(Integer id){
+        return restTemplate.exchange(url +"/user",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<LeaveRemaining>() {
+                }).getBody();
+    }
 //    public LeaveRemaining create(LeaveRemainingRequest leaveRemainingRequest){
 //        return restTemplate.exchange(url,
 //                HttpMethod.POST,

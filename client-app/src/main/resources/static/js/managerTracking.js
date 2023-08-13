@@ -29,7 +29,6 @@ $(document).ready(function () {
             },
             { data: 'quantity', title: 'Qty' },
             { data: 'reason', title: 'Reason' },
-            { data: 'attachment', title: 'Attachment' },
             // { data: 'statusAction.name', title: 'Status' },
             {
                 data: 'statusAction.name', title: 'Status',
