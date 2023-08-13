@@ -31,7 +31,6 @@ $(document).ready(function () {
             },
             { data: 'quantity', title: 'Qty' },
             { data: 'reason', title: 'Reason' },
-            { data: 'attachment', title: 'Attachment' },
             {
                 data: 'statusAction.name', title: 'Status',
                 render: function (data, type, row) {

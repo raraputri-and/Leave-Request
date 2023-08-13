@@ -20,6 +20,7 @@ public class JointLeave {
     private String name;
     @Column(name = "joint_leave_date", nullable = false, unique = true)
     private Date date;
+    @Column(nullable = false)
     private Boolean isHoliday;
 
 }

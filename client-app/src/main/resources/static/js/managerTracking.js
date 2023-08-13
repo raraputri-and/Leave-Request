@@ -29,14 +29,13 @@ $(document).ready(function () {
             },
             { data: 'quantity', title: 'Qty' },
             { data: 'reason', title: 'Reason' },
-            { data: 'attachment', title: 'Attachment' },
             // { data: 'statusAction.name', title: 'Status' },
             {
                 data: 'statusAction.name', title: 'Status',
                 render: function (data, type, row) {
                     let colorClass;
                     switch (data) {
-                        case 'Waiting For Approval': colorClass = 'bg-warning'; break;
+                        case 'Waiting for Approval': colorClass = 'bg-warning'; break;
                         case 'Accepted': colorClass = 'bg-success'; break;
                         case 'Rejected': colorClass =
                             'bg-danger'; break;

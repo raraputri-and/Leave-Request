@@ -20,13 +20,13 @@ import lombok.NoArgsConstructor;
 public class LeaveRemaining {
 
     @Id
-    @Column(name = "leave_remaining_id")
+    @Column(name = "leave_remaining_id", nullable = false)
     private Integer id;
 
-    @Column(name = "past_remaining")
+    @Column(name = "past_remaining", nullable = false)
     private Integer pastRemaining;
 
-    @Column(name = "present_remaining")
+    @Column(name = "present_remaining", nullable = false)
     private Integer presentRemaining;
 
     @OneToOne

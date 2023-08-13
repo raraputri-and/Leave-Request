@@ -36,7 +36,7 @@ public class Employee {
     @Column(name = "employee_id", nullable = false)
     private Integer id;
 
-    @Column(name = "employee_nip", nullable = false)
+    @Column(name = "employee_nip", nullable = false, unique = true)
     private String nip;
 
     @Column(name = "employee_name", nullable = false)
@@ -47,11 +47,11 @@ public class Employee {
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "religion_id")
+    @JoinColumn(name = "religion_id", nullable = false)
     private Religion religion;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="manager_id")
+    @JoinColumn(name="manager_id", nullable = false)
     @JsonBackReference
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Employee manager;
