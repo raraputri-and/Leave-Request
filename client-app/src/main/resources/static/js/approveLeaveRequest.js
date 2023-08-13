@@ -36,7 +36,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     let colorClass;
                     switch (data) {
-                        case 'Waiting For Approval': colorClass = 'bg-warning'; break;
+                        case 'Waiting for Approval': colorClass = 'bg-warning'; break;
                         case 'Accepted': colorClass = 'bg-success'; break;
                         case 'Rejected': colorClass =
                             'bg-danger'; break;
@@ -80,7 +80,12 @@ function openActionModal(id) {
     if (rowData) {
         $("#actionModal").attr("data-action-id", id);
         $("#employeeName").text(rowData.employee.name); // Update the employee name in the modal
-        $("#leaveType").text(rowData.leaveType.name); // Update the leave type in the modal
+        $("#leaveType").text(rowData.leaveType.name);
+        $("#dateStart").text(new Date(rowData.dateStart).toLocaleDateString('en-GB').split('/').join('-')); 
+        $("#dateEnd").text(new Date(rowData.dateEnd).toLocaleDateString('en-GB').split('/').join('-'));
+        $("#quantity").text(rowData.quantity); 
+        $("#reason").text(rowData.reason);
+
         // You can continue updating other modal elements with the relevant data
 
         $("#actionModal").modal("show");

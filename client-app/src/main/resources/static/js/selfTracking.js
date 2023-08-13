@@ -36,7 +36,6 @@ $(document).ready(function () {
         }
       },
       { data: 'quantity', title: 'Qty' },
-      // { data: 'statusAction.name', title: 'Status' },
       {
         data: 'statusAction.name', title: 'Status',
         render: function (data, type, row) {
@@ -73,7 +72,7 @@ $(document).ready(function () {
   $("#table-tracking_filter.dataTables_filter").append($("#categoryFilter"));
 
   // Get the column index for the Leave Type column
-  var leaveTypeIndex = 2; // Assuming Leave Type is the 3rd column (0-indexed)
+  var leaveTypeIndex = 3; // Assuming Leave Type is the 3rd column (0-indexed)
 
   // Use DataTables API to filter rows by Leave Type column
   $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
@@ -84,7 +83,6 @@ $(document).ready(function () {
     }
     return false;
   });
-
   // Set change event for the Category Filter dropdown to redraw the DataTable
   $("#categoryFilter").change(function (e) {
     table.draw();
@@ -130,7 +128,7 @@ function showPast(id) {
             year: 'numeric'
           }).split('/').join('-');
 
-          const noteContent = result.note ? result.note : " ";
+          const noteContent = result.note ? result.note : "Created By Employee";
 
           listItemHTML.append('<div class="d-flex gap-2 activity-list activity-border">' +
             '<div class="activity-icon avatar-md">' +

@@ -4,6 +4,9 @@ import id.co.mii.clientapp.models.dto.LeaveRequestRequest;
 import id.co.mii.clientapp.models.dto.LeaveRequestStatusRequest;
 import id.co.mii.clientapp.services.*;
 import lombok.AllArgsConstructor;
+
+import javax.xml.ws.http.HTTPException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +21,15 @@ public class LeaveRequestController {
     private LeaveTypeService leaveTypeService;
     private StatusActionService statusActionService;
     private EmployeeService employeeService;
+    private LeaveRemainingService leaveRemainingService;
 
     @GetMapping
     public String index(@RequestParam(value = "message", required = false, defaultValue = "") String message,
-            Model model, LeaveRequestRequest leaveRequestRequest) {
+            Model model, LeaveRequestRequest leaveRequestRequest, Integer id) {
         model.addAttribute("leaveRequests", leaveRequestService.getAll());
         model.addAttribute("leaveType", leaveTypeService.getAll());
         model.addAttribute("employees", employeeService.getAll());
+        model.addAttribute("leaveRemaining", leaveRemainingService.getByCurrentUser(id));
         model.addAttribute("title", "leaveRequest");
         model.addAttribute("message", message);
         return "Employee/form";
@@ -52,11 +57,11 @@ public class LeaveRequestController {
             // }
             // System.out.println(e.getStatusCode());
             // System.out.println(e.getResponseBodyAsString());
-            String[] convertedJson = e.getResponseBodyAsString().split("\"");
             // int size = convertedJson.length;
             // for (String s : convertedJson) {
             // System.out.println(s);
             // }
+            String[] convertedJson = e.getResponseBodyAsString().split("\"");
             return "redirect:/leave-request?message=" + convertedJson[19];
         }
     }

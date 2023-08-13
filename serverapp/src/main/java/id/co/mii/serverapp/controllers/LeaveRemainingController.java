@@ -15,21 +15,25 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('Admin', 'Employee', 'Manager')")
 public class LeaveRemainingController {
     private LeaveRemainingService leaveRemainingService;
+
     @PreAuthorize("hasAuthority('READ_ADMIN')")
     @GetMapping
     public List<LeaveRemaining> getAll() {
         return leaveRemainingService.getAll();
     }
+
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_EMPLOYEE', 'READ_MANAGER')")
     @GetMapping("/{id}")
     public LeaveRemaining getById(@PathVariable Integer id) {
         return leaveRemainingService.getById(id);
     }
 
-//    @PostMapping
-//    public LeaveRemaining create(@RequestBody LeaveRemainingRequest leaveRemainingRequest) {
-//        return leaveRemainingService.create(leaveRemainingRequest);
-//    }
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_EMPLOYEE', 'READ_MANAGER')")
+    @GetMapping("/user")
+    public LeaveRemaining getByCurrentUser(Integer id){
+        return leaveRemainingService.getByCurrentUser(id);
+    }
+
     @PreAuthorize("hasAuthority('UPDATE_ADMIN')")
     @PutMapping("/{id}")
     public LeaveRemaining update(@PathVariable Integer id, @RequestBody LeaveRemainingRequest leaveRemainingRequest) {
