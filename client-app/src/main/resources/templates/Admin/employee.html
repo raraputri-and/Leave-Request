@@ -10,39 +10,71 @@
 <body id="body-pd">
   <main>
     <section layout:fragment="content">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#createEmployee"> ADD EMPLOYEE </button>
+      </div>
       <div class="container py-3">
         <div class="d-flex justify-content-center">
           <table class="table table-hover table-bordered w-100" id="table-user">
             <thead>
             <tr>
-              <th>Id</th>
+              <th>No</th>
               <th>NIP</th>
               <th>Name</th>
               <th>Gender</th>
               <th>Religion</th>
-              <th>ManagerId</th>
+              <th>Manager</th>
               <th>Username</th>
               <th>Action</th>
             </tr>
             </thead>
-<!--            <tbody class="table-striped">-->
-<!--            <tr th:each="emp : ${employees}" >-->
-<!--              <td th:text="${emp.id}">id</td>-->
-<!--              <td th:text="${emp.nip}">nip</td>-->
-<!--              <td th:text="${emp.name}">name</td>-->
-<!--              <td th:text="${emp.gender}">gender</td>-->
-<!--              <td th:text="${emp.religion.name}">religion</td>-->
-<!--              <td th:text="${emp.manager}">manager</td>-->
-<!--              <td th:text="${emp.user.username}">username</td>-->
-<!--              <td class="icon">-->
-<!--                <a th:href="@{/emp/update/{id} (id = ${emp.id})}" class="edit" >-->
-<!--                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
           </table>
         </div>
       </div>
+      <!-- Modal Create Employee -->
+      <div class="modal fade modal-show" id="createEmployee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="staticBackdropLabel">Create Employee</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nip" class="form-label">nip</label>
+                <input type="text" class="form-control" name="nip" id="nip2" required>
+
+                <label for="name" class="form-label">name</label>
+                <input type="text" class="form-control" name="name" id="name2" required>
+
+                <label for="gender" class="form-label">gender</label>
+                <select class="form-select" name="gender" id="gender2">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+
+                <label for="religion" class="form-label">religion</label>
+                <select class="form-select religion-selector" name="religion.id" id="religion2"></select>
+
+                <label for="manager" class="form-label">manager</label>
+                <select class="form-select employee-selector" name="manager.id" id="manager2"></select>
+
+                <label for="username" class="form-label">username</label>
+                <input type="text" class="form-control" name="username" id="username2" required>
+
+                <label for="password" class="form-label">password</label>
+                <input type="password" class="form-control" name="password" id="password2" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="createEmployee()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Modal Update Employee -->
       <div class="modal fade modal-show" id="updateEmployee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -61,29 +93,29 @@
                 <label for="name" class="form-label">name</label>
                 <input type="text" class="form-control" name="name" id="name" required>
 
-                <label for="name" class="form-label">gender</label>
+                <label for="gender" class="form-label">gender</label>
                 <select class="form-select" name="gender" id="gender">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
 
-                <label for="name" class="form-label">religion</label>
-                <select class="form-select religion-selector" name="religion" id="religion"></select>
+                <label for="religion" class="form-label">religion</label>
+                <select class="form-select religion-selector" name="religion.id" id="religion"></select>
 
-                <label for="name" class="form-label">manager</label>
-                <input type="text" class="form-control" name="manager" id="manager" required>
+                <label for="manager" class="form-label">manager</label>
+                <select class="form-select employee-selector" name="manager.id" id="manager"></select>
 
-                <label for="name" class="form-label">username</label>
+                <label for="username" class="form-label">username</label>
                 <input type="text" class="form-control" name="username" id="username" required>
 
-                <label for="name" class="form-label">password</label>
+                <label for="password" class="form-label">password</label>
                 <input type="password" class="form-control" name="password" id="password" required>
                 <input type="hidden" id="id">
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="updateEmployee()">Submit</button>
+              <button type="button" class="btn btn-primary" onclick="editEmployee()">Submit</button>
             </div>
           </div>
         </div>

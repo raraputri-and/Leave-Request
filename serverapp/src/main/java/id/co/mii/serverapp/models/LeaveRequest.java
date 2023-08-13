@@ -22,21 +22,24 @@ public class LeaveRequest {
     private Integer id;
 
     private String reason;
+    @Column(nullable = false)
     private Date dateStart;
+    @Column(nullable = false)
     private Date dateEnd;
+    @Column(nullable = false)
     private Integer quantity;
     private String attachment;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "leave_type_id")
+    @JoinColumn(name = "leave_type_id", nullable = false)
     private LeaveType leaveType;
 
     @ManyToOne
-    @JoinColumn(name = "status_action_id")
+    @JoinColumn(name = "status_action_id", nullable = false)
     private StatusAction statusAction;
 
     @OneToMany(mappedBy = "leaveRequest")

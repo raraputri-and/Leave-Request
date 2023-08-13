@@ -20,7 +20,7 @@ public class LeaveRequestStatus {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "pic_id")
+    @JoinColumn(name = "pic_id", nullable = false)
     private Employee pic;
 
     @ManyToOne

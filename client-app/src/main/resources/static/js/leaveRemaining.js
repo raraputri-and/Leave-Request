@@ -5,7 +5,7 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id'},
+            { data: 'employee.name'},
             { data: 'pastRemaining'},
             { data: 'presentRemaining'},
             {
@@ -28,7 +28,8 @@ function beforeUpdate(id){
             dataType: "JSON",
             beforeSend: addCsrfToken(),
             success: (result) => {
-                $("#id").val(result.id)
+                $("#idLeaveRemaining").val(result.id)
+                $("#id").val(result.employee.name)
                 $("#pastRemaining").val(result.pastRemaining)
                 $("#presentRemaining").val(result.presentRemaining)
             }
@@ -37,12 +38,12 @@ function beforeUpdate(id){
 }
 
 function editLeaveRemaining() {
-    let idVal = $("#id").val()
+    let idVal = $("#idLeaveRemaining").val()
     let pastVal = $("#pastRemaining").val()
     let presentVal = $("#presentRemaining").val()
     Swal.fire({
         title: 'Are you sure?',
-        text: "You want to update this region?",
+        text: "You want to update this leave remaining?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

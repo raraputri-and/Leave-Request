@@ -18,11 +18,6 @@ public class AuthController {
 
     private AuthService authService;
 
-    @PostMapping("/registration")
-    public Employee registration(@RequestBody EmployeeRequest employeeRequest) {
-        return authService.registration(employeeRequest);
-    }
-
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);

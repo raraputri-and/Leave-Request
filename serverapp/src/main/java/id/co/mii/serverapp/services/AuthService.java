@@ -27,47 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class AuthService {
-    private EmployeeRepository employeeRepository;
-    private ModelMapper modelMapper;
-    private RoleService roleService;
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private AppUserDetailService appUserDetailService;
-    private PasswordEncoder passwordEncoder;
-    private ReligionService religionService;
-    private ParameterService parameterService;
-
-    @SneakyThrows
-    public Employee registration(EmployeeRequest employeeRequest) {
-
-        Employee employee = modelMapper.map(employeeRequest, Employee.class);
-        User user = modelMapper.map(employeeRequest, User.class);
-
-        // set password BCrypt
-        user.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
-
-        // set default role
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleService.getById(1));
-        user.setRoles(roles);
-
-        //set default leave remaining
-        LeaveRemaining leaveRemaining = new LeaveRemaining();
-        leaveRemaining.setPastRemaining(0);
-        leaveRemaining.setPresentRemaining(Integer.valueOf(parameterService.getById("Max-leave").getLeaveQty()));
-
-        Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
-        employee.setReligion(religionService.getById(employeeRequest.getReligionId()));
-
-        employee.setUser(user);
-        user.setEmployee(employee);
-        employee.setManager(manager);
-        employee.setLeaveRemaining(leaveRemaining);
-        leaveRemaining.setEmployee(employee);
-
-        employeeRepository.save(employee);
-        return employee;
-    }
 
     public LoginResponse login(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),

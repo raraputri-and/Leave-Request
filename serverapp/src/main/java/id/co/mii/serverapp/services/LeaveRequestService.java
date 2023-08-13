@@ -3,10 +3,13 @@ package id.co.mii.serverapp.services;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import id.co.mii.serverapp.models.*;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
@@ -35,7 +38,6 @@ public class LeaveRequestService {
     private UserService userService;
     private LeaveRemainingRepository leaveRemainingRepository;
     private JointLeaveService jointLeaveService;
-    private final String FOLDER_PATH="/static/attachment";
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -69,8 +71,28 @@ public class LeaveRequestService {
                 .filter(lr -> Objects.equals(lr.getEmployee().getId(), user.getId()))
                 .collect(Collectors.toList());
     }
+
+    public void isDateExist(LocalDate date){
+        getAll()
+                .stream()
+                .filter(lr -> lr.getStatusAction().getId()!=2 &&
+                        lr.getEmployee().getUser().equals(userService.getCurrentUser()))
+                .forEach(lr -> {
+            LocalDate startDateLR = lr.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endDateLR = lr.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (date.equals(endDateLR) || date.equals(startDateLR)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
+            }
+            if (date.isBefore(endDateLR) && date.isAfter(startDateLR)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
+            }
+        });
+    }
+
     @SneakyThrows
     public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
+        isDateExist(leaveRequestRequest.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        isDateExist(leaveRequestRequest.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         User user = userService.getCurrentUser();
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
         leaveRequest.setEmployee(user.getEmployee());
@@ -115,25 +137,40 @@ public class LeaveRequestService {
             if (leaveRequestRepository.findQuota(2, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
             }
+            if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(2).getQuantity()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti menikah can not more than 3");
+            }
         }
         if(leaveRequestRequest.getLeaveTypeId()==3){
             if (leaveRequestRepository.findQuota(3, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+            if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(3).getQuantity()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti keluarga inti meninggal can not more than 2");
             }
         }
         if(leaveRequestRequest.getLeaveTypeId()==4){
             if (leaveRequestRepository.findQuota(4, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
             }
+            if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(4).getQuantity()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti melahirkan can not more than 90");
+            }
         }
         if(leaveRequestRequest.getLeaveTypeId()==5){
             if (leaveRequestRepository.findQuota(5, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
             }
+            if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(5).getQuantity()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti haji can not more than 40");
+            }
         }
         if(leaveRequestRequest.getLeaveTypeId()==6){
             if (leaveRequestRepository.findQuota(6, user.getEmployee().getId()) >= leaveTypeService.getById(2).getQuota()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"can not choose leave type because run out of quota");
+            }
+            if (leaveRequestRequest.getQuantity()>leaveTypeService.getById(6).getQuantity()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "quantity cuti baptis anak can not more than 1");
             }
         }
         leaveRequest = leaveRequestRepository.save(leaveRequest);

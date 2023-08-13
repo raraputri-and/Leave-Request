@@ -41,7 +41,7 @@ public class SchedulerUtil {
         leaveRemainingRepository.saveAll(lr);
     }
 
-    @Scheduled(cron = "0 00 00 01 08 ?")
+    @Scheduled(cron = "0 00 00 01 07 ?")
     public void resetPastRemaining() {
         System.out.println("scheduler is running...");
         List<LeaveRemaining> leaveRemaining = leaveRemainingService.getAll();

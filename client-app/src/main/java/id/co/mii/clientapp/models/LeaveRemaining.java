@@ -11,4 +11,5 @@ public class LeaveRemaining {
     private Integer id;
     private Integer pastRemaining;
     private Integer presentRemaining;
+    private Employee employee;
 }
