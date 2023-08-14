@@ -27,28 +27,47 @@
 
 ### **`Prioritas Tugas:`**
 
-- BPMN (Business Process Modeling & Notation)
-- Use Case Diagram (List Fitur & Aktor)
-- Activity Diagram (Alur penggunaan fitur)
-- ERD
-
----
+Task                          | Status        | Complete Date
+----------------------------- | ------------- | --------------
+Req & Design                  | Completed     | 31/07/23
+Create DB                     | Completed     | 02/08/23
+Create Leave-Request (BE & FE)| Completed     | 03/08/23
+Manager Action (BE & FE)      | Completed     | 04/08/23
+Side Navbar (FE)              | Completed     | 05/08/23
+Leave-Request-Status (FE)     | Completed     | 06/08/23
+Ajax Datatables (FE)          | Completed     | 07/08/23
+Modal Ajax Button (FE)        | Completed     | 08/08/23
+Login By User ID              | Completed     | 08/08/23
+Validation Leave-Request (BE) | Completed     | 09/08/23
+Scheduler (BE)                | Completed     | 10/08/23
+Admin Page(BE & FE)           | Completed     | 11/08/23
+Alert on Leave-Request        | Completed     | 12/08/23
+Numbering Ajax                | Completed     | 13/08/23
+Pull Request                  | Completed     | 14/08/23
+----
 
 ### **`Pembagian Tugas:`**
 
-**Nada**
-- BPMN (Business Process Modeling & Notation)
-- Use Case Diagram
-- Activity Diagram
-- Data Dummy
-
-  **Bachtiar**
-- Activity Diagram
-- Data Dummy
-
-  **Natan**
-- ERD
-- Data Dummy
+Req & Design                  | Delegated to
+---------------------------   | -------------
+BPMN                          | Nada
+Use Case Diagram              | Nada
+Activity Diagram              | Nada & Bachtiar
+ERD                           | Natan
+Dummy Data                    | Nada & Natan & Bachtiar
+Leave-Request (BE & FE)       | Nada & Natan
+Manager Action (BE & FE)      | Nada & Natan
+Side Nav                      | Nada & Natan
+Leave-Request-Status (BE & FE)| Nada & Natan
+Ajax Datatables (FE)          | Nada & Natan
+Modal Ajax Button (FE)        | Nada & Natan
+SideNav By Login              | Nada & Natan
+Validation Leave-Request (BE) | Nada
+Scheduler (BE)                | Nada
+Admin Page(BE & FE)           | Nada & Natan
+Alert on Leave-Request        | Nada & Natan
+Numbering Ajax                | Nada & Natan
+User Manual                   | Natan & Bachtiar
 
 ---
 

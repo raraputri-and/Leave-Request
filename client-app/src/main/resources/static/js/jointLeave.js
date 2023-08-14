@@ -6,9 +6,17 @@ $(document).ready(function () {
         },
         columns: [
             { data: 'id' },
-            { data: 'name'},
-            { data: 'date'},
-            { data: 'isHoliday'},
+            { data: 'name' },
+            {
+                data: 'date',
+                title: 'Start Date',
+                render: function (data, type, row) {
+                    var date = new Date(data);
+                    var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    return date.toLocaleDateString('en-GB', options).split('/').join('-');
+                }
+            },
+            { data: 'isHoliday' },
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -55,19 +63,19 @@ function createJointLeave() {
     })
 }
 
-function beforeUpdate(id){
+function beforeUpdate(id) {
     $.ajax({
-            method: "GET",
-            url: "/api/joint-leave/" + id,
-            dataType: "JSON",
-            beforeSend: addCsrfToken(),
-            success: (result) => {
-                $("#idUpdate").val(result.id)
-                $("#name2").val(result.name)
-                $("#date2").val(result.date)
-                $("#isHoliday2").val(result.isHoliday)
-            }
+        method: "GET",
+        url: "/api/joint-leave/" + id,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        success: (result) => {
+            $("#idUpdate").val(result.id)
+            $("#name2").val(result.name)
+            $("#date2").val(result.date)
+            $("#isHoliday2").val(result.isHoliday)
         }
+    }
     )
 }
 
