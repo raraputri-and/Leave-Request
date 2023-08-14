@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Leave Request</title>
+</head>
+
+<body id="body-pd">
+    <section layout:fragment="content">
+        <div class="container position-relative mt-3">
+            <div class="container"></div>
+            <form class="position-absolute top-0 start-50 translate-middle-x border px-4 py-5 rounded-2 shadow-lg mt-3 bg-light w-50" th:action="@{/leave-request}"
+                th:object="${leaveRequestRequest}" th:method="POST">
+                <div class="alert alert-danger" role="alert" th:text="${message}"
+                    th:attr="style=${message == '' ? 'display:none' : ''}">
+                </div>
+                <h1>Create Leave Request</h1> <br>
+                <div class="mb-3">
+                    <label for="dateStart" class="input-field">Leave Type</label>
+                    <select class="form-select" th:field="*{leaveTypeId}">
+                        <option th:each="leaveTypes : ${leaveType}" th:value="${leaveTypes.id}"
+                            th:text="${leaveTypes.name}">Leave Type
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="dateStart" class="input-field">Date Start</label>
+                    <input type="date" id="dateStart" class="form-control" th:field="*{dateStart}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dateEnd" class="input-field">Date End</label>
+                    <input type="date" id="dateEnd" class="form-control" th:field="*{dateEnd}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="input-field">Quantity</label>
+                    <input type="number" class="form-control" th:field="*{quantity}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="reason" class="input-field">Reason</label>
+                    <input type="text" class="form-control" th:field="*{reason}">
+                </div>
+                <div class="mb-3">
+                    <label for="attachment" class="input-field">Attachment</label>
+                    <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg"
+                        th:field="*{attachment}">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/leave-request-status/tracking}" class=" btn btn-danger btn-lg px-4 py-1" role="button">Back</a>
+                    <button type="submit" class="btn btn-primary btn-lg px-3 py-1">Submit</button>
+                </div>
+                
+            </form>
+            
+            <div class="position-absolute top-0 end-0 mt-3 border border-1 alert alert-info" th:each="lr : ${leaveRemaining}">
+                LEAVE REMAINING
+                <p></p>
+                <div class="row">
+                    <div class="col">
+                        <h6>Past Remaining</h6>
+                        <label for="id2" class="form-label"></label>
+                    </div>
+                    <div class="col">
+                        <p id="id2">: <span th:text="${lr.pastRemaining}"></span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6>Present
+                            Remaining</h6>
+                        <label for="code3" class="form-label" ></label>
+                    </div>
+                    <div class="col">
+                        <p id="code3">: <span th:text="${lr.presentRemaining}"></span></p>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+    </section>
+
+
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/leaveRequest.js}"></script>
+    </th:block>
+
+</body>
+
+</html>

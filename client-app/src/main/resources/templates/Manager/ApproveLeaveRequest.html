@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Action LeaveRequest</title>
+
+</head>
+
+<body id="body-pd">
+  <!--Container Main start-->
+  <main>
+    <section layout:fragment="content">
+      <div class="container">
+        <div class="d-flex justify-content-center py-5">
+          <table class="table  table-hover table-bordered w-100" id="table-action">
+            <thead class="table-primary">
+              <tr>
+                <th>No</th>
+                <th>id</th>
+                <th>Employee</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Qty</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="table-striped bg-light">
+              <!-- <tr th:each="lr : ${leaveRequests}">
+                <td th:text="${lr.id}">id</td>
+                <td th:text="${lr.employee.name}">name</td>
+                <td th:text="${lr.leaveType.name}">leave type</td>
+                <td th:text="${#dates.format(lr.dateStart, 'dd-MM-yyyy')}">start date</td>
+                <td th:text="${#dates.format(lr.dateEnd, 'dd-MM-yyyy')}">end date</td>
+                <td th:text="${lr.quantity}">quantity</td>
+                <td th:text="${lr.reason}">reason</td>
+                <td th:text="${lr.attachment}">attachment</td>
+                <td th:text="${lr.statusAction.name}">status action</td>
+                <td class="icon d-flex gap-2  ">
+                  <a th:href="@{/leave-request/reject/{id} (id = ${lr.id})}" class="btn btn-danger px-3 py-2"
+                    type="button">Reject</a>
+                  <form th:action="@{/leave-request/accept/{id} (id = ${lr.id})}" th:method="PUT">
+                    <button onclick="return confirm('Are u sure want to Accept this leave request!!!!')" type="submit"
+                      class="btn btn-success px-3 py-2">Accept</button>
+                  </form>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Test Modal -->
+      <!-- Modal -->
+      <div class="modal fade modal-show" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="actionModalLabel">Action Note</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <label for="id2" class="form-label">Employee</label>
+                  </div>
+                  <div class="col">
+                    <p id="id2">: <span id="employeeName"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="code3" class="form-label">LeaveType</label>
+                  </div>
+                  <div class="col">
+                    <p id="code3">: <span id="leaveType"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="id4" class="form-label">Start Date</label>
+                  </div>
+                  <div class="col">
+                    <p id="id4">: <span id="dateStart"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="code3" class="form-label">End Date</label>
+                  </div>
+                  <div class="col">
+                    <p id="code3">: <span id="dateEnd"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="code3" class="form-label">Quantity</label>
+                  </div>
+                  <div class="col">
+                    <p id="code3">: <span id="quantity"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="code3" class="form-label">Reason</label>
+                  </div>
+                  <div class="col">
+                    <p id="code3">: <span id="reason"></span></p>
+                  </div>
+                </div>
+              </div>
+              <!-- Add other data placeholders here -->
+              <form id="actionForm">
+                <div class="mb-3">
+                  <label for="actionNote" class="form-label">Note:</label>
+                  <input type="text" class="form-control" id="actionNote" name="actionNote">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" onclick="acceptNote()">Accept</button>
+              <button type="button" class="btn btn-danger" onclick="rejectNote()">Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+
+
+  <th:block layout:fragment="script">
+    <script th:src="@{/js/approveLeaveRequest.js}"></script>
+  </th:block>
+
+
+</body>
+
+</html>

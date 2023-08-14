@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joint Leave</title>
+</head>
+
+<body id="body-pd">
+    <main>
+        <section layout:fragment="content">
+            <div class="container">
+                <br>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#createJointLeave"> ADD JOINT LEAVE </button>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center align-items-center">
+                    <table class="table table-hover table-bordered w-100" id="table-joint-leave">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>is Holiday?</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-light">
+
+                        </tbody>
+<!--                        <tbody class="table-striped">-->
+<!--                            <tr th:each="jl : ${jointleaves}">-->
+<!--                                <td th:text="${jl.id}">id</td>-->
+<!--                                <td th:text="${jl.name}">name</td>-->
+<!--                                <td th:text="${jl.date}">date</td>-->
+<!--                                <td th:text="${jl.isHoliday}">is holiday</td>-->
+<!--                                <td class="icon">-->
+<!--                                    <a th:href="@{/joint-leave/update/{id} (id = ${jl.id})}" class="edit">-->
+<!--                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
+<!--                                    <form th:action="@{/joint-leave/{id} (id = ${jl.id})}" th:method="DELETE">-->
+<!--                                        <button-->
+<!--                                            onclick="return confirm('Are u sure want to be delete this jointLeave!!!!')"-->
+<!--                                            type="submit" class="btn btn-danger px-5 py-2">Delete</button>-->
+<!--                                    </form>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </tbody>-->
+                    </table>
+                </div>
+            </div>
+            <!-- Modal Create JointLeave -->
+            <div class="modal fade modal-show" id="createJointLeave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="staticBackdropLabel">Create Joint Leave</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" name="date" id="date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="isHoliday" class="form-label">Holiday</label>
+                                <select class="form-select" name="isHoliday" id="isHoliday" required>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="createJointLeave()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Update JointLeave -->
+            <div class="modal fade modal-show" id="updateJointLeave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="staticBackdropLabel2">update JointLeave</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="idUpdate" name="id">
+                            <div class="mb-3">
+                                <label for="name2" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name2" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date2" class="form-label">Date</label>
+                                <input type="date" class="form-control" name="date" id="date2" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="isHoliday2" class="form-label">Holiday</label>
+                                <select class="form-select" name="isHoliday" id="isHoliday2" required>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="updateJointLeave()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Delete JointLeave -->
+            <div class="modal fade modal-show" id="deleteJointLeave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="staticBackdropLabel3">Delete JointLeave</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this data?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button id="submitDelete" type="button" class="btn btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/jointLeave.js}"></script>
+    </th:block>
+</body>
+
+</html>

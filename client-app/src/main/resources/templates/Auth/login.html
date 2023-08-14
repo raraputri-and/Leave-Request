@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <title>Welcome to E-Leave Request</title>
+</head>
+
+<body>
+  <div class="bg-img">
+    <div class="content">
+      <div class="login-form">
+        <header>Login Form</header>
+        <form th:action="@{/login}" th:object="${loginRequest}" th:method="POST">
+          <div class="field">
+            <span class="fa fa-user"></span>
+            <input type="text" th:field="*{username}" required placeholder="Username">
+          </div>
+          <div class="field space">
+            <span class="fa fa-lock"></span>
+            <input type="password" th:field="*{password}" class="pass-key" required placeholder="Password">
+            <span class="show">SHOW</span>
+          </div>
+          <div class="field space">
+            <input type="submit" value="LOGIN">
+          </div>
+        </form>
+      </div>
+
+      <div class="sub-container">
+        <div class="sub-login">
+          <img src="https://www.uc.ac.id/wp-content/uploads/2021/06/Logo-UC-Metrodata-Academy.jpg" alt=""
+            class="image-login">
+        </div>
+        <div class="sub-login">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Universitas_Ciputra.png" alt=""
+            class="image-login">
+        </div>
+        <div class="sub-login">
+          <img
+            src=https://images.glints.com/unsafe/glints-dashboard.s3.amazonaws.com/company-logo/cf7b623f8414e3edc674eacbe49160c8.png
+            alt="" class="image-login">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/js/login.js}"></script>
+
+</body>
+
+</html>
