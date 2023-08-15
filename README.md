@@ -85,6 +85,7 @@ Alert on Leave-Request            | Nada & Natan
 Numbering Ajax                    | Nada & Natan
 Security BE & FE                  | Nada
 User Manual                       | Natan & Bachtiar
+PPT                               | Bachtiar
 
 ---
 
