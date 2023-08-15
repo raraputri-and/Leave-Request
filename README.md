@@ -56,7 +56,7 @@ Activity Diagram                  | Nada & Bachtiar
 ERD                               | Nada & Natan 
 Dummy Data                        | Nada
 Login Validation (BE & FE)        | Nada
-Login view FE                     | Nada
+Login view FE                     | Nada & Natan
 Leave-Request BE                  | Nada
 Leave-Request FE                  | Nada & Natan
 Manager Action BE                 | Nada
