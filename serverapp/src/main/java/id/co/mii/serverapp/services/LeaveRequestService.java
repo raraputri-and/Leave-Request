@@ -1,17 +1,17 @@
 package id.co.mii.serverapp.services;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import id.co.mii.serverapp.models.*;
+import id.co.mii.serverapp.models.dto.request.EmailRequest;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import id.co.mii.serverapp.repositories.LeaveRemainingRepository;
 import id.co.mii.serverapp.repositories.LeaveRequestStatusRepository;
@@ -38,6 +38,7 @@ public class LeaveRequestService {
     private UserService userService;
     private LeaveRemainingRepository leaveRemainingRepository;
     private JointLeaveService jointLeaveService;
+    private EmailService emailService;
 
     public List<LeaveRequest> getAll() {
         return leaveRequestRepository.findAll();
@@ -174,6 +175,7 @@ public class LeaveRequestService {
             }
         }
         leaveRequest = leaveRequestRepository.save(leaveRequest);
+
         LeaveRequestStatusRequest leaveRequestStatusRequest = new LeaveRequestStatusRequest();
         LeaveRequestStatus leaveRequestStatus = modelMapper.map(leaveRequestStatusRequest, LeaveRequestStatus.class);
         LocalDate localDate = LocalDate.now();
@@ -184,11 +186,10 @@ public class LeaveRequestService {
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
 
-
         return leaveRequest;
     }
 
-
+    @SneakyThrows
     public LeaveRequest accept(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         LeaveRequest leaveRequest = getById(id);
         leaveRequest.setId(id);
@@ -202,9 +203,27 @@ public class LeaveRequestService {
         leaveRequestStatus.setLeaveRequest(getById(id));
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
+
+        EmailRequest emailRequest = new EmailRequest();
+        emailRequest.setTo(leaveRequest.getEmployee().getEmail());
+        emailRequest.setSubject("Leave Request Result");
+        emailRequest.setTemplate("accepted.html");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateStart = sdf.format(leaveRequest.getDateStart());
+        String dateEnd = sdf.format(leaveRequest.getDateEnd());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("empName", leaveRequest.getEmployee().getName());
+        map.put("pic", leaveRequestStatus.getPic().getName());
+        map.put("startDate", dateStart);
+        map.put("endDate", dateEnd);
+        emailRequest.setMap(map);
+        emailService.sendHtmlMessage(emailRequest);
+
         return leaveRequestRepository.save(leaveRequest);
     }
-
+    @SneakyThrows
     public LeaveRequest reject(Integer id, LeaveRequestStatusRequest leaveRequestStatusRequest){
         LeaveRequest leaveRequest = getById(id);
         leaveRequest.setId(id);
@@ -218,6 +237,24 @@ public class LeaveRequestService {
         leaveRequestStatus.setLeaveRequest(getById(id));
         leaveRequestStatus.setStatusAction(leaveRequest.getStatusAction());
         leaveRequestStatusRepository.save(leaveRequestStatus);
+
+        EmailRequest emailRequest = new EmailRequest();
+        emailRequest.setTo(leaveRequest.getEmployee().getEmail());
+        emailRequest.setSubject("Leave Request Result");
+        emailRequest.setTemplate("rejected.html");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateStart = sdf.format(leaveRequest.getDateStart());
+        String dateEnd = sdf.format(leaveRequest.getDateEnd());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("empName", leaveRequest.getEmployee().getName());
+        map.put("pic", leaveRequestStatus.getPic().getName());
+        map.put("startDate", dateStart);
+        map.put("endDate", dateEnd);
+        emailRequest.setMap(map);
+        emailService.sendHtmlMessage(emailRequest);
+
         return leaveRequestRepository.save(leaveRequest);
     }
 

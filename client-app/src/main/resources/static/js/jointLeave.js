@@ -7,7 +7,13 @@ $(document).ready(function () {
         columns: [
             { data: 'id' },
             { data: 'name'},
-            { data: 'date'},
+            { data: 'date',
+                title: 'Date',
+                render: function (data, type, row) {
+                    var date = new Date(data);
+                    var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    return date.toLocaleDateString('en-GB', options).split('/').join('-');
+                }},
             { data: 'isHoliday'},
             {
                 "data": null,

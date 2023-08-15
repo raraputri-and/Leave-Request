@@ -3,6 +3,7 @@ package id.co.mii.clientapp.controllers;
 import id.co.mii.clientapp.models.dto.LoginRequest;
 import id.co.mii.clientapp.services.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,9 @@ public class AuthController {
             return "redirect:/login?error=true";
         }
         System.out.println("login success");
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("admin")){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Boolean checkAdmin = authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+        if (checkAdmin){
             return "redirect:/emp";
         }
         else {

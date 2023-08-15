@@ -1,5 +1,6 @@
 package id.co.mii.serverapp.models;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +42,12 @@ public class Employee {
 
     @Column(name = "employee_name", nullable = false)
     private String name;
+
+    @Column(name = "employee_email", nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private Date joinDate;
 
     @Column(name = "employee_gender", nullable = false)
     @Enumerated(EnumType.STRING)

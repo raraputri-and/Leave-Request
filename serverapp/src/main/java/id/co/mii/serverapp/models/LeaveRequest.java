@@ -28,6 +28,7 @@ public class LeaveRequest {
     private Date dateEnd;
     @Column(nullable = false)
     private Integer quantity;
+
     private String attachment;
 
     @ManyToOne

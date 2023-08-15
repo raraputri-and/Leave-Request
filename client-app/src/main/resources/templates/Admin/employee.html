@@ -21,6 +21,8 @@
               <th>No</th>
               <th>NIP</th>
               <th>Name</th>
+              <th>Email</th>
+              <th>Join Date</th>
               <th>Gender</th>
               <th>Religion</th>
               <th>Manager</th>
@@ -42,22 +44,28 @@
             </div>
             <div class="modal-body">
               <div class="mb-3">
-                <label for="nip" class="form-label">nip</label>
+                <label for="nip" class="form-label">NIP</label>
                 <input type="text" class="form-control" name="nip" id="nip2" required>
 
-                <label for="name" class="form-label">name</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="name2" required>
 
-                <label for="gender" class="form-label">gender</label>
+                <label for="email2" class="form-label">E-mail</label>
+                <input type="email" class="form-control" name="email" id="email2" required>
+
+                <label for="joinDate2" class="form-label">Join Date</label>
+                <input type="date" class="form-control" name="joinDate" id="joinDate2" required>
+
+                <label for="gender" class="form-label">Gender</label>
                 <select class="form-select" name="gender" id="gender2">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
 
-                <label for="religion" class="form-label">religion</label>
+                <label for="religion" class="form-label">Religion</label>
                 <select class="form-select religion-selector" name="religion.id" id="religion2"></select>
 
-                <label for="manager" class="form-label">manager</label>
+                <label for="manager" class="form-label">Manager</label>
                 <select class="form-select employee-selector" name="manager.id" id="manager2"></select>
 
                 <label for="username" class="form-label">username</label>

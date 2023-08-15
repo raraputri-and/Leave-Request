@@ -8,6 +8,8 @@ $(document).ready(function () {
             { data: 'id' },
             { data: 'nip'},
             { data: 'name'},
+            { data: 'email'},
+            { data: 'joinDate'},
             { data: 'gender'},
             { data: 'religion.name'},
             { data: 'manager.name'},
@@ -129,6 +131,8 @@ function editEmployee() {
 function createEmployee() {
     let nipVal = $("#nip2").val()
     let nameVal = $("#name2").val()
+    let emailVal = $("#email2").val()
+    let joinDateVal = $("#joinDate2").val()
     let genderVal = $("#gender2").val()
     let religionVal = $("#religion2").val()
     let managerVal = $("#manager2").val()
@@ -142,6 +146,8 @@ function createEmployee() {
         data: JSON.stringify({
             nip : nipVal,
             name : nameVal,
+            email : emailVal,
+            joinDate : joinDateVal,
             gender: genderVal,
             religionId : religionVal,
             managerId : managerVal,
@@ -154,6 +160,8 @@ function createEmployee() {
             $("#table-user").DataTable().ajax.reload()
             $("#nip2").val('')
             $("#name2").val('')
+            $("#email2").val('')
+            $("#joinDate2").val('')
             $("#gender2").val('')
             $("#religion2").val('')
             $("#manager2").val('')
