@@ -79,6 +79,8 @@ Role FE                           | Nada & Natan
 Joint Leave BE                    | Nada
 Joint Leave FE                    | Nada & Natan
 Attachment BE & FE                | Nada
+Parameter BE & FE                 | Nada
+Error Page                        | Nada
 Alert on Leave-Request            | Nada & Natan
 Numbering Ajax                    | Nada & Natan
 Security BE & FE                  | Nada
