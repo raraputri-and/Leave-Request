@@ -1,4 +1,6 @@
-## **`Information for the Final Project Repository`**
+# **`Information for the Final Project Repository`**
+
+## **_`Title: Leave Request`_**
 
 ### **`Kelompok 01:`**
 
