@@ -98,6 +98,10 @@ public class LeaveRequestService {
         LeaveRequest leaveRequest = modelMapper.map(leaveRequestRequest, LeaveRequest.class);
         leaveRequest.setEmployee(user.getEmployee());
 
+        if (leaveRequestRequest.getAttachment()!=null) {
+            leaveRequest.setAttachment(leaveRequestRequest.getAttachment().getBytes());
+        }
+
         jointLeaveService.getAll().forEach(jl -> {
             if (leaveRequestRequest.getDateStart().equals(jl.getDate()) || leaveRequestRequest.getDateEnd().equals(jl.getDate())){
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "leave date is already exist");
@@ -110,11 +114,8 @@ public class LeaveRequestService {
         if(leaveRequestRequest.getLeaveTypeId()==5 && user.getEmployee().getReligion().getId()!=1){
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not Moslem, can not choose cuti haji");
         }
-        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=2){
-            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not christian, can not choose cuti baptis");
-        }
-        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=3){
-            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not catholic , can not choose cuti baptis");
+        if(leaveRequestRequest.getLeaveTypeId()==6 && user.getEmployee().getReligion().getId()!=2 && user.getEmployee().getReligion().getId()!=3){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Employee is not christian or catholic, can not choose cuti baptis");
         }
         leaveRequest.setLeaveType(leaveTypeService.getById(leaveRequestRequest.getLeaveTypeId()));
         leaveRequest.setStatusAction(statusActionService.getById(3));
@@ -258,5 +259,7 @@ public class LeaveRequestService {
         return leaveRequestRepository.save(leaveRequest);
     }
 
-
+    public byte[] showAttachment(Integer id){
+        return getById(id).getAttachment();
+    }
 }

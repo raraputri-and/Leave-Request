@@ -54,11 +54,25 @@ $(document).ready(function () {
         data: null,
         title: 'Action',
         render: function (data, type, row) {
+          console.log(data)
+          if (data.attachment===''){
+            return `<div class="d-flex gap-2">
+                        <button class="btn btn-info px-3 py-2" type="button" data-bs-toggle="modal" 
+                        data-bs-target="#pastActionsModal" onclick="showPast(${data.id})"><span
+                        class="bi bi-pencil-square">Show
+                        </button>
+                        </div>`
+          }
           return `
                     <div class= "d-flex gap-2">
                         <button class="btn btn-info px-3 py-2" type="button" data-bs-toggle="modal" 
                         data-bs-target="#pastActionsModal" onclick="showPast(${data.id})"><span
-                        class="bi bi-pencil-square">Show</button>
+                        class="bi bi-pencil-square">Show
+                        </button>
+                        <button class="btn btn-primary px-3 py-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#attachment" onclick="openAttachmentself(${data.id})">
+                             Attachment
+                        </button>
                     </div>
                     
 
@@ -150,3 +164,7 @@ function showPast(id) {
   });
 }
 
+function openAttachmentself(id){
+  let url = `/api/leave-request/attachment/${id}`
+  $('#image').attr('src', url)
+}

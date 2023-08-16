@@ -29,7 +29,9 @@ public class LeaveRequest {
     @Column(nullable = false)
     private Integer quantity;
 
-    private String attachment;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] attachment;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)

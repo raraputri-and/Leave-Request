@@ -3,6 +3,9 @@ package id.co.mii.serverapp.controllers;
 import id.co.mii.serverapp.models.LeaveRequest;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestStatusRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import id.co.mii.serverapp.models.dto.request.LeaveRequestRequest;
@@ -44,7 +47,7 @@ public class LeaveRequestController {
     }
     @PreAuthorize("hasAnyAuthority('CREATE_EMPLOYEE', 'CREATE_MANAGER')")
     @PostMapping
-    public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {
+    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
         return leaveRequestService.create(leaveRequestRequest);
     }
     @PreAuthorize("hasAuthority('UPDATE_MANAGER')")
@@ -56,5 +59,13 @@ public class LeaveRequestController {
     @PutMapping("reject/{id}")
     public LeaveRequest reject(@PathVariable Integer id, @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
         return leaveRequestService.reject(id, leaveRequestStatusRequest);
+    }
+    @PreAuthorize("hasAnyAuthority('READ_MANAGER', 'READ_EMPLOYEE')")
+    @GetMapping("/attachment/{id}")
+    public ResponseEntity<?> showAttachment(@PathVariable Integer id){
+        byte[] imageData=leaveRequestService.showAttachment(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(imageData);
     }
 }
