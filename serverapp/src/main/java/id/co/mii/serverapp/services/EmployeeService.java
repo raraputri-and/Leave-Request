@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
 
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import id.co.mii.serverapp.repositories.EmployeeRepository;
@@ -41,6 +42,8 @@ public class EmployeeService {
         existingEmployee.setId(id);
         existingEmployee.setNip(employeeRequest.getNip());
         existingEmployee.setName(employeeRequest.getName());
+        existingEmployee.setEmail(employeeRequest.getEmail());
+        existingEmployee.setJoinDate(employeeRequest.getJoinDate());
         existingEmployee.setGender(Gender.valueOf(employeeRequest.getGender()));
         existingEmployee.setReligion(religionService.getById(employeeRequest.getReligionId()));
         existingEmployee.setManager(getById(employeeRequest.getManagerId()));
@@ -67,7 +70,8 @@ public class EmployeeService {
         //set default leave remaining
         LeaveRemaining leaveRemaining = new LeaveRemaining();
         leaveRemaining.setPastRemaining(0);
-        leaveRemaining.setPresentRemaining(Integer.valueOf(parameterService.getById("Max-leave").getLeaveQty()));
+        Integer joinMonth = employee.getJoinDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue();
+        leaveRemaining.setPresentRemaining(Integer.parseInt(parameterService.getById("Max-leave").getLeaveQty())-joinMonth);
 
         Employee manager = employeeRepository.findById(employeeRequest.getManagerId()).get();
         employee.setReligion(religionService.getById(employeeRequest.getReligionId()));
