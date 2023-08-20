@@ -5,9 +5,10 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'employee.name'},
-            { data: 'pastRemaining'},
-            { data: 'presentRemaining'},
+            { data: null, title: 'No' },
+            { data: 'employee.name' },
+            { data: 'pastRemaining' },
+            { data: 'presentRemaining' },
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -17,23 +18,26 @@ $(document).ready(function () {
                     </div>`
                 }
             }
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 });
 
-function beforeUpdate(id){
+function beforeUpdate(id) {
     $.ajax({
-            method: "GET",
-            url: "/api/leave-remaining/" + id,
-            dataType: "JSON",
-            beforeSend: addCsrfToken(),
-            success: (result) => {
-                $("#idLeaveRemaining").val(result.id)
-                $("#id").val(result.employee.name)
-                $("#pastRemaining").val(result.pastRemaining)
-                $("#presentRemaining").val(result.presentRemaining)
-            }
+        method: "GET",
+        url: "/api/leave-remaining/" + id,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        success: (result) => {
+            $("#idLeaveRemaining").val(result.id)
+            $("#id").val(result.employee.name)
+            $("#pastRemaining").val(result.pastRemaining)
+            $("#presentRemaining").val(result.presentRemaining)
         }
+    }
     )
 }
 

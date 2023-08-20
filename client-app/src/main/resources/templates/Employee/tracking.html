@@ -8,95 +8,129 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Tracking</title>
-    <style>
-        select.form-select-sm {
-            display: inline;
-            height: 37px;
-            width: 200px;
-            margin-left: 10px;
-            margin-bottom: 5px;
-        }
 
-    </style>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
 </head>
 
 <body id="body-pd">
     <section layout:fragment="content">
+        <div class="wrapper">
+            <div class="container-fluid ">
+                <br>
+                <div class="card m-b-20" >
+                    <div class="d-flex justify-content-start mt-5 mb-2 fw-bold" style="padding-left: 100px; padding-right: 100px;">
+                        <h1 style="color: #4723D9;">Tracking Request</h1>
+                    </div>
 
-            <div class="d-flex justify-content-center mt-5 mb-2 fw-bold"> Tracking Request </div>
-        <div class="container mt-4">
-            <!-- Create the drop down filter -->
-            <div class="category-filter">
-                <select id="categoryFilter" class="form-select-sm">
-                    <option value="">Show All</option>
-                    <option value="Cuti Normal">Cuti Normal</option>
-                    <option value="Cuti Menikah">Cuti Menikah</option>
-                    <option value="Cuti Keluarga Inti Meninggal">Cuti Keluarga Inti Meninggal</option>
-                    <option value="Cuti Melahirkan">Cuti Melahirkan</option>
-                    <option value="Cuti Haji">Cuti Haji</option>
-                    <option value="Cuti Baptis Anak">Cuti Baptis Anak</option>
-                </select>
-            </div>
-            <table class="table table-hover table-bordered w-100" id="table-tracking">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Id</th>
-                        <th>No</th>
-                        <th>Reason</th>
-                        <th>Leave Type</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Qty</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <!-- <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Reason</th>
-                    <th>Leave Type</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Qty</th>
-                    <th>Attachment</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                    
-                </tr>
-            </tfoot> -->
-                <tbody class="table-light table-striped">
-                </tbody>
-
-            </table>
-            <!-- Modal -->
-            <div class="modal fade modal-show" id="pastActionsModal" tabindex="-1"
-                aria-labelledby="pastActionsModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="pastActionsModalLabel">Past Actions</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="card-body bg-white" style="padding-left: 100px; padding-right: 100px;">
+                        <!-- Create the drop down filter -->
+                        <div class="category-filter">
+                            <select id="categoryFilter" class="form-select-sm">
+                                <option value="">Show All</option>
+                                <option value="Cuti Normal">Cuti Normal</option>
+                                <option value="Cuti Menikah">Cuti Menikah</option>
+                                <option value="Cuti Keluarga Inti Meninggal">Cuti Keluarga Inti Meninggal</option>
+                                <option value="Cuti Melahirkan">Cuti Melahirkan</option>
+                                <option value="Cuti Haji">Cuti Haji</option>
+                                <option value="Cuti Baptis Anak">Cuti Baptis Anak</option>
+                            </select>
                         </div>
-                        <div class="modal-body">
-                            <!-- <div class="modal-body">
-                            <p id="past-info"></p>
-                        </div> -->
+                        <table class="table table-hover table-bordered w-100" id="table-tracking">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>No</th>
+                                    <!-- <th>Reason</th>     -->
+                                    <th>Leave Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Qty</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <!-- <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Reason</th>
+                            <th>Leave Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Qty</th>
+                            <th>Attachment</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </tfoot> -->
+                            <tbody class="table-light table-striped">
+                            </tbody>
 
-                            <div id="list">
+                        </table>
 
+                        <!-- Modal -->
+                        <div class="modal fade modal-show" id="pastActionsModal" tabindex="-1"
+                            aria-labelledby="pastActionsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="pastActionsModalLabel">Past Actions</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- <div class="modal-body">
+                                    <p id="past-info"></p>
+                                </div> -->
+
+                                        <div id="list">
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning"
+                                            data-bs-target="#reasonActionsModal" data-id="">Reason</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade modal-show" id="reasonActionsModal" tabindex="-1"
+                            aria-labelledby="reasonActionsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="reasonActionsMOdalLabel">Reason</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="reason" class="form-label">Reason</label>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="reason">: <span id="reasonText"></span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <style>
 
-            </style>
+
+
     </section>
 
 

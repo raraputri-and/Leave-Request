@@ -5,7 +5,14 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
+            {
+                data: null,
+                title: 'No'
+            },
+            {
+                data: 'id',
+                visible: false
+            },
             { data: 'name' },
             {
                 data: 'date',
@@ -28,7 +35,10 @@ $(document).ready(function () {
                     </div>`
                 }
             }
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 });
 

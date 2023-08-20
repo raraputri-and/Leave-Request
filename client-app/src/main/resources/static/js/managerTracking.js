@@ -6,7 +6,11 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
+            {
+                data: null,
+                title: 'No'
+            },
+            { data: 'id', visible: false },
             { data: 'employee.name', title: 'Employee' },
             { data: 'leaveType.name', title: 'Leave Type' },
             {
@@ -28,7 +32,6 @@ $(document).ready(function () {
                 }
             },
             { data: 'quantity', title: 'Qty' },
-            { data: 'reason', title: 'Reason' },
             // { data: 'statusAction.name', title: 'Status' },
             {
                 data: 'statusAction.name', title: 'Status',
@@ -44,6 +47,9 @@ $(document).ready(function () {
                     return `<span class="badge ${colorClass}">${data}</span>`;
                 }
             },
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     })
 });

@@ -1,5 +1,4 @@
 var table;
-var counter = 1;
 $(document).ready(function () {
     table = $('#table-action').DataTable({
         destroy: true,
@@ -10,10 +9,7 @@ $(document).ready(function () {
         columns: [
             {
                 data: null,
-                title: 'No',
-                render: function () {
-                    return counter++;
-                }
+                title: 'No'
             },
             { data: 'id', visible: false },
             { data: 'employee.name', title: 'Employee' },
@@ -37,7 +33,6 @@ $(document).ready(function () {
                 }
             },
             { data: 'quantity', title: 'Qty' },
-            { data: 'reason', title: 'Reason' },
             {
                 data: 'statusAction.name', title: 'Status',
                 render: function (data, type, row) {
@@ -65,11 +60,13 @@ $(document).ready(function () {
                 </button>
             </div>
                     
-
                     `;
                 }
             }
         ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 
 });
@@ -85,12 +82,12 @@ function openActionModal(id) {
 
     $.ajax({
         method: "GET",
-        url: `/api/leave-request/${id}`, 
+        url: `/api/leave-request/${id}`,
         dataType: "JSON",
         success: function (result) {
             $("#employeeName").text(result.employee.name);
             $("#leaveType").text(result.leaveType.name);
-            
+
             var startDate = new Date(result.dateStart).toLocaleDateString('en-GB').split('/').join('-');
             $("#dateStart").text(startDate);
 

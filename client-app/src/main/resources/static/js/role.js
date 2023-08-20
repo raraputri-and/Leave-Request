@@ -5,9 +5,16 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id'},
-            { data: 'username'},
-            { data: 'roles[0].name'},
+            {
+                data: null,
+                title: 'No'
+            },
+            {
+                data: 'id',
+                visible: false
+            },
+            { data: 'username' },
+            { data: 'roles[0].name' },
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -17,7 +24,10 @@ $(document).ready(function () {
                     </div>`
                 }
             }
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 });
 roleSelector()
@@ -36,18 +46,18 @@ function roleSelector() {
     })
 }
 
-function beforeUpdate(id){
+function beforeUpdate(id) {
     $.ajax({
-            method: "GET",
-            url: "/api/user/" + id,
-            dataType: "JSON",
-            beforeSend: addCsrfToken(),
-            success: (result) => {
-                $("#idUser").val(result.id)
-                $("#id").val(result.username)
-                $("#role").val(result.roles[0].id)
-            }
+        method: "GET",
+        url: "/api/user/" + id,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        success: (result) => {
+            $("#idUser").val(result.id)
+            $("#id").val(result.username)
+            $("#role").val(result.roles[0].id)
         }
+    }
     )
 }
 

@@ -5,13 +5,17 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
-            { data: 'nip'},
-            { data: 'name'},
-            { data: 'gender'},
-            { data: 'religion.name'},
-            { data: 'manager.name'},
-            { data: 'username'},
+            {
+                data: null,
+                title: 'No'
+            },
+            { data: 'id', visible: false },
+            { data: 'nip' },
+            { data: 'name' },
+            { data: 'gender' },
+            { data: 'religion.name' },
+            { data: 'manager.name' },
+            { data: 'username' },
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -21,7 +25,10 @@ $(document).ready(function () {
                     </div>`
                 }
             }
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
     religionSelector()
     function religionSelector() {
@@ -56,22 +63,22 @@ $(document).ready(function () {
     }
 });
 
-function beforeUpdate(id){
+function beforeUpdate(id) {
     $.ajax({
-            method: "GET",
-            url: "/api/emp/" + id,
-            dataType: "JSON",
-            beforeSend: addCsrfToken(),
-            success: (result) => {
-                $("#id").val(result.id)
-                $("#nip").val(result.nip)
-                $("#name").val(result.name)
-                $("#gender").val(result.gender)
-                $("#religion").val(result.religion.id)
-                $("#manager").val(result.manager.id)
-                $("#username").val(result.username)
-            }
+        method: "GET",
+        url: "/api/emp/" + id,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        success: (result) => {
+            $("#id").val(result.id)
+            $("#nip").val(result.nip)
+            $("#name").val(result.name)
+            $("#gender").val(result.gender)
+            $("#religion").val(result.religion.id)
+            $("#manager").val(result.manager.id)
+            $("#username").val(result.username)
         }
+    }
     )
 }
 
@@ -100,13 +107,13 @@ function editEmployee() {
                 dataType: "JSON",
                 beforeSend: addCsrfToken(),
                 data: JSON.stringify({
-                    nip : nipVal,
-                    name : nameVal,
+                    nip: nipVal,
+                    name: nameVal,
                     gender: genderVal,
-                    religionId : religionVal,
-                    managerId : managerVal,
-                    username : usernameVal,
-                    password : passwordVal
+                    religionId: religionVal,
+                    managerId: managerVal,
+                    username: usernameVal,
+                    password: passwordVal
                 }),
                 contentType: "application/json",
                 success: (result) => {
@@ -140,13 +147,13 @@ function createEmployee() {
         dataType: "JSON",
         beforeSend: addCsrfToken(),
         data: JSON.stringify({
-            nip : nipVal,
-            name : nameVal,
+            nip: nipVal,
+            name: nameVal,
             gender: genderVal,
-            religionId : religionVal,
-            managerId : managerVal,
-            username : usernameVal,
-            password : passwordVal
+            religionId: religionVal,
+            managerId: managerVal,
+            username: usernameVal,
+            password: passwordVal
         }),
         contentType: "application/json",
         success: function (result) {
