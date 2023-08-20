@@ -14,28 +14,45 @@
   <!--Container Main start-->
   <main>
     <section layout:fragment="content">
-      <div class="container">
-        <div class="d-flex justify-content-center py-5">
-          <table class="table  table-hover table-bordered w-100" id="table-action">
-            <thead class="table-primary">
-              <tr>
-                <th>No</th>
-                <th>id</th>
-                <th>Employee</th>
-                <th>Leave Type</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Qty</th>
-                <!-- <th>Reason</th> -->
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody class="table-striped bg-light">
-            </tbody>
-          </table>
+      <div class="wrapper">
+        <div class="container-fluid">
+          <br>
+          <div class="card m-b-20 w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light">
+
+            <div class="d-flex justify-content-start mt-5 mb-2 fw-bold"
+              style="padding-left: 100px; padding-right: 100px;">
+              <h1 style="color: #4723D9;">Manager Action</h1>
+            </div>
+
+            <div class="card-body " style="padding-left: 100px; padding-right: 100px;">
+              <table class="table  table-hover table-bordered w-100" id="table-action">
+                <thead class="table-primary">
+                  <tr>
+                    <th>No</th>
+                    <th>id</th>
+                    <th>Employee</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Qty</th>
+                    <!-- <th>Reason</th> -->
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="table-striped bg-light">
+                </tbody>
+              </table>
+
+            </div>
+          </div>
         </div>
       </div>
+      <!-- <div class="container">
+        <div class="d-flex justify-content-center py-5">
+          
+        </div>
+      </div> -->
 
       <!-- Test Modal -->
       <!-- Modal -->
@@ -115,7 +132,8 @@
       </div>
 
       <!-- Modal Attachment-->
-      <div class="modal fade modal-show" id="attachment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal fade modal-show" id="attachment" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog attachment">
           <div class="modal-content">
             <div class="modal-header">
@@ -133,7 +151,7 @@
       </div>
 
       <style>
-        .attachment{
+        .attachment {
           max-width: max-content;
         }
       </style>

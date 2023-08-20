@@ -13,26 +13,37 @@
 
 <body id="body-pd">
     <section layout:fragment="content">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <br>
+                <div class="card m-b-20 w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light" >
+                    <div class="d-flex justify-content-start mt-5 mb-2 fw-bold" style="padding-left: 100px; padding-right: 100px;">
+                        <h1 style="color: #4723D9;">Tracking Employee</h1>
+                    </div>
 
-        <div class="d-flex justify-content-center mt-5 mb-2 fw-bold"> Tracking Employee </div>
-        <table class="table table-primary table-hover table-bordered w-100" id="table-tracking-employee">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Id</th>
-                    <th>Employee</th>
-                    <th>Leave Type</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Qty</th>
-                    <!-- <th>Reason</th>     -->
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="table-light">
-            </tbody>
-        </table>
+                    <div class="card-body " style="padding-left: 100px; padding-right: 100px;">
+                        <table class="table table-primary table-hover table-bordered w-100" id="table-tracking-employee">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th>Employee</th>
+                                    <th>Leave Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Qty</th>
+                                    <!-- <th>Reason</th>     -->
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-light">
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+        
 
         <!-- Modal Attachment-->
         <div class="modal fade modal-show" id="attachment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

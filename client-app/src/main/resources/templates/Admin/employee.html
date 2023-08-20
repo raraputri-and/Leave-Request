@@ -1,45 +1,64 @@
 <!doctype html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main-manager}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Employee</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Employee</title>
 </head>
+
 <body id="body-pd">
   <main>
     <section layout:fragment="content">
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#createEmployee"> ADD EMPLOYEE </button>
-      </div>
-      <div class="container py-3">
-        <div class="d-flex justify-content-center">
-          <table class="table table-hover table-bordered w-100" id="table-user">
-            <thead class="table-primary">
-            <tr>
-              <th>No</th>
-              <th></th>
-              <th>NIP</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Join Date</th>
-              <th>Gender</th>
-              <th>Religion</th>
-              <th>Manager</th>
-              <th>Username</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody class="bg-light">
+      <div class="wrapper">
+        <div class="container-fluid">
+          <br>
+          <div class="card m-b-20 w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light">
 
-            </tbody>
-          </table>
+            <div class="d-flex justify-content-between mt-5 mb-2 fw-bold"
+              style="padding-left: 100px; padding-right: 100px;">
+              <h1 style="color: #4723D9;">List Employee</h1>
+
+              <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#createEmployee"
+                style="padding-left: 50px; padding-right: 50px;">
+                ADD EMPLOYEE </button>
+
+            </div>
+
+
+            <div class="card-body " style="padding-left: 100px; padding-right: 100px;">
+
+              <table class="table table-hover table-bordered w-100" id="table-user">
+                <thead class="table-primary">
+                  <tr>
+                    <th>No</th>
+                    <th></th>
+                    <th>NIP</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Join Date</th>
+                    <th>Gender</th>
+                    <th>Religion</th>
+                    <th>Manager</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-light">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
+
       <!-- Modal Create Employee -->
-      <div class="modal fade modal-show" id="createEmployee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal fade modal-show" id="createEmployee" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -89,8 +108,8 @@
 
 
       <!-- Modal Update Employee -->
-      <div class="modal fade modal-show" id="updateEmployee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal fade modal-show" id="updateEmployee" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -146,4 +165,5 @@
   </th:block>
 
 </body>
+
 </html>
