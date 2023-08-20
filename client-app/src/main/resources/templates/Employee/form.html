@@ -15,7 +15,7 @@
         <div class="container-fluid position-relative mt-3">
             <br>
             <div class="container">
-                <form class="w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light"
+                <form enctype="multipart/form-data" class="w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light"
                     th:action="@{/leave-request}" th:object="${leaveRequestRequest}" th:method="POST">
                     <div class="alert alert-danger" role="alert" th:text="${message}"
                         th:attr="style=${message == '' ? 'display:none' : ''}">
@@ -81,7 +81,7 @@
                         <div class="mb-3">
                             <label for="attachment" class="input-field">Attachment</label>
                             <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg"
-                                th:field="*{attachment}">
+                            id="attachment" name="attachment">
                         </div>
 
                         <div class="d-flex justify-content-between">

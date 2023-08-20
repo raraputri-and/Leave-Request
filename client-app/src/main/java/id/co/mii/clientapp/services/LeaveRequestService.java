@@ -6,14 +6,20 @@ import id.co.mii.clientapp.models.dto.LeaveRequestStatusRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -69,10 +75,21 @@ public class LeaveRequestService {
                 }).getBody();
     }
 
-    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest) {
+    public LeaveRequest create(LeaveRequestRequest leaveRequestRequest, MultipartFile attachment) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("reason", leaveRequestRequest.getReason());
+        body.add("dateStart", leaveRequestRequest.getDateStart());
+        body.add("dateEnd", leaveRequestRequest.getDateEnd());
+        body.add("quantity", leaveRequestRequest.getQuantity());
+        body.add("leaveTypeId", leaveRequestRequest.getLeaveTypeId());
+        body.add("attachment", new FileSystemResource(convertMultiPartToFile(attachment)));
+
         return restTemplate.exchange(url,
                 HttpMethod.POST,
-                new HttpEntity(leaveRequestRequest),
+                new HttpEntity(body, headers),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
     }
@@ -91,6 +108,20 @@ public class LeaveRequestService {
                 new HttpEntity(leaveRequestStatusRequest),
                 new ParameterizedTypeReference<LeaveRequest>() {
                 }).getBody();
+    }
+
+    public byte[] showAttachment(Integer id) {
+        return restTemplate.exchange(url + "/attachment/" + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<byte[]>() {
+                }).getBody();
+    }
+
+    private Path convertMultiPartToFile(MultipartFile file) throws IOException {
+        Path filePath = Files.createTempFile("temp-", file.getOriginalFilename());
+        Files.write(filePath, file.getBytes());
+        return filePath;
     }
 
 }

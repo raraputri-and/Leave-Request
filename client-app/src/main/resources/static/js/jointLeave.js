@@ -16,6 +16,12 @@ $(document).ready(function () {
             { data: 'name' },
             {
                 data: 'date',
+                title: 'Date',
+                render: function (data, type, row) {
+                    var date = new Date(data);
+                    var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    return date.toLocaleDateString('en-GB', options).split('/').join('-');
+                },
                 title: 'Start Date',
                 render: function (data, type, row) {
                     var date = new Date(data);

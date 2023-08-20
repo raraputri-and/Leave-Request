@@ -32,25 +32,6 @@
               </tr>
             </thead>
             <tbody class="table-striped bg-light">
-              <!-- <tr th:each="lr : ${leaveRequests}">
-                <td th:text="${lr.id}">id</td>
-                <td th:text="${lr.employee.name}">name</td>
-                <td th:text="${lr.leaveType.name}">leave type</td>
-                <td th:text="${#dates.format(lr.dateStart, 'dd-MM-yyyy')}">start date</td>
-                <td th:text="${#dates.format(lr.dateEnd, 'dd-MM-yyyy')}">end date</td>
-                <td th:text="${lr.quantity}">quantity</td>
-                <td th:text="${lr.reason}">reason</td>
-                <td th:text="${lr.attachment}">attachment</td>
-                <td th:text="${lr.statusAction.name}">status action</td>
-                <td class="icon d-flex gap-2  ">
-                  <a th:href="@{/leave-request/reject/{id} (id = ${lr.id})}" class="btn btn-danger px-3 py-2"
-                    type="button">Reject</a>
-                  <form th:action="@{/leave-request/accept/{id} (id = ${lr.id})}" th:method="PUT">
-                    <button onclick="return confirm('Are u sure want to Accept this leave request!!!!')" type="submit"
-                      class="btn btn-success px-3 py-2">Accept</button>
-                  </form>
-                </td>
-              </tr> -->
             </tbody>
           </table>
         </div>
@@ -94,26 +75,26 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="code3" class="form-label">End Date</label>
+                    <label for="dateEnd" class="form-label">End Date</label>
                   </div>
                   <div class="col">
-                    <p id="code3">: <span id="dateEnd"></span></p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <label for="code3" class="form-label">Quantity</label>
-                  </div>
-                  <div class="col">
-                    <p id="code3">: <span id="quantity"></span></p>
+                    <p>: <span id="dateEnd"></span></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="code3" class="form-label">Reason</label>
+                    <label for="quantity" class="form-label">Quantity</label>
                   </div>
                   <div class="col">
-                    <p id="code3">: <span id="reason"></span></p>
+                    <p>: <span id="quantity"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="reason" class="form-label">Reason</label>
+                  </div>
+                  <div class="col">
+                    <p>: <span id="reason"></span></p>
                   </div>
                 </div>
               </div>
@@ -132,6 +113,30 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal Attachment-->
+      <div class="modal fade modal-show" id="attachment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog attachment">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Attachment</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img src="" id="image">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        .attachment{
+          max-width: max-content;
+        }
+      </style>
 
     </section>
   </main>

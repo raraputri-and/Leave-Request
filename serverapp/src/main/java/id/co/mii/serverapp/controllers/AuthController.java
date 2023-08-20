@@ -1,7 +1,5 @@
 package id.co.mii.serverapp.controllers;
 
-import id.co.mii.serverapp.models.Employee;
-import id.co.mii.serverapp.models.dto.request.EmployeeRequest;
 import id.co.mii.serverapp.models.dto.request.LoginRequest;
 import id.co.mii.serverapp.models.dto.response.LoginResponse;
 import id.co.mii.serverapp.services.AuthService;

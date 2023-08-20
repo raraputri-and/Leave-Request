@@ -13,12 +13,9 @@ import java.util.Date;
 public class LeaveRequestRequest {
     private Integer id;
     private String reason;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateStart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateEnd;
+    private String dateStart;
+    private String dateEnd;
     private Integer quantity;
-    private String attachment;
     private Integer employeeId;
     private Integer leaveTypeId;
     private Integer statusActionId;

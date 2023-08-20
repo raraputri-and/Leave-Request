@@ -51,15 +51,26 @@ $(document).ready(function () {
                 data: null,
                 title: 'Action',
                 render: function (data, type, row) {
+                    if (data.attachment===''){
+                        return `<div class="d-flex gap-2">
+                        <button class="btn btn-info px-3 py-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
+                             Action
+                        </button>
+                        </div>`
+                    }
                     return `
 
                     <div class="d-flex gap-2">
-                <button class="btn btn-primary px-3 py-2" type="button"
-                    data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
-                    Action
-                </button>
-            </div>
-                    
+                    <button class="btn btn-info px-3 py-2" type="button"
+                        data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
+                        Action
+                    </button>
+                    <button class="btn btn-primary px-3 py-2" type="button"
+                        data-bs-toggle="modal" data-bs-target="#attachment" onclick="openAttachment(${data.id})">
+                        Attachment
+                    </button>
+                    </div>
                     `;
                 }
             }
@@ -72,10 +83,10 @@ $(document).ready(function () {
 });
 
 
-// function openRejectModal(id) {
-//     $("#rejectModal").attr("data-reject-id", id);
-//     $("#rejectModal").modal("show");
-// }
+function openAttachment(id){
+    let url = `/api/leave-request/attachment/${id}`
+    $('#image').attr('src', url)
+}
 
 function openActionModal(id) {
     $("#actionModal").attr("data-action-id", id);

@@ -33,6 +33,8 @@ public class EmployeeController {
             employeeResponse.setId(emp.getId());
             employeeResponse.setNip(emp.getNip());
             employeeResponse.setName(emp.getName());
+            employeeResponse.setEmail(emp.getEmail());
+            employeeResponse.setJoinDate(emp.getJoinDate());
             employeeResponse.setGender(String.valueOf(emp.getGender()));
             employeeResponse.setReligion(emp.getReligion());
             ManagerResponse managerResponse = new ManagerResponse();
@@ -53,6 +55,8 @@ public class EmployeeController {
         employeeResponse.setId(emp.getId());
         employeeResponse.setNip(emp.getNip());
         employeeResponse.setName(emp.getName());
+        employeeResponse.setEmail(emp.getEmail());
+        employeeResponse.setJoinDate(emp.getJoinDate());
         employeeResponse.setGender(String.valueOf(emp.getGender()));
         employeeResponse.setReligion(emp.getReligion());
         ManagerResponse managerResponse = new ManagerResponse();
