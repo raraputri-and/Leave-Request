@@ -1,5 +1,4 @@
 var table;
-var counter = 1;
 $(document).ready(function () {
     table = $('#table-action').DataTable({
         destroy: true,
@@ -10,10 +9,7 @@ $(document).ready(function () {
         columns: [
             {
                 data: null,
-                title: 'No',
-                render: function () {
-                    return counter++;
-                }
+                title: 'No'
             },
             { data: 'id', visible: false },
             { data: 'employee.name', title: 'Employee' },
@@ -37,7 +33,6 @@ $(document).ready(function () {
                 }
             },
             { data: 'quantity', title: 'Qty' },
-            { data: 'reason', title: 'Reason' },
             {
                 data: 'statusAction.name', title: 'Status',
                 render: function (data, type, row) {
@@ -56,41 +51,54 @@ $(document).ready(function () {
                 data: null,
                 title: 'Action',
                 render: function (data, type, row) {
+                    if (data.attachment===''){
+                        return `<div class="d-flex gap-2">
+                        <button class="btn btn-info px-3 py-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
+                             Action
+                        </button>
+                        </div>`
+                    }
                     return `
 
                     <div class="d-flex gap-2">
-                <button class="btn btn-primary px-3 py-2" type="button"
-                    data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
-                    Action
-                </button>
-            </div>
-                    
-
+                    <button class="btn btn-info px-3 py-2" type="button"
+                        data-bs-toggle="modal" data-bs-target="#actionModal" onclick="openActionModal(${data.id})">
+                        Action
+                    </button>
+                    <button class="btn btn-primary px-3 py-2" type="button"
+                        data-bs-toggle="modal" data-bs-target="#attachment" onclick="openAttachment(${data.id})">
+                        Attachment
+                    </button>
+                    </div>
                     `;
                 }
             }
         ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 
 });
 
 
-// function openRejectModal(id) {
-//     $("#rejectModal").attr("data-reject-id", id);
-//     $("#rejectModal").modal("show");
-// }
+function openAttachment(id){
+    let url = `/api/leave-request/attachment/${id}`
+    $('#image').attr('src', url)
+}
 
 function openActionModal(id) {
     $("#actionModal").attr("data-action-id", id);
 
     $.ajax({
         method: "GET",
-        url: `/api/leave-request/${id}`, 
+        url: `/api/leave-request/${id}`,
         dataType: "JSON",
         success: function (result) {
             $("#employeeName").text(result.employee.name);
             $("#leaveType").text(result.leaveType.name);
-            
+
             var startDate = new Date(result.dateStart).toLocaleDateString('en-GB').split('/').join('-');
             $("#dateStart").text(startDate);
 

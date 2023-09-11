@@ -17,9 +17,9 @@ public class LeaveRequest {
     private Date dateStart;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnd;
+    private byte[] attachment;
 
     private Integer quantity;
-    private String attachment;
     private Employee employee;
     private LeaveType leaveType;
     private StatusAction statusAction;

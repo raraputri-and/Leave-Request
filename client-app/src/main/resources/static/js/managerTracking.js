@@ -6,7 +6,11 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
+            {
+                data: null,
+                title: 'No'
+            },
+            { data: 'id', visible: false },
             { data: 'employee.name', title: 'Employee' },
             { data: 'leaveType.name', title: 'Leave Type' },
             {
@@ -28,7 +32,6 @@ $(document).ready(function () {
                 }
             },
             { data: 'quantity', title: 'Qty' },
-            { data: 'reason', title: 'Reason' },
             // { data: 'statusAction.name', title: 'Status' },
             {
                 data: 'statusAction.name', title: 'Status',
@@ -44,6 +47,30 @@ $(document).ready(function () {
                     return `<span class="badge ${colorClass}">${data}</span>`;
                 }
             },
-        ]
+            {
+                data: null,
+                title: 'Action',
+                render: function (data, type, row) {
+                    console.log(data)
+                    if (data.attachment !== '') {
+                        return `<div class="d-flex gap-2">
+                        <button class="btn btn-info px-3 py-2" type="button" data-bs-toggle="modal" 
+                        data-bs-target="#attachment" onclick="openAttachmentManager(${data.id})"><span
+                        class="bi bi-pencil-square">Attachment
+                        </button>
+                        </div>`
+                    }
+                    return ``;
+                }
+            }
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     })
 });
+
+function openAttachmentManager(id) {
+    let url = `/api/leave-request/attachment/${id}`
+    $('#image').attr('src', url)
+}

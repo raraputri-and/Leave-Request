@@ -4,58 +4,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Role</title>
 </head>
 
 <body id="body-pd">
-<main>
-  <section layout:fragment="content">
-    <div class="d-flex justify-content-center align-items-center">
-      <table class="table table-hover table-bordered w-100" id="table-role">
-        <thead class="table-primary">
-        <tr>
-          <th>Id</th>
-          <th>Username</th>
-          <th>Role</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody class="bg-light"></tbody>
-      </table>
-    </div>
-    <!-- edit Modal -->
-    <div class="modal fade modal-show" id="editModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="rejectModalLabel">Edit Role</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <input type="hidden" id="idUser">
-            <div class="mb-3">
-              <label for="id" class="form-label">Employee</label>
-              <input type="text" class="form-control" id="id" readonly>
+  <main>
+    <section layout:fragment="content">
+      <div class="wrapper">
+        <div class="container-fluid">
+          <br>
+          <div class="card m-b-20 w-100 border px-4 py-5 rounded-2 shadow-lg mt-3 mb-5 bg-light">
+            <div class="d-flex justify-content-start mt-5 mb-2 fw-bold"
+              style="padding-left: 100px; padding-right: 100px;">
+              <h1 style="color: #4723D9;">Role</h1>
             </div>
-            <div class="mb-3">
-              <label for="Role" class="form-label">Role</label>
-              <select class="form-select role-selector" name="role.id" id="role"></select>
+
+            <div class="card-body " style="padding-left: 100px; padding-right: 100px;">
+              <table class="table table-hover table-bordered w-100" id="table-role">
+                <thead class="table-primary">
+                  <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-light"></tbody>
+              </table>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="edit" onclick="editRole()">Send</button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
 
-<th:block layout:fragment="script">
-  <script th:src="@{/js/role.js}"></script>
-</th:block>
+        <!-- edit Modal -->
+        <div class="modal fade modal-show" id="editModal" tabindex="-1" aria-labelledby="rejectModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Edit Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="idUser">
+                <div class="mb-3">
+                  <label for="id" class="form-label">Employee</label>
+                  <input type="text" class="form-control" id="id" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="Role" class="form-label">Role</label>
+                  <select class="form-select role-selector" name="role.id" id="role"></select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="edit" onclick="editRole()">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+  </main>
+
+  <th:block layout:fragment="script">
+    <script th:src="@{/js/role.js}"></script>
+  </th:block>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-var counter = 1;
+// var counter = 1
 $(document).ready(function () {
   table = $('#table-tracking').DataTable({
     destroy: true,
@@ -9,14 +9,19 @@ $(document).ready(function () {
     columns: [
       {
         data: null,
-        title: 'No',
-        render: function () {
-          return counter++;
-        }
+        title: 'No'
+        // render: function () {
+        //   return counter++;
+        // }
       },
-      { data: 'id', visible: false },
-      { data: 'reason', title: 'Reason' },
-      { data: 'leaveType.name', title: 'Leave Type' },
+      {
+        data: 'id',
+        visible: false
+      },
+      {
+        data: 'leaveType.name',
+        title: 'Leave Type'
+      },
       {
         data: 'dateStart',
         title: 'Start Date',
@@ -54,18 +59,37 @@ $(document).ready(function () {
         data: null,
         title: 'Action',
         render: function (data, type, row) {
-          return `
-                    <div class= "d-flex gap-2">
+          console.log(data)
+          if (data.attachment === '') {
+            return `<div class="d-flex gap-2">
                         <button class="btn btn-info px-3 py-2" type="button" data-bs-toggle="modal" 
                         data-bs-target="#pastActionsModal" onclick="showPast(${data.id})"><span
-                        class="bi bi-pencil-square">Show</button>
+                        class="bi bi-pencil-square">Show
+                        </button>
+                        </div>`
+          }
+          return `
+          <div class = "d-flex justify-content-evenly "> 
+            <div class= "d-flex gap-2">
+                        <button class="btn btn-info px-3 py-2" type="button" data-bs-toggle="modal" 
+                        data-bs-target="#pastActionsModal" onclick="showPast(${data.id})"><span
+                        class="bi bi-pencil-square">Show
+                        </button>
+                        <button class="btn btn-primary px-3 py-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#attachment" onclick="openAttachmentself(${data.id})">
+                             Attachment
+                        </button>
                     </div>
+                    
                     
 
                     `;
         }
       }
-    ]
+    ],
+    rowCallback: function (row, data, index) {
+      $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+    }
   });
 
   // Append category filter dropdown to DataTable filter
@@ -92,8 +116,23 @@ $(document).ready(function () {
 });
 
 
-function showPast(id) {
+function showReason(id) {
+  $("#pastActionsModal").modal("hide");
 
+  $.ajax({
+    method: "GET",
+    url: `/api/leave-request/${id}`,
+    dataType: "JSON",
+    success: function (result) {
+      $("#reasonText").text(result.reason);
+      $("#reasonActionsModal").modal("show");
+
+    }
+  })
+}
+
+function showPast(id) {
+  var clickedId = id;
   $.ajax({
     method: "GET",
     url: `/api/leave-request-status/get-leave-request/${id}`,
@@ -143,10 +182,19 @@ function showPast(id) {
 
         });
 
-
+        $('#pastActionsModal .btn-warning').attr('onclick', `showReason(${clickedId})`);
         $("#pastActionsModal").modal("show");
       }
     }
   });
 }
 
+function openAttachmentself(id){
+  let url = `/api/leave-request/attachment/${id}`
+  $('#image').attr('src', url)
+}
+
+$("#reasonActionsModal").on("hidden.bs.modal", function () {
+  // Show the pastActionsModal again
+  $("#pastActionsModal").modal("show");
+});

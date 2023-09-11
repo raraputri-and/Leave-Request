@@ -5,9 +5,16 @@ $(document).ready(function () {
             dataSrc: ''
         },
         columns: [
-            { data: 'id' },
-            { data: 'leaveQty'},
-            { data: 'note'},
+            {
+                data: null,
+                title: 'No'
+            },
+            {
+                data: 'id',
+                title: 'Parameter'
+            },
+            { data: 'leaveQty' },
+            { data: 'note' },
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -17,22 +24,25 @@ $(document).ready(function () {
                     </div>`
                 }
             }
-        ]
+        ],
+        rowCallback: function (row, data, index) {
+            $('td:eq(0)', row).html(index + 1); // Assuming "No" column is the first column
+        }
     });
 });
 
-function beforeUpdate(id){
+function beforeUpdate(id) {
     $.ajax({
-            method: "GET",
-            url: "/api/parameter/" + id,
-            dataType: "JSON",
-            beforeSend: addCsrfToken(),
-            success: (result) => {
-                $("#id").val(result.id)
-                $("#leaveQty").val(result.leaveQty)
-                $("#note").val(result.note)
-            }
+        method: "GET",
+        url: "/api/parameter/" + id,
+        dataType: "JSON",
+        beforeSend: addCsrfToken(),
+        success: (result) => {
+            $("#id").val(result.id)
+            $("#leaveQty").val(result.leaveQty)
+            $("#note").val(result.note)
         }
+    }
     )
 }
 

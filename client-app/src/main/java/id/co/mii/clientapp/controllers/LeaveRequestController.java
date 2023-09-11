@@ -5,13 +5,14 @@ import id.co.mii.clientapp.models.dto.LeaveRequestStatusRequest;
 import id.co.mii.clientapp.services.*;
 import lombok.AllArgsConstructor;
 
-import javax.xml.ws.http.HTTPException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @AllArgsConstructor
@@ -19,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class LeaveRequestController {
     private LeaveRequestService leaveRequestService;
     private LeaveTypeService leaveTypeService;
-    private StatusActionService statusActionService;
     private EmployeeService employeeService;
     private LeaveRemainingService leaveRemainingService;
 
@@ -43,26 +43,17 @@ public class LeaveRequestController {
     }
 
     @PostMapping
-    public String create(LeaveRequestRequest leaveRequestRequest) {
+    public String create(@ModelAttribute LeaveRequestRequest leaveRequestRequest, @RequestParam(name = "attachment")MultipartFile attachment) {
         try {
-            leaveRequestService.create(leaveRequestRequest);
+            leaveRequestService.create(leaveRequestRequest, attachment);
             return "redirect:/leave-request-status/tracking";
         } catch (HttpClientErrorException e) {
-            // if ( e.getStatusCode().toString() == 409) {
-            // // code untuk menampilkan pesan "Yang dikirimkan secara deskriptif dari sisi
-            // // back end"
-            // } else { // untuk handling code 500 dan lainnya
-            // // code untuk menampilkan pesan "Sistem mengalami kendala, mohon coba kembali
-            // // secara berkala"
-            // }
-            // System.out.println(e.getStatusCode());
-            // System.out.println(e.getResponseBodyAsString());
-            // int size = convertedJson.length;
-            // for (String s : convertedJson) {
-            // System.out.println(s);
-            // }
+            System.out.println(e.getMessage());
             String[] convertedJson = e.getResponseBodyAsString().split("\"");
             return "redirect:/leave-request?message=" + convertedJson[19];
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -77,4 +68,5 @@ public class LeaveRequestController {
         leaveRequestService.reject(id, leaveRequestStatusRequest);
         return "redirect:/tracking/manager";
     }
+
 }

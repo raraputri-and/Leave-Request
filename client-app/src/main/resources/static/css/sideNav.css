@@ -147,6 +147,13 @@ a {
     height: 100vh
 }
 
+select.form-select-sm {
+    display: inline;
+    height: 37px;
+    width: 200px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
 
 @media screen and (min-width: 768px) {
     body {

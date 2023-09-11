@@ -23,10 +23,6 @@ public class JointLeaveService {
     private JointLeaveRepository jointLeaveRepository;
     private LeaveRemainingService leaveRemainingService;
     private LeaveRemainingRepository leaveRemainingRepository;
-    private EmployeeService employeeService;
-    private LeaveRequestRepository leaveRequestRepository;
-    private LeaveTypeService leaveTypeService;
-    private StatusActionService statusActionService;
 
     public List<JointLeave> getAll() {
         return jointLeaveRepository.findAll();

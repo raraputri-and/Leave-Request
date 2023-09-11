@@ -50,10 +50,10 @@ public class RestLeaveRequestController {
     }
 
     // @PreAuthorize("hasAuthority('CREATE_ADMIN')")
-    @PostMapping
-    public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest) {
-        return leaveRequestService.create(leaveRequestRequest);
-    }
+//    @PostMapping
+//    public LeaveRequest create(@RequestBody LeaveRequestRequest leaveRequestRequest, ) {
+//        return leaveRequestService.create(leaveRequestRequest);
+//    }
 
     @PutMapping("/accept/{id}")
     public LeaveRequest accept(@PathVariable Integer id,
@@ -65,5 +65,10 @@ public class RestLeaveRequestController {
     public LeaveRequest reject(@PathVariable Integer id,
             @RequestBody LeaveRequestStatusRequest leaveRequestStatusRequest) {
         return leaveRequestService.reject(id, leaveRequestStatusRequest);
+    }
+
+    @GetMapping("/attachment/{id}")
+    public byte[] showAttachment(@PathVariable Integer id){
+        return leaveRequestService.showAttachment(id);
     }
 }
