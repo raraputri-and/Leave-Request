@@ -1,4 +1,6 @@
-## **`Information for the Final Project Repository`**
+# **`Information for the Final Project Repository`**
+
+## **_`Title: Leave Request`_**
 
 ### **`Kelompok 01:`**
 
@@ -48,26 +50,44 @@ Pull Request                  | Completed     | 14/08/23
 
 ### **`Pembagian Tugas:`**
 
-Req & Design                  | Delegated to
----------------------------   | -------------
-BPMN                          | Nada
-Use Case Diagram              | Nada
-Activity Diagram              | Nada & Bachtiar
-ERD                           | Natan
-Dummy Data                    | Nada & Natan & Bachtiar
-Leave-Request (BE & FE)       | Nada & Natan
-Manager Action (BE & FE)      | Nada & Natan
-Side Nav                      | Nada & Natan
-Leave-Request-Status (BE & FE)| Nada & Natan
-Ajax Datatables (FE)          | Nada & Natan
-Modal Ajax Button (FE)        | Nada & Natan
-SideNav By Login              | Nada & Natan
-Validation Leave-Request (BE) | Nada
-Scheduler (BE)                | Nada
-Admin Page(BE & FE)           | Nada & Natan
-Alert on Leave-Request        | Nada & Natan
-Numbering Ajax                | Nada & Natan
-User Manual                   | Natan & Bachtiar
+Req & Design                      | Delegated to
+---------------------------       | -------------
+BPMN                              | Nada
+Use Case Diagram                  | Nada
+Activity Diagram                  | Nada & Bachtiar
+ERD                               | Nada & Natan 
+Dummy Data                        | Nada
+Login Validation (BE & FE)        | Nada
+Login view FE                     | Nada & Natan
+Leave-Request BE                  | Nada
+Leave-Request FE                  | Nada & Natan
+Manager Action BE                 | Nada
+Manager Action FE                 | Nada & Natan
+Side Nav                          | Nada & Natan
+Leave-Request-Status BE           | Nada
+Leave-Request-Status FE           | Nada & Natan
+All Ajax Datatables (FE)          | Nada & Natan
+Modal Ajax Button (FE)            | Nada & Natan
+SideNav By Login                  | Nada & Natan
+All Validation Leave-Request (BE) | Nada
+Scheduler (BE)                    | Nada
+Email Notification                | Nada
+Employee BE                       | Nada
+Employee FE                       | Nada & Natan
+Leave Remaining BE                | Nada
+Leave Remaining FE                | Nada & Natan
+Role BE                           | Nada
+Role FE                           | Nada & Natan
+Joint Leave BE                    | Nada
+Joint Leave FE                    | Nada & Natan
+Attachment BE & FE                | Nada
+Parameter BE & FE                 | Nada
+Error Page                        | Nada
+Alert on Leave-Request            | Nada & Natan
+Numbering Ajax                    | Nada & Natan
+Security BE & FE                  | Nada
+User Manual                       | Natan & Bachtiar
+PPT                               | Bachtiar
 
 ---
 
